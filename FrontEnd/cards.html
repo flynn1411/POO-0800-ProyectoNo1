@@ -10,7 +10,8 @@
 </head>
 <body>
     <form>
-        <input type="number" id="cardNumber">
+        <input type="number" id="height" placeholder="Ingrese la altura de la carta.">
+        <input type="number" id="cardNumber" placeholder="Ingrese el número de la carta">
         <select name="seleccion" id="seleccion">
             <option value="red">Rojo</option>
             <option value="green">Verde</option>
@@ -23,10 +24,15 @@
     <script src="cardCreator.js"></script>
     <script>
         cardCreator = new CardCreator();
+        randomizer = new Randomizer();
 
         function showCard(){
-            cardCreator.createCard(parseInt(document.querySelector("#cardNumber").value), document.querySelector("#seleccion").value);
+            color = document.querySelector("#seleccion").value;
+            //number = document.querySelector("#cardNumber").value;
+
+            cardCreator.createCard(new Card(randomizer.randomize(9,1) , color));
         }
+
     </script>
 
 </body>
