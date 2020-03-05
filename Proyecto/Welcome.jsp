@@ -65,7 +65,7 @@
 						border-color:#d8d8d8;
 						border-width:3px;
 						border-style:solid;
-						border-radius:1px;`;
+						border-radius:8px;`;
 		
 		return this.styleCSS.toString();
 	}
@@ -111,6 +111,7 @@
 	}
 	
 	
+	//Funcion de ejecucion en los diferentes botones, recibiendo como parametro un numero correspondiente al boton.
 	function clickedButton(valueInt){
 		//1:Boton iniciar partida	-	2:Boton Reanudar partida	-	3:Boton Score	-	4:Boton Entrar a la partida(Ventana emergente)	-	5:Cerrar popup
 		var btnAbrirPopup = document.getElementById('btnStart'),
@@ -177,6 +178,7 @@
 		
 	}  
 	
+	//Funcion que genera un codigo random validado.
 	function generateAccessCode(quantity) {
 		   var result = "";
 		   var elements = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
