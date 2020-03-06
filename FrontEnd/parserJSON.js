@@ -1,5 +1,31 @@
-{
+
+
+json = {
     "sessionId" : {
+        "putOnDeck" : [
+            {"color": "yellow", "symbol" : "5"}
+        ],
+
+        "Player1sDeck" : [
+            {"color": "blue", "symbol": "5"},
+            {"color": "blue", "symbol": "6"},
+            {"color": "green", "symbol": "3"},
+            {"color": "red", "symbol": "7"},
+            {"color": "red", "symbol": "Reverse"},
+            {"color": "yellow", "symbol": "Reverse"},
+            {"color": "green", "symbol": "3"}
+        ],
+
+        "Player2sDeck" : [
+            {"color": "yellow", "symbol": "3"},
+            {"color": "red", "symbol": "+2"},
+            {"color": "blue", "symbol": "4"},
+            {"color": "blue", "symbol": "0"},
+            {"color": "green", "symbol": "+2"},
+            {"color": "yellow", "symbol": "8"},
+            {"color": "green", "symbol": "9"}
+        ],
+
         "grabDeck" : [
             {"color": "yellow", "symbol": "0"},
             {"color": "yellow", "symbol": "1"},
@@ -95,31 +121,14 @@
             {"color": "black", "symbol": "CC"},
             {"color": "black", "symbol": "CC"},
             {"color": "black", "symbol": "CC"}
-        ],
-
-        "putOnDeck" : [
-            {"color": "yellow", "symbol" : "5"}
-        ],
-
-        "Player1sDeck" : [
-            {"color": "blue", "symbol": "5"},
-            {"color": "blue", "symbol": "6"},
-            {"color": "green", "symbol": "3"},
-            {"color": "red", "symbol": "7"},
-            {"color": "red", "symbol": "Reverse"},
-            {"color": "yellow", "symbol": "Reverse"},
-            {"color": "green", "symbol": "3"}
-        ],
-
-        "Player2sDeck" : [
-            {"color": "yellow", "symbol": "3"},
-            {"color": "red", "symbol": "+2"},
-            {"color": "blue", "symbol": "4"},
-            {"color": "blue", "symbol": "0"},
-            {"color": "green", "symbol": "+2"},
-            {"color": "yellow", "symbol": "8"},
-            {"color": "green", "symbol": "9"}
         ]
     }
 
+};
+
+deckArray = json["sessionID"]["putOnDeck"];
+
+for (card in deckArray){
+    card["color"];
+    card["symbol"];
 }
