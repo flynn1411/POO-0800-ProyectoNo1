@@ -1,6 +1,6 @@
 {
     "sessionId" : {
-        "drawDeck" : [
+        "grabDeck" : [
             {"color": "yellow", "symbol": "0"},
             {"color": "yellow", "symbol": "1"},
             {"color": "yellow", "symbol": "2"},
