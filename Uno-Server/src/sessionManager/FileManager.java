@@ -69,7 +69,7 @@ public class FileManager {
 							
 			}
 		}catch(Exception e) {
-			System.out.print(String.format("%s", e));
+			return String.format("%s", e);
 		}
 		
 		return content.toString();
@@ -84,15 +84,47 @@ public class FileManager {
 	 * */
 	public boolean write(String fileName, String content) {
 		try {
-			FileOutputStream fos = new FileOutputStream( String.format("%s%s", this.directory, fileName) );
-			byte[] strToBytes = content.getBytes();
+			File newFile = new File( String.format("%s%s", this.directory, fileName) );
 			
-			fos.write(strToBytes);
-			fos.close();
-			return true;
+			/**Se revisa si no existe el directorio, entonces se crea el directorio.*/
+			if(!newFile.exists()) {
+				File newDir = new File(this.directory);
+				newDir.mkdir();
+			}
+			
+			FileOutputStream fos = new FileOutputStream( newFile );
+			
+			try {
+				byte[] strToBytes = content.getBytes();
+			
+				fos.write(strToBytes);
+				
+			}finally {
+				fos.close();
+			}
+			
 		}
 		catch(Exception e) {
 			return false;
+		}
+		
+		return true;
+	}
+	
+	/** 
+	 * Busca si el archivo existe en el directorio indicado, si no existe se envia un arreglo especifico.
+	 * Si existe el método devuelve el nombre del archivo encontrado.
+	 * @param fileName Nombre del archivo a buscar.
+	 * */
+	public String getName(String fileName) {
+		File parent = new File(this.directory);
+		File f = new File(parent, fileName);
+		
+		if(!f.exists()) {
+			return "Not Found";
+		}
+		else {
+			return String.format("%s", f.getName());
 		}
 	}
 	
