@@ -24,7 +24,7 @@ public class FileManager {
 	
 	/** 
 	 * Metódo que obtiene el directorio actal de donde se trabaja.
-	 * @param fileName: Nombre del archivo
+	 * @param fileName Nombre del archivo
 	 * @version 0.1.0
 	 * */
 	public String getPath(String fileName) {
@@ -43,7 +43,7 @@ public class FileManager {
 	
 	/** 
 	 * Lector de archivos, si existen.
-	 * @param fileName: Nombre del archivo que se desea leer.
+	 * @param fileName Nombre del archivo que se desea leer.
 	 * @version 0.1.0
 	 * */
 	public String read(String fileName) {
@@ -79,8 +79,8 @@ public class FileManager {
 	/** 
 	 * Funcion que escribe en un archivo dado el nombre y contenido.
 	 * Si el archivo no existe, se crea y si ya existe se sobreescribe.
-	 * @param fileName: Nombre del archivo
-	 * @param content: Contenido del archivo.
+	 * @param fileName Nombre del archivo
+	 * @param content Contenido del archivo.
 	 * */
 	public boolean write(String fileName, String content) {
 		try {

@@ -24,11 +24,25 @@
 					deck = "";
 					console.log(grabDeck);
 					for(i = 0; i<grabDeck.length; i++){
-						deck = `\${deck}\${grabDeck[i]['symbol']},\${grabDeck[i]['color']};`;
+						deck = `\${deck}\${grabDeck[i]['symbol']},\${grabDeck[i]['color']}\n`;
 					}
 					
-					//console.log(deck);
-				};
+					parameter = {
+							"fileContent" : deck
+					};
+					
+					$.get(
+							"service2.jsp",
+							parameter,
+							function(json){
+								document.write(json);
+								var json = JSON.parse(json);
+								console.log(json["array"]);
+							}
+							);
+					//document.write(deck);
+					};
+				
 				
 				$.get(action, parameters, callback);
 			}
