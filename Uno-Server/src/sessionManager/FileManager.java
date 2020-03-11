@@ -31,13 +31,13 @@ public class FileManager {
 		String path;
 		
 		try {
-			File f = new File("DataBase/prueba.txt");
+			File f = new File( String.format("%s%s", this.directory, fileName) );
 			path = f.getAbsolutePath().toString();
 			
 			return path;
 			
 		}catch(Exception e) {
-			return "El archivo no se encuentra.";
+			return "Not Found";
 		}
 	}
 	
@@ -126,6 +126,17 @@ public class FileManager {
 		else {
 			return String.format("%s", f.getName());
 		}
+	}
+	
+	/**
+	 * Metódo para borrar un archivo.
+	 * @param String fileName Nombre del archivo a borrar.
+	 * @return true si fue borrado, false en el caso contrario.
+	 * */
+	public boolean deleteFile(String fileName) {
+		File file = new File( String.format("%s%s", this.directory, fileName) );
+		
+		return file.delete();
 	}
 	
 }

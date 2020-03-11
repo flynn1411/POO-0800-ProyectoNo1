@@ -11,87 +11,99 @@ class Session {
 	private String sessionID;
 	
 	/** La información de la barja para tomar cartas.*/
-	private ArrayList<String[]> grabDeck;
+	private ArrayList<Card> grabDeck;
 	
 	/** La información de la baraja donde se colocan las cartas*/
-	private ArrayList<String[]> putOnDeck;
+	private ArrayList<Card> putOnDeck;
 	
 	/** La información de la barja del jugador1*/
-	private ArrayList<String[]> player1sDeck;
+	private ArrayList<Card> playerOne;
 	
 	/** La información de la barja del jugador2*/
-	private ArrayList<String[]> player2sDeck;
+	private ArrayList<Card> playerTwo;
 	
 	protected Session() {
 		
 	}
 	
-	protected Session(String sessionID, ArrayList<String[]> grabDeck, ArrayList<String[]> putOnDeck, ArrayList<String[]> player1sDeck, ArrayList<String[]> player2sDeck) {
+	protected Session(String sessionID, ArrayList<Card> grabDeck, ArrayList<Card> putOnDeck, ArrayList<Card> playerOne, ArrayList<Card> playerTwo) {
 		this.sessionID = sessionID;
 		this.grabDeck = grabDeck;
 		this.putOnDeck = putOnDeck;
-		this.player1sDeck = player1sDeck;
-		this.player2sDeck = player2sDeck;
+		this.playerOne = playerOne;
+		this.playerTwo = playerTwo;
 	}
-	
+
 	/**
 	 * @return the sessionID
 	 */
-	protected String getSessionID() {
+	public String getSessionID() {
 		return sessionID;
 	}
+
 	/**
 	 * @param sessionID the sessionID to set
 	 */
-	protected void setSessionID(String sessionID) {
+	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
 	}
+
 	/**
 	 * @return the grabDeck
 	 */
-	protected ArrayList<String[]> getGrabDeck() {
+	public ArrayList<Card> getGrabDeck() {
 		return grabDeck;
 	}
+
 	/**
 	 * @param grabDeck the grabDeck to set
 	 */
-	protected void setGrabDeck(ArrayList<String[]> grabDeck) {
+	public void setGrabDeck(ArrayList<Card> grabDeck) {
 		this.grabDeck = grabDeck;
 	}
+
 	/**
 	 * @return the putOnDeck
 	 */
-	protected ArrayList<String[]> getPutOnDeck() {
+	public ArrayList<Card> getPutOnDeck() {
 		return putOnDeck;
 	}
+
 	/**
 	 * @param putOnDeck the putOnDeck to set
 	 */
-	protected void setPutOnDeck(ArrayList<String[]> putOnDeck) {
+	public void setPutOnDeck(ArrayList<Card> putOnDeck) {
 		this.putOnDeck = putOnDeck;
 	}
+
 	/**
-	 * @return the player1sDeck
+	 * @return the playerOne
 	 */
-	protected ArrayList<String[]> getPlayer1sDeck() {
-		return player1sDeck;
+	public ArrayList<Card> getPlayerOne() {
+		return playerOne;
 	}
+
 	/**
-	 * @param player1sDeck the player1sDeck to set
+	 * @param playerOne the playerOne to set
 	 */
-	protected void setPlayer1sDeck(ArrayList<String[]> player1sDeck) {
-		this.player1sDeck = player1sDeck;
+	public void setPlayerOne(ArrayList<Card> playerOne) {
+		this.playerOne = playerOne;
 	}
+
 	/**
-	 * @return the player2sDeck
+	 * @return the playerTwo
 	 */
-	protected ArrayList<String[]> getPlayer2sDeck() {
-		return player2sDeck;
+	public ArrayList<Card> getPlayerTwo() {
+		return playerTwo;
 	}
+
 	/**
-	 * @param player2sDeck the player2sDeck to set
+	 * @param playerTwo the playerTwo to set
 	 */
-	protected void setPlayer2sDeck(ArrayList<String[]> player2sDeck) {
-		this.player2sDeck = player2sDeck;
+	public void setPlayerTwo(ArrayList<Card> playerTwo) {
+		this.playerTwo = playerTwo;
 	}
+	
+	
+	
 }
