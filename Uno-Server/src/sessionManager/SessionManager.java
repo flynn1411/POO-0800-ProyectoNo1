@@ -108,7 +108,7 @@ public class SessionManager {
 						this.deckToJSON(session.getPlayerTwo(), "grabTwo")
 						)
 				);
-		boolean fileWasWritten = this.fm.write( session.getSessionID(), json.toString() );
+		boolean fileWasWritten = this.fm.write( String.format("%s.json", session.getSessionID()), json.toString() );
 		
 		return fileWasWritten;
 		
@@ -176,7 +176,7 @@ public class SessionManager {
 	public boolean removeSession(Session session) {
 		String sessionId = session.getSessionID();
 		
-		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(sessionId) ) {
+		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile( String.format("%s.json", sessionId) ) ) {
 			this.saveSessions();
 			return true;
 		}

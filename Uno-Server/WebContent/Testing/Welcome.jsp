@@ -4,7 +4,7 @@
 <html>
 <head>
 	
-	<link rel="stylesheet" href="maquillaje.css">
+	<link rel="stylesheet" href="resources/maquillaje.css">
 	<meta charset="UTF-8">
 	<title>Ventana de bienvenida</title>
 	
@@ -47,7 +47,7 @@
 	
 	</div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">	
 	//Funcion que establece un estilo a un componente.
 	function setStyle(background,paddingTop=-1,top=30,left=70){
@@ -131,7 +131,20 @@
 			popup.classList.add('active');
 			}
 			);
-			document.getElementById('accessCode').innerHTML= this.generateAccessCode(4);
+			
+			var action = "sessionManager.jsp";
+			var parameters = {
+				"newSession": "true"	
+			};
+			
+			var callback = function(response){
+				var code = response["code"];
+				document.getElementById("accessCode").innerHTML = code;
+			};
+			
+			$.get(action, parameters, callback);
+			
+			//document.getElementById('accessCode').innerHTML= this.generateAccessCode(4);
 		}
 		
 		if(valueInt == 2){	

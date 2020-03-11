@@ -1,22 +1,24 @@
-<%@page import="SessionManager.RandomGenerator"%>
-<%@page import="SessionManager.FileManager"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="java.util.ArrayList"%><%@page import="SessionManager.Card"%><%@page import="SessionManager.SessionManager"%><%@page import="SessionManager.RandomGenerator"%><%@page import="SessionManager.FileManager"%><%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Session Manager</title>
-	</head>
+<%
+
+if( request.getParameter("newSession").toString().trim() == "true" ){
+	//Generar Barajas de cartas
+	ArrayList<Card> grabDeck = new ArrayList<Card>();
+	ArrayList<Card> putOnDeck = new ArrayList<Card>();
+	ArrayList<Card> playerOne = new ArrayList<Card>();
+	ArrayList<Card> playerTwo = new ArrayList<Card>();
 	
-	<body onload="start();">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript">
-			
-			function start(){
-				
-			}
-			
-		</script>
-	</body>
-</html>
+	SessionManager sm = new SessionManager();
+	
+	String code = sm.createNewSession(grabDeck, putOnDeck, playerOne, playerTwo);
+	
+	out.print(
+			String.format(
+					"{ \"code\" : \"%s\" }",
+					code
+					)
+			);
+}
+
+%>
