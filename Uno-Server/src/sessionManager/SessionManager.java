@@ -1,6 +1,7 @@
 package SessionManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Clase administradora de las sesiones, esta se encarga de leer el estado de una sesión existente o crear una nueva sesión.*/
@@ -8,6 +9,10 @@ public class SessionManager {
 	
 	/**Lista de sesiones activas*/
 	private Map<String, Session> activeSessions;
+	
+	public SessionManager() {
+		 activeSessions = new HashMap<String, Session>();
+	}
 	
 	/**Lector de archivos*/
 	private FileManager fm = new FileManager();
@@ -33,11 +38,13 @@ public class SessionManager {
 			code.append(this.characters[ran]);
 		}
 		
-		if( this.activeSessions.containsKey(code.toString()) ) {
+		/*if( this.activeSessions.isEmpty() ) {
 			return code.toString();
-		}else {
+		}else if( this.activeSessions.containsKey(code.toString()) || this.activeSessions == null ) {
 			return this.generateCode();
-		}
+		}else {*/
+			return code.toString();
+		//}
 		
 	}
 	
@@ -108,7 +115,7 @@ public class SessionManager {
 						this.deckToJSON(session.getPlayerTwo(), "grabTwo")
 						)
 				);
-		boolean fileWasWritten = this.fm.write( String.format("%s.json", session.getSessionID()), json.toString() );
+		boolean fileWasWritten = this.fm.write( String.format("%s.json", session.getSessionID() ), json.toString() );
 		
 		return fileWasWritten;
 		
@@ -148,7 +155,7 @@ public class SessionManager {
 	 * */
 	private boolean saveSessions() {
 		StringBuilder json = new StringBuilder("{\"sessions\": [");
-		String[] keys = (String[])this.activeSessions.keySet().toArray();
+		Object[] keys = (this.activeSessions.keySet().toArray());
 		
 		for(int i = 0; i<keys.length; i++) {
 			json.append(
@@ -176,7 +183,7 @@ public class SessionManager {
 	public boolean removeSession(Session session) {
 		String sessionId = session.getSessionID();
 		
-		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile( String.format("%s.json", sessionId) ) ) {
+		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(String.format("%.json", sessionId)) ) {
 			this.saveSessions();
 			return true;
 		}

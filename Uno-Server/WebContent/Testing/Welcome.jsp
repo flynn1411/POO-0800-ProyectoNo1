@@ -50,7 +50,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">	
 	//Funcion que establece un estilo a un componente.
-	function setStyle(background,paddingTop=-1,top=30,left=70){
+	function setStyle(background,paddingTop=-1,top=30,left=70){ 
 	 	 
 		this.styleCSS = `text-decoration:none;  
 						position: absolute;
@@ -138,7 +138,8 @@
 			};
 			
 			var callback = function(response){
-				var code = response["code"];
+				console.log(JSON.parse(response));
+				var code = (JSON.parse(response))["code"];
 				document.getElementById("accessCode").innerHTML = code;
 			};
 			
