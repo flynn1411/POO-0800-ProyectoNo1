@@ -22,17 +22,35 @@
     <div id="tempCard2" class="tempCard2" onClick="eventT(this);"></div>
     <div id="tempCard3" class="tempCard3" onClick="eventT(this);"></div>
     <div id="tempCard4" class="tempCard4" onClick="eventT(this);"></div>
+    <div id="tempCard5" class="tempCard5" onClick="eventT(this);"></div>
+    <div id="tempCard6" class="tempCard6" onClick="eventT(this);"></div>
+    <div id="tempCard7" class="tempCard7" onClick="eventT(this);"></div>
+    <div id="tempCard8" class="tempCard8" onClick="eventT(this);"></div>
+    <div id="tempCard9" class="tempCard9" onClick="eventT(this);"></div>
+    <div id="tempCard10" class="tempCard10" onClick="eventT(this);"></div>
 
-
-    <div id="deck"      class="deck" onClick="eventDeck(this)"></div>
+    <div id="discardedDeck" class="discardedDeck" onClick="eventDeck()"></div>
+    <div id="principalDeck" class="principalDeck" ondblclick="eventPrincipalDeck(this)"></div>
+	
 
     <script src="ElementManagerToGameTable.js"></script>
+    <script src="../../jquery.js"></script>
     <script>
-        createCard("fisrtCard","40","30","../Images/score.jpg","0");
-        createCard("tempCard1","75","30","../Images/back2.jpg","0");
-        createCard("tempCard2","75","40","../Images/back.jpg","0");
-        createCard("tempCard3","75","50","../Images/reverseTransp3.jpg","0");
-        createCard("tempCard4","75","60","../Images/especial.jpg","0");
+
+        window.onload = distributeCards;
+
+        createCard("fisrtCard","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard1","40","60","../Images/back2.jpg","-1");
+        createCard("tempCard2","40","60","../Images/back.jpg","-1");
+        createCard("tempCard3","40","60","../Images/reverseTransp3.jpg","-1");
+        createCard("tempCard4","40","60","../Images/score.jpg","-1");
+        createCard("tempCard5","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard6","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard7","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard8","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard9","40","60","../Images/especial.jpg","-1");
+        createCard("tempCard10","40","60","../Images/especial.jpg","-1");
+
         fishStyle();
         style.innerHTML =  styleCss;
     </script>
