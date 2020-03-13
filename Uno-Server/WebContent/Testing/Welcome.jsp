@@ -47,7 +47,7 @@
 	
 	</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="scripts/jquery3.4.1.js"></script>
 <script type="text/javascript">	
 	//Funcion que establece un estilo a un componente.
 	function setStyle(background,paddingTop=-1,top=30,left=70){ 

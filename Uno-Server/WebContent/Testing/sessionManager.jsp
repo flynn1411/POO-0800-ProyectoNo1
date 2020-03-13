@@ -9,17 +9,17 @@ if( request.getParameter("newSession").toString() != null ){
 	SessionManager sm = new SessionManager();
 	
 	try{
-		doc.pack();
+		//doc.pack();
 		doc.shuffleDeck();
 	}
 	catch(Exception e){
 		System.out.println(String.format("Error: %s", e));
 	}
 	
-	ArrayList<Card> grabDeck = new ArrayList<Card>();
-	ArrayList<Card> putOnDeck = new ArrayList<Card>();
-	ArrayList<Card> playerOne = new ArrayList<Card>();
-	ArrayList<Card> playerTwo = new ArrayList<Card>();
+	ArrayList<Card> grabDeck = doc.grabDeck;
+	ArrayList<Card> putOnDeck = doc.putOnDeck;
+	ArrayList<Card> playerOne = doc.playerOne;
+	ArrayList<Card> playerTwo = doc.playerTwo;
 	
 	String code = sm.createNewSession(grabDeck, putOnDeck, playerOne, playerTwo);
 	System.out.println(code);

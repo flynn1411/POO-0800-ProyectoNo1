@@ -8,10 +8,10 @@ import java.util.Map;
 public class SessionManager {
 	
 	/**Lista de sesiones activas*/
-	private Map<String, Session> activeSessions;
+	private Map<String, Session> activeSessions = new HashMap<String, Session>();
 	
 	public SessionManager() {
-		 activeSessions = new HashMap<String, Session>();
+		 //activeSessions = new HashMap<String, Session>();
 	}
 	
 	/**Lector de archivos*/
@@ -112,7 +112,7 @@ public class SessionManager {
 						this.deckToJSON(session.getGrabDeck(), "grabDeck"),
 						this.deckToJSON(session.getPutOnDeck(), "putOnDeck"),
 						this.deckToJSON(session.getPlayerOne(), "playerOne"),
-						this.deckToJSON(session.getPlayerTwo(), "grabTwo")
+						this.deckToJSON(session.getPlayerTwo(), "layerTwo")
 						)
 				);
 		boolean fileWasWritten = this.fm.write( String.format("%s.json", session.getSessionID() ), json.toString() );

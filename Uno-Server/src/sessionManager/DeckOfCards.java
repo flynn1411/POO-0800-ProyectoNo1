@@ -11,7 +11,7 @@ public class DeckOfCards {
 	public ArrayList<Card> putOnDeck = new ArrayList<Card>();
 	
 	public DeckOfCards() {
-		//pack();
+		pack();
 	}
 	
 	String[] colors = {"red","blue","yellow","green"};
@@ -22,7 +22,7 @@ public class DeckOfCards {
 		
 		// Cartas especiales +4  cambios de color y 0 de colores 
 		for(int i=0;i<4;i++){
-            General.add(new Card("+4","balck"));
+            General.add(new Card("+4","black"));
             General.add(new Card("change color","black"));
             General.add(new Card("0",colors[i]));
         }
@@ -45,7 +45,7 @@ public class DeckOfCards {
 	public void shuffleDeck() {
 		
 		// Table Decks
-        for(int i=1;i<=108;i++){
+        for(int i=0;i<108;i++){
             int n = x.generateRandom(0,General.size()-1);
     
             if(i==1){
@@ -58,8 +58,10 @@ public class DeckOfCards {
             	putOnDeck.add(current);
             	General.remove(m);
             }
-            else grabDeck.add(General.get(n));
-            General.remove(n);
+            else {
+            	grabDeck.add(General.get(n));
+            	General.remove(n);
+            	}
         }
         
         // Players Decks
