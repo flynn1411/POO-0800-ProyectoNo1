@@ -15,7 +15,7 @@
 
 		<script src="BackEndToWelcome.js"></script>
 		<script src="JsonManager.js"></script>
-		<script src="jquery.js"></script>
+		<script src="../jquery.js"></script>
 							
 				<div class="btnStart" id="btnStart" onClick="clickedButton(1)">
 					<span id="titleBtn1" class="titleBtn1"></span>

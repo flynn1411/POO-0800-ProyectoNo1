@@ -5,46 +5,47 @@
         //5:Cerrar popupBtnPlay - 6: Caja de texto - 7:Boton cancelar ventana de acceso.
 		
 		//Variables con los respectivos elementos creados en la pagina html.
-        var btnPlay = document.getElementById('btnStart'),
-			overlayBtnPlay = document.getElementById('overlay'),
+        //var //btnPlay = document.getElementById('btnStart'),
+		var	overlayBtnPlay = document.getElementById('overlay'),
 			popupBtnPlay = document.getElementById('popup'),
 			btnCerrarpopupBtnPlay = document.getElementById('btnClosePopup'),
 			
-			btnLoad = document.getElementById('btnLoad'),
+			//btnLoad = document.getElementById('btnLoad'),
 			overlayBtnPlay2 = document.getElementById('overlayAccess'),
 			popupBtnPlay2 = document.getElementById('popupAccess'),
 			btnCloseAccess = document.getElementById('btnCloseAccess');	
 
-			btnScore = document.getElementById('btnScore'),
+			//btnScore = document.getElementById('btnScore'),
 			overlayBtnScore = document.getElementById('overlayScore'),
 			popupBtnScore = document.getElementById('popupScore'),
 			btnCloseScore = document.getElementById('btnCloseScore')
 			
 			
 		if(valueInt ==1){		
-			btnPlay.addEventListener('click', function(){
+			console.log("Click");
+			//btnPlay.addEventListener('click', function(){
 			overlayBtnPlay.classList.add('active');
 			popupBtnPlay.classList.add('active');
-											}
-									);
+			//								}
+			//						);
 			document.getElementById('accessCode').innerHTML= this.generateAccessCode(4);
 		} 
 		
 		if(valueInt == 2){	  
-			btnLoad.addEventListener('click',function(){ 
+			//btnLoad.addEventListener('click',function(){ 
 			overlayBtnPlay2.classList.add('active');
 			popupBtnPlay2.classList.add('active');
-									}
-								);
+			//						}
+			//					);
 		}
 		
 		if(valueInt == 3){	 
 			this.getJsonToJSP();		//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
-			btnScore.addEventListener('click',function(){
+			//btnScore.addEventListener('click',function(){
 				overlayBtnScore.classList.add('active');
 				popupBtnScore.classList.add('active');
-				}
-				);
+				//}
+				//);
 		}
 		
 		if(valueInt == 4){	 

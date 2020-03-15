@@ -2,7 +2,7 @@
 /* ------------------------- */
 /*	  FONDO DE LA PAGINA	 */
 /* ------------------------- */
-body{
+/*body{
 	background: #4C3175;
 }  
 /*-----------------------------------------*/
@@ -10,7 +10,7 @@ body{
 /*-----------------------------------------*/
 /*----------Boton de Iniciar Partida----------*/
 /*===============================================*/
-.btnStart {
+/*.btnStart {
 	background-image: url("Images/back2.jpg");
 	border-radius: 12px;
 	box-shadow: 6px 6px 6px #A51E03;
@@ -27,13 +27,15 @@ body{
 	top: 10vh;
 	left: 13vw;
   }
-
- .btnStart:active{
+*/
+/*
+.btnStart:active{
 	box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
 	transform: translateY(15px);
 	background-color: #A41B55;
 }
-
+*/
+/*
  .btnStart:hover{
 	box-shadow: 4px 4px 4px #777, 0px 0px 80px 0px #00b7f8;
 	border-bottom:1px solid #0045A6;
@@ -42,7 +44,8 @@ body{
   transition: all 0.1s ease 0s;
   margin: 20px auto 76px auto;
 }
-  
+ */
+ /* 
  .titleBtn1 {
 	transform: rotate(-45deg); 
 	color:#A22727;
@@ -54,17 +57,18 @@ body{
 	position: absolute;
 	top: 45%;
 	left: 11%;
-}
+}*/
 
 /*====================================================*/
 
 /*----------Boton de reanudar partida----------*/
- .btnLoad {
+/* .btnLoad {
 	background-image: url("Images/reverseTransp3.jpg");
 	border-radius: 12px;
 	box-shadow: 6px 6px 6px #A51E03;
 	background-size: 190px 270px;
 	border-radius: 12px;
+	color:white;
 	cursor: pointer;
 	display: block;  
 	width: 150px;
@@ -76,14 +80,16 @@ body{
 	top: 10vh;
 	left: 33vw;
   }
-
- .btnLoad:active{
+*/
+/* 
+.btnLoad:active{
 	box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
 	transform: translateY(15px);
 	background-color: #A41B55;
 }
-
- .btnLoad:hover{
+*/
+/* 
+.btnLoad:hover{
 	box-shadow: 4px 4px 4px #777, 0px 0px 80px 0px #00b7f8;
 	border-bottom:1px solid #0045A6;
   text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
@@ -91,8 +97,9 @@ body{
   transition: all 0.1s ease 0s;
   margin: 20px auto 76px auto;
 }
-  
- .titleBtn2 {
+*/ 
+/*
+.titleBtn2 {
 	transform: rotate(-45deg); 
 	color:#A22727;
 	vertical-align: middle; 
@@ -104,9 +111,10 @@ body{
 	top: 45%;
 	left: 11%;
 }
-
+*/
 /*----------Boton de score----------*/
- .btnScore {
+/* 
+.btnScore {
 	background-image: url("Images/reverseTransp3.jpg");
 	border-radius: 12px;
 	box-shadow: 6px 6px 6px #A51E03;
@@ -123,14 +131,16 @@ body{
 	top: 10vh;
 	left: 53vw;
   }
-
- .btnScore:active{
+*/
+/* 
+.btnScore:active{
 	box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
 	transform: translateY(15px);
 	background-color: #A41B55;
 }
-
- .btnScore:hover{
+*/
+/* 
+.btnScore:hover{
 	box-shadow: 4px 4px 4px #777, 0px 0px 80px 0px #00b7f8;
 	border-bottom:1px solid #0045A6;
   text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
@@ -138,8 +148,9 @@ body{
   transition: all 0.1s ease 0s;
   margin: 20px auto 76px auto;
 }
-  
- .titleBtn3 {
+  */
+ /*
+  .titleBtn3 {
 	transform: rotate(-45deg); 
 	color:#A22727;
 	vertical-align: middle; 
@@ -151,11 +162,12 @@ body{
 	top: 45%;
 	left: 11%;
 }
-
+*/
 /*----------------------------------------------------*/
 /*---------------BOTON DE CREDITOS--------------------*/
 /*-----------------------------------------------------*/
- .btnCredits {
+/* 
+.btnCredits {
 	background-image: url("Images/reverseTransp3.jpg");
 	border-radius: 12px;
 	box-shadow: 6px 6px 6px #A51E03;
@@ -200,10 +212,11 @@ body{
 	top: 45%;
 	left: 11%;
 }
-
+*/
 /*----------------------------------------------------*/
 /* overlay de la ventana emergente de 'nueva partida' */
 /*----------------------------------------------------*/
+
 .overlay {
 	background: rgba(0,0,0,.85);
 	position: fixed;
@@ -225,6 +238,7 @@ body{
 /*----------------------------------------------------*/
 /*overlay de la ventana emergente de 'reanudar partida'*/
 /*----------------------------------------------------*/
+
 .overlayAccess {
 	background: rgba(0,0,0,.85);
 	position: fixed;
@@ -352,7 +366,7 @@ body{
 	transform: scale(0.7);
 	opacity: 0;
 }
-
+/*
 .popupAccess .textBox{
 	text-align: center;
 	font-size:70px;
@@ -361,7 +375,7 @@ body{
 	border: 3px solid #A41B55;
 	border-radius: 20px 20px 20px 20px;
 	
-}
+}*/
 
 .popupAccess .btnCloseAccess{
 	background-color:#3cce33;
@@ -465,12 +479,13 @@ body{
  .btnCredits {animation: welcomeCards .8s ease .9s forwards; animation-delay: 1.5s}
 */
 
-
+/*
  .btnStart{animation: welcomeCards1Enter 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
 					animation-delay: 0.5s;
 				}
-				
- .btnLoad{animation: welcomeCards1Load 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
+*/				
+/* 
+.btnLoad{animation: welcomeCards1Load 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
 					animation-delay: 1.2s;
 				}
  .btnScore{animation: welcomeCards1Score 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
@@ -479,23 +494,26 @@ body{
  .btnCredits{animation: welcomeCards1Credits 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
 					animation-delay: 2.2s;
 				}
-
+*/
 /*Popup del boton iniciar partida*/
+/*
 .popup.active {	transform: scale(1); opacity: 1; }
 .popup.active h1 { animation: entradaTitulo .8s ease .5s forwards; animation-delay: 0.5s}
 .popup.active h2 { animation: zoomIn .8s ease .9s forwards; animation-delay: 1s}
 .popup.active .btnClosePopup { animation: zoomIn .8s ease .9s forwards; animation-delay: 1.6s  }
 .popup.active .btnEnter { animation: zoomIn .8s ease .9s forwards; animation-delay: 1.6s }
-
+*/
 /*Popup del boton reanudar partida*/
+/*
 .popupAccess.active .btnEnterAccess { animation: zoomIn .8s ease .9s forwards; }
 .popupAccess.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
 .popupAccess.active {	transform: scale(1); opacity: 1; }
-
-/*Popup del boton de calificaciones*/
+*/
+/**Popup del boton de calificaciones*/
+/*
 .popupScore.active{transform: scale(1); opacity: 1; }
-
-
+*/
+/*
 
 @keyframes entradaTitulo {
 	from { 
@@ -610,3 +628,4 @@ body{
   
   }
 }
+*/
