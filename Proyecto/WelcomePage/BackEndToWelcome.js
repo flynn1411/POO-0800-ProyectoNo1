@@ -3,26 +3,27 @@
         //1:Boton iniciar partida	-	2:Boton Reanudar partida	-
         //3:Boton Score	-	4:Boton Entrar a la partida(Ventana emergente)	-	
         //5:Cerrar popupBtnPlay - 6: Caja de texto - 7:Boton cancelar ventana de acceso.
-		
+		//8:Cerrar ventana de score.
+
 		//Variables con los respectivos elementos creados en la pagina html.
         //var //btnPlay = document.getElementById('btnStart'),
 		var	overlayBtnPlay = document.getElementById('overlay'),
 			popupBtnPlay = document.getElementById('popup'),
-			btnCerrarpopupBtnPlay = document.getElementById('btnClosePopup'),
+			//btnCerrarpopupBtnPlay = document.getElementById('btnClosePopup'),
 			
 			//btnLoad = document.getElementById('btnLoad'),
 			overlayBtnPlay2 = document.getElementById('overlayAccess'),
 			popupBtnPlay2 = document.getElementById('popupAccess'),
-			btnCloseAccess = document.getElementById('btnCloseAccess');	
+			//btnCloseAccess = document.getElementById('btnCloseAccess');	
 
 			//btnScore = document.getElementById('btnScore'),
 			overlayBtnScore = document.getElementById('overlayScore'),
-			popupBtnScore = document.getElementById('popupScore'),
-			btnCloseScore = document.getElementById('btnCloseScore')
+			popupBtnScore = document.getElementById('popupScore')
+			//btnCloseScore = document.getElementById('btnCloseScore')
 			
 			
 		if(valueInt ==1){		
-			console.log("Click");
+			//console.log("Click");
 			//btnPlay.addEventListener('click', function(){
 			overlayBtnPlay.classList.add('active');
 			popupBtnPlay.classList.add('active');
@@ -33,6 +34,7 @@
 		
 		if(valueInt == 2){	  
 			//btnLoad.addEventListener('click',function(){ 
+			textBox.value = "";							//Limpia la caja de texto.
 			overlayBtnPlay2.classList.add('active');
 			popupBtnPlay2.classList.add('active');
 			//						}
@@ -54,12 +56,12 @@
 		
 		if(valueInt == 5){
 			//Cerrar la ventana cuando se clickea en nueva partida.
-			btnCerrarpopupBtnPlay.addEventListener('click', function(e){
-				e.preventDefault();
+		//	btnCerrarpopupBtnPlay.addEventListener('click', function(e){
+		//		e.preventDefault();
 				overlayBtnPlay.classList.remove('active');
 				popupBtnPlay.classList.remove('active');
-			}
-			);
+		//	}
+		//	);
 		}
 		if(valueInt == 6){
 			var codeInput = document.getElementById('textBox').value;
@@ -72,20 +74,20 @@
 		}
 		if(valueInt == 7){
 			//Boton de cerrar ventana de insertar codigo.
-			btnCloseAccess.addEventListener('click',function(e){
-				e.preventDefault();
+		//	btnCloseAccess.addEventListener('click',function(e){
+		//		e.preventDefault();
 				overlayBtnPlay2.classList.remove('active');
-			}
-			); 
+		//	}
+		//	); 
 		}
 		if(valueInt == 8){
 			//Para boton cerrar Score.
-			btnCloseScore.addEventListener('click',function(e){
-				e.preventDefault();
+		//	btnCloseScore.addEventListener('click',function(e){
+		//		e.preventDefault();
 				overlayBtnScore.classList.remove('active')
 				popupBtnScore.classList.remove('active')
-			}
-			);
+		//	}
+		//	);
 		}
 	}  
 	

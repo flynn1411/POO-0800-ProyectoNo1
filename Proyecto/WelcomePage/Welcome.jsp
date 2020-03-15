@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="SkinToWelcome.css">
+		<!-- <link rel="stylesheet" href="SkinToWelcome.css"> -->
 		<title>Ventana de bienvenida</title>
 		<style></style>
 	</head> 
@@ -63,8 +63,7 @@
 			<div class="overlayScore" id="overlayScore">
 				<div class="popupScore" id="popupScore">
 					<h1 id="titleBtnScore">Tabla de Calificaciones</h1>
-					<table class="scoreTable" id="scoreTable" border="1">
-					</table><br>
+					<table class="scoreTable" id="scoreTable" border="1"></table><br>
 					<button id="btnCloseScore" class="btnCloseScore" onClick="clickedButton(8)">Cerrar</button>	
 				</div> 
 			</div>
@@ -82,9 +81,23 @@
 			cssContent.paintButton("btnScore","10","53");
 			cssContent.paintButton("btnCredits","10","73");
 
+			cssContent.paintOverlay("overlay");
+			cssContent.paintOverlay("overlayAccess");
+			cssContent.paintOverlay("overlayScore");
+			
+			cssContent.paintBtnToPopup("popup","btnEnter","1.6");
+			cssContent.paintBtnToPopup("popup","btnClosePopup","1.6");
+			cssContent.paintBtnToPopup("popupAccess","btnEnterAccess","1.6");
+			cssContent.paintBtnToPopup("popupAccess","btnCloseAccess","1.6");
+			cssContent.paintElementToScoreTable();
+			//cssContent.paintBtnToPopup("popupScore","btnCloseScore","1.6");
+
 			cssContent.paintPopup("popup","titleBtnStart",0);
-			cssContent.paintPopup("popupAccess","titleBtnLoad",1);
+			cssContent.paintPopup("popupAccess","titleBtnAccess",1);
 			cssContent.paintPopup("popupLoad","titleBtnStart",2);
+
+
+			cssContent.paintTitles();
 
 			cssContent.paintAnimation();
 			cssContent.finishStyle();

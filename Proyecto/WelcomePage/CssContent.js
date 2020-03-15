@@ -27,13 +27,16 @@ function CssContent(){
             position: absolute;
             top: ${top}vh;
             left: ${left}vw;
+            outline:none;
             animation : welcomeCard${btnID} 2s linear forwards, welcomeCards2 2s linear forwards, welcomeCards3 3s linear forwards;
+        
         }
         
         .${btnID}:active{
             box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
             transform: translateY(15px);
             background-color: #A41B55;
+            outline:none;
         }
     
         .${btnID}:hover{
@@ -66,7 +69,7 @@ function CssContent(){
 
     this.paintOverlay = function(overlayID){
         styleCSS += `
-            .overlay${overlayID} {
+            .${overlayID} {
                 background: rgba(0,0,0,.85);
                 position: fixed;
                 top: 0;
@@ -90,20 +93,34 @@ function CssContent(){
 
     this.paintPopup = function(popudID,popupTitleID,option){
         styleCSS += `
+        .${popudID} {
+            background: #F8F8F8;
+            backdrop-filter: blur(4px);
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+            
+            border-radius: 0px 0px 0px 0px;
+            -moz-border-radius: 0px 0px 0px 0px;
+            -webkit-border-radius: 0px 0px 0px 0px;
+            border: 7px solid #dc2c47;
+        
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px;
+            text-align: center;
+            width: 450px;
+            height:300px;
+            transition: .3s ease all;
+            transform: scale(0.7);
+            opacity: 0;
+            
+        }
+        
         .${popudID}.active {	
             transform: scale(1); opacity: 1; 
         }
         .${popudID}.active #${popupTitleID} { 
             animation: entradaTitulo .8s ease .5s forwards; 
             animation-delay: 0.5s
-        }
-        .${popudID}.active .btnClosePopup {
-            animation: zoomIn .8s ease .9s forwards; 
-            animation-delay: 1.6s  
-        }
-        .${popudID}.active .btnEnter {
-            animation: zoomIn .8s ease .9s forwards; 
-            animation-delay: 1.6s }        
+        } 
             `;
         if(option == 0){
             styleCSS += `
@@ -128,11 +145,130 @@ function CssContent(){
             }
             .${popudID}.active .textBox{
                 animation: zoomIn .8s ease .9s forwards; 
-                animation-delay: 1.5s;
+                animation-delay: 1.0s;
             }
             `;
         }
         
+    }
+
+    this.paintBtnToPopup = function(popudID,btnID,delay){
+        styleCSS += `
+            .${popudID} #${btnID} {
+                background-color:#3cce33;
+                border-color:#d8d8d8;
+                border-width:3px;
+                border-style:solid;
+                border-radius:15px;
+                font-weight:700;
+                font-size:40px; 
+                color:white;
+                margin-bottom: 10px;
+                opacity: 0;
+                
+            }
+            .${popudID}.active #${btnID}{
+                animation: zoomIn .8s ease .9s forwards; 
+                animation-delay: 1.6s;
+            }    
+        `;
+    }
+
+    //Dibuja los titulos de una ventana emergente.
+    this.paintTitles = function(){
+        styleCSS += `
+        
+        .popup h1 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0;
+        }
+        .popup h2 {
+            font-size: 70px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0;
+        }
+        .popupAccess .textBox{
+            text-align: center;
+            font-size:70px;
+            width: 300px;
+            height:80px;
+            border: 3px solid #A41B55;
+            border-radius: 20px 20px 20px 20px;
+            
+        }
+        .popupScore h1{
+            background-color: #4C3175;
+            color:white;
+        }
+        `;
+    }
+    
+    this.paintElementToScoreTable= function(){
+        styleCSS += `
+        .popupScore {
+            background-image: url("Images/score.jpg");
+            background-repeat:no-repeat;
+            background-position:center top;
+            backdrop-filter: blur(4px);
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+            
+            border-radius: 0px 0px 0px 0px;
+            -moz-border-radius: 0px 0px 0px 0px;
+            -webkit-border-radius: 0px 0px 0px 0px;
+            border: 7px solid #dc2c47;
+        
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px;
+            text-align: center;
+            width: 500px;
+            height:500px;
+            transition: .3s ease all;
+            transform: scale(0.7);
+            opacity: 0;
+        }
+        .popupScore.active {	
+            transform: scale(1); 
+            opacity: 1; 
+        }
+        .popupScore .btnCloseScore{
+            background-color:#3cce33;
+            border-color:#d8d8d8;
+            border-width:3px;
+            border-style:solid;
+            border-radius:15px; 
+            font-weight:700;
+            font-size:40px;  
+            color:white;
+        }
+        
+        .popupScore .scoreTable{
+            background-color: white;
+            width: 50%;
+            height: 50px;
+            margin: 0 auto;
+            opacity: 1;
+        }
+        
+        .popupScore th{
+            border: 3px solid #6467C7;
+        }
+        .popupScore tr:nth-child(odd){
+            background-color: #6467C7 ;
+            color: #EDEDF9;
+        }
+        
+        .popupScore tr:nth-child(even){
+            background-color: #8C8ECD;
+            color: #EDEDF9;
+        }
+        .popupScore h1{
+            background-color: #4C3175;
+            color:white;
+        }
+        `;
     }
 
     this.paintAnimation = function(){
