@@ -88,7 +88,16 @@ public class FileManager {
 			
 			/**Se revisa si no existe el directorio, entonces se crea el directorio.*/
 			if(!newFile.exists()) {
-				File newDir = new File(this.directory);
+				String directory  = this.directory;
+				
+				if(fileName.contains("/")) {
+					String[] newFileName;
+					newFileName = fileName.split("/");
+					directory = String.format("%s%s/", this.directory, newFileName[0]);
+					fileName = newFileName[1];
+				}
+				
+				File newDir = new File(directory);
 				newDir.mkdir();
 			}
 			
@@ -131,12 +140,23 @@ public class FileManager {
 	/**
 	 * Metódo para borrar un archivo.
 	 * @param String fileName Nombre del archivo a borrar.
-	 * @return true si fue borrado, false en el caso contrario.
+	 * @return @true si fue borrado, @false en el caso contrario.
 	 * */
 	public boolean deleteFile(String fileName) {
 		File file = new File( String.format("%s%s", this.directory, fileName) );
 		
 		return file.delete();
+	}
+	
+	/**
+	 * Metódo para poder identificar si un archivo existe o no.
+	 * @param String fileName Nombre del archivo
+	 * @return @true si existe, @false de lo contrario
+	 * */
+	public boolean fileExists(String fileName) {
+		File file = new File( String.format("%s%s", this.directory, fileName) );
+		
+		return file.exists();
 	}
 	
 }

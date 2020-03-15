@@ -107,15 +107,15 @@ public class SessionManager {
 	private boolean saveSessionToJSON( Session session ){
 		StringBuilder json = new StringBuilder(
 				String.format(
-						"{ \"%s\": { %s,%s,%s,%s }}",
+						"{\"%s\":{%s,%s,%s,%s}}",
 						session.getSessionID(),
 						this.deckToJSON(session.getGrabDeck(), "grabDeck"),
 						this.deckToJSON(session.getPutOnDeck(), "putOnDeck"),
 						this.deckToJSON(session.getPlayerOne(), "playerOne"),
-						this.deckToJSON(session.getPlayerTwo(), "layerTwo")
+						this.deckToJSON(session.getPlayerTwo(), "playerTwo")
 						)
 				);
-		boolean fileWasWritten = this.fm.write( String.format("%s.json", session.getSessionID() ), json.toString() );
+		boolean fileWasWritten = this.fm.write( String.format("activeSessions/%s.json", session.getSessionID() ), json.toString() );
 		
 		return fileWasWritten;
 		
@@ -128,12 +128,12 @@ public class SessionManager {
 	 * @return String jsonDeck 
 	 * */
 	private String deckToJSON(ArrayList<Card> deck, String deckName) {
-		StringBuilder jsonDeck = new StringBuilder( String.format("\"%s\": [", deckName ) );
+		StringBuilder jsonDeck = new StringBuilder( String.format("\"%s\":[", deckName ) );
 		
 		for(int i = 0; i < deck.size(); i++) {
 			jsonDeck.append(
 					String.format(
-							"{ \"symbol\": \"%s\", \"color\": \"%s\" }",
+							"{\"symbol\":\"%s\",\"color\":\"%s\"}",
 							deck.get(i).getSymbol(),
 							deck.get(i).getColor()
 							)
@@ -154,7 +154,7 @@ public class SessionManager {
 	 * @return bolean fileWasWritten 
 	 * */
 	private boolean saveSessions() {
-		StringBuilder json = new StringBuilder("{\"sessions\": [");
+		StringBuilder json = new StringBuilder("{\"sessions\":[");
 		Object[] keys = (this.activeSessions.keySet().toArray());
 		
 		for(int i = 0; i<keys.length; i++) {

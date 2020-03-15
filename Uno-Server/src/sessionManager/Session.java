@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Objeto Sesión, contiene información sobre las cartas y su código de identificación.
  * @version 0.1.1
  * */
-class Session {
+public class Session {
 	/**El código de la sessión.*/
 	private String sessionID;
 	
