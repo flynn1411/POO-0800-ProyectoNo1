@@ -22,6 +22,12 @@ public class Session {
 	/** La información de la barja del jugador2*/
 	private ArrayList<Card> playerTwo;
 	
+	/**Booleano para saber si el jugador1 se ha conectado o no*/
+	private boolean playerOneisActive = false;
+	
+	/**Booleano para saber si el jugador2 se ha conectado o no*/
+	private boolean playerTwoisActive = false;
+	
 	protected Session() {
 		
 	}
@@ -104,6 +110,32 @@ public class Session {
 		this.playerTwo = playerTwo;
 	}
 	
+	/**
+	 * @param status si está conectado o no
+	 * */
+	public void setPlayerOneStatus(boolean status) {
+		this.playerOneisActive = status;
+	}
 	
+	/**
+	 * @return Estado de conexión del jugador
+	 * */
+	public boolean getPlayerOneStatus() {
+		return this.playerOneisActive;
+	}
+	
+	/**
+	 * @param status si está conectado o no
+	 * */
+	public void setPlayerTwoStatus(boolean status) {
+		this.playerTwoisActive = status;
+	}
+	
+	/**
+	 * @return Estado de conexión del jugador
+	 * */
+	public boolean getPlayerTwoStatus() {
+		return this.playerTwoisActive;
+	}
 	
 }

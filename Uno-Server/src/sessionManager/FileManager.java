@@ -69,7 +69,7 @@ public class FileManager {
 							
 			}
 		}catch(Exception e) {
-			return String.format("%s", e);
+			return "Not Found";
 		}
 		
 		return content.toString();
