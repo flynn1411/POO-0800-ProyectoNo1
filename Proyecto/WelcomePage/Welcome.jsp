@@ -9,6 +9,7 @@
 		<!-- <link rel="stylesheet" href="SkinToWelcome.css"> -->
 		<title>Ventana de bienvenida</title>
 		<style></style>
+		
 	</head> 
 
 	<body class="bodyContent">
@@ -16,7 +17,7 @@
 		<script src="BackEndToWelcome.js"></script>
 		<script src="JsonManager.js"></script>
 		<script src="../jquery.js"></script>
-							
+			<div class="container">
 				<div class="btnStart" id="btnStart" onClick="clickedButton(1)">
 					<span id="titleBtn1" class="titleBtn1"></span>
 				</div>
@@ -32,6 +33,7 @@
 				<div class="btnCredits" id="btnCredits" onClick="clickedButton(4)">
 					<span class="titleBtn4"></span>
 				</div>
+			</div>				
 	  		
 				<div id="style"></div>
 			<!--Contenido/Ventana boton de iniciar partida.-->

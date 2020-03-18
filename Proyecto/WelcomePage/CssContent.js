@@ -2,7 +2,10 @@
  * 
  */
 function CssContent(){
-    var styleCSS = "<style>body{background: #4C3175;}";
+    var styleCSS = `<style>
+                    body{
+                        background: #4C3175;
+                    }`;
     
     this.createElement = function(elementID,top,left){
         this.paintButton(elementID,top,left);
@@ -20,8 +23,8 @@ function CssContent(){
             border-radius: 12px;
             cursor: pointer;
             display: block;  
-            width: 150px;
-            height: 230px;
+            width: 9.6%;
+            height: 31%;
             padding: 20px 20px;
             transition: all 0.2s ease 0s;
             position: absolute;
