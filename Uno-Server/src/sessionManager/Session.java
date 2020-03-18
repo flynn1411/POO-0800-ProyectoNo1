@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 /**
  * Objeto Sesión, contiene información sobre las cartas y su código de identificación.
- * @version 0.1.1
+ * @version 0.1.3
  * */
 public class Session {
 	/**El código de la sessión.*/
 	private String sessionID;
+	
+	/** La persona con el turno actual*/
+	private String currentTurn;
 	
 	/** La información de la barja para tomar cartas.*/
 	private ArrayList<Card> grabDeck;
@@ -16,17 +19,11 @@ public class Session {
 	/** La información de la baraja donde se colocan las cartas*/
 	private ArrayList<Card> putOnDeck;
 	
-	/** La información de la barja del jugador1*/
-	private ArrayList<Card> playerOne;
+	/* Jugador 1**/
+	private Player playerOne = new Player();
 	
-	/** La información de la barja del jugador2*/
-	private ArrayList<Card> playerTwo;
-	
-	/**Booleano para saber si el jugador1 se ha conectado o no*/
-	private boolean playerOneisActive = false;
-	
-	/**Booleano para saber si el jugador2 se ha conectado o no*/
-	private boolean playerTwoisActive = false;
+	/* Jugador 2**/
+	private Player playerTwo = new Player();
 	
 	protected Session() {
 		
@@ -36,8 +33,11 @@ public class Session {
 		this.sessionID = sessionID;
 		this.grabDeck = grabDeck;
 		this.putOnDeck = putOnDeck;
-		this.playerOne = playerOne;
-		this.playerTwo = playerTwo;
+		this.playerOne.setDeck(playerOne);
+		this.playerOne.setStatus(Status.CONNECTED);
+		this.playerOne.setID(String.format("%s_playerOne", sessionID));
+		this.playerTwo.setDeck(playerTwo);
+		this.playerTwo.setID(String.format("%s_playerTwo", sessionID));
 	}
 
 	/**
@@ -85,57 +85,43 @@ public class Session {
 	/**
 	 * @return the playerOne
 	 */
-	public ArrayList<Card> getPlayerOne() {
+	public Player getPlayerOne() {
 		return playerOne;
 	}
-
-	/**
-	 * @param playerOne the playerOne to set
-	 */
-	public void setPlayerOne(ArrayList<Card> playerOne) {
-		this.playerOne = playerOne;
-	}
-
+	
 	/**
 	 * @return the playerTwo
 	 */
-	public ArrayList<Card> getPlayerTwo() {
+	public Player getPlayerTwo() {
 		return playerTwo;
+	}
+	
+	/**
+	 * @return the turn
+	 */
+	public String getCurrentTurn() {
+		return currentTurn;
 	}
 
 	/**
+	 * @param turn the turn to set
+	 */
+	public void setCurrentTurn(String turn) {
+		this.currentTurn = turn;
+	}
+	
+	/**
+	 * @param playerOne the playerOne to set
+	 */
+	public void setplayerOne(Player playerOne) {
+		this.playerOne = playerOne;
+	}
+	
+	/**
 	 * @param playerTwo the playerTwo to set
 	 */
-	public void setPlayerTwo(ArrayList<Card> playerTwo) {
+	public void setplayerTwo(Player playerTwo) {
 		this.playerTwo = playerTwo;
 	}
-	
-	/**
-	 * @param status si está conectado o no
-	 * */
-	public void setPlayerOneStatus(boolean status) {
-		this.playerOneisActive = status;
-	}
-	
-	/**
-	 * @return Estado de conexión del jugador
-	 * */
-	public boolean getPlayerOneStatus() {
-		return this.playerOneisActive;
-	}
-	
-	/**
-	 * @param status si está conectado o no
-	 * */
-	public void setPlayerTwoStatus(boolean status) {
-		this.playerTwoisActive = status;
-	}
-	
-	/**
-	 * @return Estado de conexión del jugador
-	 * */
-	public boolean getPlayerTwoStatus() {
-		return this.playerTwoisActive;
-	}
-	
+
 }

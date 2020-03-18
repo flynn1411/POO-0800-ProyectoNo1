@@ -1,13 +1,15 @@
+<%@page import="SessionManager.Session"%><%@page import="SessionManager.Status"%>
 <%@page import="SessionManager.DeckOfCards"%>
 <%@page import="java.util.ArrayList"%><%@page import="SessionManager.Card"%><%@page import="SessionManager.SessionManager"%><%@page import="SessionManager.RandomGenerator"%><%@page import="SessionManager.FileManager"%><%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 
+SessionManager sm = new SessionManager();
+
 if( request.getParameter("newSession").toString() != null ){
 	//Generar Barajas de cartas
 	DeckOfCards doc = new DeckOfCards();
-	SessionManager sm = new SessionManager();
-	
+	sm.checkForEmptySessions();
 	try{
 		//doc.pack();
 		doc.shuffleDeck();
@@ -30,6 +32,20 @@ if( request.getParameter("newSession").toString() != null ){
 					code
 					)
 			);
+}
+else if(request.getParameter("playerOneStatus") != null &&
+		request.getParameter("sessionID") != null
+){
+	
+	Status playerOneStatus = Status.DISCONNECTED;
+	String sessionID = request.getParameter("sessionID").toString().trim();
+	
+	System.out.println(sessionID);
+	
+	Session currentSession = sm.getSession(sessionID);
+	currentSession.getPlayerOne().setStatus(playerOneStatus);
+	sm.checkForEmptySessions();
+
 }
 
 %>

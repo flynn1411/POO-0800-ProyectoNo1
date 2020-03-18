@@ -11,13 +11,14 @@ public class SessionManager {
 	private Map<String, Session> activeSessions = new HashMap<String, Session>();
 	
 	public SessionManager() {
-		 //activeSessions = new HashMap<String, Session>();
+		 this.loadSessions();
 	}
 	
 	/**Lector de archivos*/
 	private FileManager fm = new FileManager();
 	
-	//private CSVParser csvParser = new CSVParser(); 
+	/**Traductor de JSON*/
+	private JSONParser jsonParser = new JSONParser(); 
 	
 	/**Carácteres para crear el código aleatorio*/
 	private String[] characters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R"
@@ -38,13 +39,13 @@ public class SessionManager {
 			code.append(this.characters[ran]);
 		}
 		
-		/*if( this.activeSessions.isEmpty() ) {
+		if( this.activeSessions.isEmpty() ) {
 			return code.toString();
 		}else if( this.activeSessions.containsKey(code.toString()) || this.activeSessions == null ) {
 			return this.generateCode();
-		}else {*/
+		}else {
 			return code.toString();
-		//}
+		}
 		
 	}
 	
@@ -84,6 +85,7 @@ public class SessionManager {
 		String sessionCode = this.generateCode();
 		
 		Session newSession = new Session(sessionCode, grabDeck, putOnDeck, playerOne, playerTwo);
+		newSession.setCurrentTurn(newSession.getPlayerOne().getID());
 		
 		this.activeSessions.put(newSession.getSessionID(), newSession);
 		
@@ -105,48 +107,11 @@ public class SessionManager {
 	 * @version 0.1.0
 	 * */
 	private boolean saveSessionToJSON( Session session ){
-		StringBuilder json = new StringBuilder(
-				String.format(
-						"{\"%s\":{%s,%s,%s,%s}}",
-						session.getSessionID(),
-						this.deckToJSON(session.getGrabDeck(), "grabDeck"),
-						this.deckToJSON(session.getPutOnDeck(), "putOnDeck"),
-						this.deckToJSON(session.getPlayerOne(), "playerOne"),
-						this.deckToJSON(session.getPlayerTwo(), "playerTwo")
-						)
-				);
+		String json = jsonParser.sessionToJSON(session);
 		boolean fileWasWritten = this.fm.write( String.format("activeSessions/%s.json", session.getSessionID() ), json.toString() );
 		
 		return fileWasWritten;
 		
-	}
-	
-	/**
-	 * Metódo que transforma un ListArray de cartas a un arreglo dentro de un json.
-	 * @param ArrayList<Card> deck ListArray de cartas
-	 * @param String deckName nombre de la baraja
-	 * @return String jsonDeck 
-	 * */
-	private String deckToJSON(ArrayList<Card> deck, String deckName) {
-		StringBuilder jsonDeck = new StringBuilder( String.format("\"%s\":[", deckName ) );
-		
-		for(int i = 0; i < deck.size(); i++) {
-			jsonDeck.append(
-					String.format(
-							"{\"symbol\":\"%s\",\"color\":\"%s\"}",
-							deck.get(i).getSymbol(),
-							deck.get(i).getColor()
-							)
-					);
-			
-			if( i < (deck.size() - 1) ) {
-				jsonDeck.append(",");
-			}
-		}
-		
-		jsonDeck.append("]");
-		
-		return jsonDeck.toString();
 	}
 	
 	/**
@@ -167,6 +132,8 @@ public class SessionManager {
 			if(i < (keys.length-1) ) {
 				json.append(",");
 			}
+			
+			this.saveSessionToJSON(this.activeSessions.get(keys[i]));
 		}
 		json.append("]}");
 		
@@ -183,12 +150,64 @@ public class SessionManager {
 	public boolean removeSession(Session session) {
 		String sessionId = session.getSessionID();
 		
-		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(String.format("%.json", sessionId)) ) {
+		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(String.format("database/%.json", sessionId)) ) {
 			this.saveSessions();
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Metodo que carga sesiones al buscar un archivo donde se ecuentra una lista de las sesiones.
+	 * Con esto se obtiene el ID de cada sesión y se busca su archivo para crear su sesión.
+	 * */
+	private void loadSessions() {
+		if(this.fm.fileExists("sessions.json")) {
+			
+			String[] sessions = this.jsonParser.jsonToSessionsArray(this.fm.read("sessions.json"));
+			
+			for(int i = 0; i < sessions.length; i++) {
+				Session session = this.loadSession(sessions[i]);
+				
+				if(session != null) {
+					this.activeSessions.put(session.getSessionID(), session);
+				}
+			}
+			
+		}
+	}
+	
+	/**
+	 * Metodo que crea sesiones al llamar al JSONParser.
+	 * @param String sessionID Identificador de la sesión.
+	 * @return Session session Sesión creada.
+	 * */
+	private Session loadSession(String sessionID) {
+		
+		if(this.fm.fileExists(String.format("activeSessions/%s.json", sessionID))) {
+			String json = this.fm.read(String.format("activeSessions/%s.json", sessionID));
+			
+			Session savedSession = this.jsonParser.jsonToSession(json);
+			
+			return savedSession;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Metodo que revisa el estatus de conexión de cada jugador, si ambos están desconectados se borrará la sesión
+	 * y sus archivos de memoría.
+	 * */
+	public void checkForEmptySessions() {
+		for(Session element: this.activeSessions.values()) {
+			if( (element.getPlayerOne().getStatus() == Status.DISCONNECTED) && (element.getPlayerTwo().getStatus() == Status.DISCONNECTED) ) {
+				this.removeSession(element);
+			}
+		}
+		this.saveSessions();
 	}
 }
