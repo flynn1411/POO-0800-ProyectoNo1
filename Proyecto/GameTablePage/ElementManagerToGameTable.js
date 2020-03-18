@@ -3,16 +3,11 @@ function ElementsManager(){
     //Guarda la carta que se ha clickeado. 
     var clickedCard,
 
-    //Guarda todas las cartas (baraja principal).
-    tempArrPrincipalDeck = [tempCard1,tempCard2,tempCard3,tempCard4,
-                                tempCard5,tempCard6,tempCard7,tempCard8,
-                                tempCard9,tempCard10,tempCard11,tempCard12,
-                                tempCard13,tempCard14,tempCard15,tempCard16,
-                                tempCard17,tempCard18,tempCard19,tempCard20
-                            ];
-
     //Contiene las cartas de la baraja del jugador 1.                        
     tempArrDeckP1 = [],
+
+    //Arreglo temporal de los ids de las cartas.
+    tempArrPrincipalDeck = [],
 
     //Contiene las cartas de la baraja del jugador 2.
     tempArrDeckP2 = [],
@@ -26,54 +21,71 @@ function ElementsManager(){
     //El turno actual.
     currentTurn = 1,
     
+    pDeckIds = [],
     //Estilo inicial.
     styleCss = `<style>
-                    div.box{
+                    div.table {
                         position: fixed;
                         border: 2px solid black;
-                        width: 100vw;
-                        height: 33vh;
+                        width: 100%;
+                        height: 33%;
                     }
-    
-                    div#areaP1{
-                        background-color: #40CC37;
+                    
+                    #areaP1 {
+                        border: 2px solid black;
+                        background-color: #C24832;
                         top: 0;
                         left: 0;
                         z-index:-10000;
                     }
     
-                    div#areaTable{
-                        background-color: #D99486;
-                        bottom: 0;
+                    #areaTable {
+                        background-color: #E5E0E0;
+                        top: 33%;
                         left: 0;
                         z-index:-10000;
                     }
     
-                    div#areaP2{
-                        background-color: #427DCD;
+                    #areaP2 {
+                        background-color: #3FC65D;
                         bottom: 0;
                         right: 0;
                         z-index:-10000;
                     }
-                    div#discardedDeck{
-                        border: 1px solid red;
+                    #discartedDeck {
+                        border: 1px solid blue;
                         position: absolute;
-                        top:40vh;
-                        left:30vw;
-                        width:95px;
-                        height:135px;
+                        top:36%;
+                        left:30%;
+                        width:8%;
+                        height:26%;
                         box-shadow: 1px 1px 1px #777, 0px 0px 10px 10px #3740B4;
                     }
-                    div#principalDeck{
+                    #principalDeck {
                         border: 1px solid red;
                         position: absolute;
-                        top:40vh;
-                        left:60vw;
-                        width:95px;
-                        height:135px;
+                        top:36%;
+                        left:60%;
+                        width:8%;
+                        height:26%;
                         box-shadow: 1px 1px 1px #777, 0px 0px 10px 10px #3740B4;
                     }
                 `;
+    
+    this.paintCards = function(){
+        var jsonManager = new JsonCardsManager();
+        jsonManager.extractDeckOfJsonCards(jsonManager.jsonCards);
+        //var tempArray = jsonManager.arrCardsP1;
+        var tempArray = jsonManager.totalDeck;
+        
+        //console.log(tempArray);
+
+        for (let i in tempArray){
+            let divE = this.createCard(tempArray[i][0],tempArray[i][1]); 
+            container.innerHTML += divE;  
+        }
+    }
+
     //Obtener el estilo.
     this.getStyle = function(){
         return styleCss;
@@ -157,53 +169,58 @@ function ElementsManager(){
         var valueMoveP1 = 20,
             valueMoveP2 = 20,
             valueDelayDistributed = 0.5;
-        
+            pDeckIds = this.extractIds(tempArrPrincipalDeck);
+
         //Reparte 7 cartas al jugador 1.
-        for(let i=0;i<=6;i++){
-                tempArrPrincipalDeck[i].style.animation = "distributeCards .8s ease .5s forwards";
-                tempArrPrincipalDeck[i].style.animationDelay = `${valueDelayDistributed}s`;
-                tempArrPrincipalDeck[i].style.animationDuration = "0.5s";    
-                tempArrPrincipalDeck[i].style.transition = `all ${valueDelayDistributed}s ease 0s`;
-                tempArrPrincipalDeck[i].style.top = "70vh";
-                tempArrPrincipalDeck[i].style.left =`${valueMoveP1}vw`;
+        for(let i=0; i<=6; i++){
+            this.setDistributeAnimation();
+               
+            pDeckIds[i].style.animation = "distributeCards .8s ease .5s forwards";
+            pDeckIds[i].style.animationDelay = `${valueDelayDistributed}s`;
+            pDeckIds[i].style.animationDuration = "0.5s";    
+            pDeckIds[i].style.transition = `all ${valueDelayDistributed}s ease 0s`;
+            pDeckIds[i].style.top = "70%";
+            pDeckIds[i].style.left =`${valueMoveP1}vw`;
                 
                 valueMoveP1 = valueMoveP1 + 10;
-                valueDelayDistributed =valueDelayDistributed + 0.3;
+                valueDelayDistributed = valueDelayDistributed + 0.3;
     
-                tempArrDeckP1.push(tempArrPrincipalDeck[i]);
+                tempArrDeckP1.push(pDeckIds[i]);
             }
-    
-            //Reparte 7 cartas al jugador 1.
-            for (let i=7;i<=14;i++){
+            
+            
+            //Reparte 7 cartas al jugador 2.
+            for (let i=7; i<=14; i++){
                 if(i == 14){
-                    tempArrPrincipalDeck[i].style.animation = "distributeCards .8s ease .5s forwards";
-                    tempArrPrincipalDeck[i].style.animationDelay = `${valueDelayDistributed-2}s`;
-                    tempArrPrincipalDeck[i].style.animationDuration = "0.5s";    
-                    tempArrPrincipalDeck[i].style.transition = `all ${valueDelayDistributed-1.5}s ease 0s`;
+                    pDeckIds[i].style.animation = "distributeCards .8s ease .5s forwards";
+                    pDeckIds[i].style.animationDelay = `${valueDelayDistributed-2}s`;
+                    pDeckIds[i].style.animationDuration = "0.5s";    
+                    pDeckIds[i].style.transition = `all ${valueDelayDistributed-1.5}s ease 0s`;
     
-                    tempArrPrincipalDeck[i].style.top ="38vh";
-                    tempArrPrincipalDeck[i].style.left = "30vw";        
-                    tempArrPrincipalDeck[i].style.zIndex = "-300";
+                    pDeckIds[i].style.top ="38vh";
+                    pDeckIds[i].style.left = "30vw";        
+                    pDeckIds[i].style.zIndex = "-300";
     
-                    discardedDeckArr.push(tempArrPrincipalDeck[i]);
+                    discardedDeckArr.push(pDeckIds[i]);
                 }else{
                     
-                    tempArrPrincipalDeck[i].style.animationDelay = `${valueDelayDistributed}s`;
-                    tempArrPrincipalDeck[i].style.animationDuration = "0.5s";    
-                    tempArrPrincipalDeck[i].style.transition = `all ${valueDelayDistributed-2}s ease 0.5s`;
-                    tempArrPrincipalDeck[i].style.top ="10vh";
-                    tempArrPrincipalDeck[i].style.left =`${valueMoveP2}vw`;
+                    pDeckIds[i].style.animationDelay = `${valueDelayDistributed}s`;
+                    pDeckIds[i].style.animationDuration = "0.5s";    
+                    pDeckIds[i].style.transition = `all ${valueDelayDistributed-2}s ease 0.5s`;
+                    pDeckIds[i].style.top ="10vh";
+                    pDeckIds[i].style.left =`${valueMoveP2}vw`;
                     
                     valueMoveP2 = valueMoveP2 + 10;
                     valueDelayDistributed =valueDelayDistributed + 0.3;     
-                    tempArrDeckP2.push(tempArrPrincipalDeck[i]);
+                    tempArrDeckP2.push(pDeckIds[i]);
                 }
-        }
+            }
         //Se eliminan del mazo principal las 15 cartas repartidas.
+        /*
         for (let i=0;i<=14;i++){
             tempArrPrincipalDeck.shift();
         }
-    
+        */
         //console.log("Tamano baraja principal: " + tempArrPrincipalDeck.length);
         //console.log("Tamano baraja P1: " + tempArrDeckP1.length);
         //console.log("Tamano baraja P2: " + tempArrDeckP2.length);
@@ -211,27 +228,63 @@ function ElementsManager(){
         
     }
     //Funcion para crear cartas.
-    this.createCard = function(elementID,top,left,urlImage){
-    
-        styleCss += `
-        .${elementID} {    
-            opacity: 1;
-            background-image: url("${urlImage}");
-            border-radius: 12px;
-            background-size: 90px 130px;
-            border: solid black ;
-            border-radius: 12px;
-            cursor: pointer;
-            display: block;  
-            width: 50px;
-            height: 90px;
-            padding: 20px 20px;
-            transition: all 0.2s ease 0s;
-            position: absolute;
-            top: ${top}vh;
-            left: ${left}vw;
+    this.createCard = function(symbol,color){
+        if(color == "yellow"){
+            color = "#CCE41C";
         }
-        `;
+        if(color == "red"){
+            color = "#CC3131";
+        }
+        if(color == "blue"){
+            color = "#2A2C91";
+        }
+        if(color == "green"){
+            color = "#2D8B28";
+        }
+        var ID = `${symbol.replace(" ","")}_${color}`
+        
+
+        if(tempArrPrincipalDeck.includes(ID) ==true){
+            ID = `${ID}_2`;
+        }
+
+        tempArrPrincipalDeck.push(ID);
+        
+        var style = `              
+                    background-color: ${color};
+                    border-radius: 12px;
+                    border: solid black ;
+                    cursor: pointer;
+                    display: block;  
+                    width: 4%;
+                    height: 15%;
+                    padding: 20px 20px;
+                    position: absolute;
+                    top: 39.5%;
+                    left: 61%;
+                    font-size: 50%; 
+                    font-family: 'Fira Code', monospace; 
+                    line-height: 90*1.5vh; 
+                    text-align: center;
+                    color:white;
+                    `;
+
+        var html = `<div id="${ID}" class="${ID}" style="${style}" onClick="eventT(this);">
+                        <span style = "vertical-align: middle; display: inline-block">
+                            <h1><strong>${symbol}</strong></h1>
+                        </span>
+                    </div>\n`;
+
+        return html;
+    }
+
+    this.extractIds = function(arr){
+        var arrayOfIds = [];
+        for (let id in arr){
+            arrayOfIds.push(document.getElementById(`${arr[id]}`));
+        }
+        return arrayOfIds;
+        
     }
     
     //Define la animacion de distribucion.
@@ -253,5 +306,9 @@ function ElementsManager(){
         //Finaliza el agregado de estilo.
     this.fishStyle = function(){
             styleCss +=`</style>`;
+        }
+    
+        this.getPrincipalDeck = function(){
+            return tempArrPrincipalDeck;
         }
 }
