@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Clase administradora de las sesiones, esta se encarga de leer el estado de una sesión existente o crear una nueva sesión.*/
+/** Clase administradora de las sesiones, esta se encarga de leer el estado de una sesiï¿½n existente o crear una nueva sesiï¿½n.*/
 public class SessionManager {
 	
 	/**Lista de sesiones activas*/
@@ -12,6 +12,7 @@ public class SessionManager {
 	
 	public SessionManager() {
 		 this.loadSessions();
+		
 	}
 	
 	/**Lector de archivos*/
@@ -20,12 +21,12 @@ public class SessionManager {
 	/**Traductor de JSON*/
 	private JSONParser jsonParser = new JSONParser(); 
 	
-	/**Carácteres para crear el código aleatorio*/
+	/**Carï¿½cteres para crear el cï¿½digo aleatorio*/
 	private String[] characters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R"
 			,"S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"};
 	
 	/** 
-	 * Generador de codigos para sesiones. Este código puede estar formado por números y/o letras en mayúscula.
+	 * Generador de codigos para sesiones. Este cï¿½digo puede estar formado por nï¿½meros y/o letras en mayï¿½scula.
 	 * Antes de enviar el codigo, se revisa que no exista dentro de las sesiones ya existentes.
 	 * @return String code
 	 * @version 0.1.0
@@ -50,8 +51,8 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metódo para obtener una sesión en específica, de no existir se retorna un vlaor nulo.
-	 * @param String sessionID Identificador de la sesión
+	 * Metï¿½do para obtener una sesiï¿½n en especï¿½fica, de no existir se retorna un vlaor nulo.
+	 * @param String sessionID Identificador de la sesiï¿½n
 	 * @retun Session
 	 * */
 	public Session getSession(String sessionID) {
@@ -64,8 +65,8 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metódo que actualiza los datos de la sesión enviada en su respectivo JSON.
-	 * @param Session session Sesión a actualizar datos de JSON.
+	 * Metï¿½do que actualiza los datos de la sesiï¿½n enviada en su respectivo JSON.
+	 * @param Session session Sesiï¿½n a actualizar datos de JSON.
 	 * @return boolean
 	 * */
 	public boolean updateSession(Session session) {
@@ -73,7 +74,7 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Método que crea sesiones nuevas, retorna el código de la sesión en caso de que la sesión fue creada exitosamente.
+	 * Mï¿½todo que crea sesiones nuevas, retorna el cï¿½digo de la sesiï¿½n en caso de que la sesiï¿½n fue creada exitosamente.
 	 * @param ArrayList<Card> grabDeck baraja para tomar cartas.
 	 * @param ArrayList<Card> putOnDeck baraja donde se colocan las cartas.
 	 * @param ArrayList<Card> PlayerOne baraja del jugador 1.
@@ -100,10 +101,10 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metódo que guarda la información de una sesión a un archivo json. Devuelve un booleano si la operación
+	 * Metï¿½do que guarda la informaciï¿½n de una sesiï¿½n a un archivo json. Devuelve un booleano si la operaciï¿½n
 	 * fue exitosa o no.
-	 * @param Session session La sesión a guardar o actualizar datos.
-	 * @return bollean fileWasWritten indica si la operación fue realizada con exito.
+	 * @param Session session La sesiï¿½n a guardar o actualizar datos.
+	 * @return bollean fileWasWritten indica si la operaciï¿½n fue realizada con exito.
 	 * @version 0.1.0
 	 * */
 	private boolean saveSessionToJSON( Session session ){
@@ -115,7 +116,7 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metódo que guarda los sessionIDs en un json. Devuelve un booleano a manera de confirmar el exito de la operación.
+	 * Metï¿½do que guarda los sessionIDs en un json. Devuelve un booleano a manera de confirmar el exito de la operaciï¿½n.
 	 * @return bolean fileWasWritten 
 	 * */
 	private boolean saveSessions() {
@@ -143,14 +144,14 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metódo que remueve una sesión del diccionario de sessiones y borra su archivo json.
-	 * @param Session session La sesión a remover
-	 * @return true si se removió la sesión, false si no se removió
+	 * Metï¿½do que remueve una sesiï¿½n del diccionario de sessiones y borra su archivo json.
+	 * @param Session session La sesiï¿½n a remover
+	 * @return true si se removiï¿½ la sesiï¿½n, false si no se removiï¿½
 	 * */
 	public boolean removeSession(Session session) {
 		String sessionId = session.getSessionID();
 		
-		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(String.format("database/%.json", sessionId)) ) {
+		if( this.activeSessions.remove(sessionId) != null && this.fm.deleteFile(String.format("activeSessions/%s.json", sessionId)) ) {
 			this.saveSessions();
 			return true;
 		}
@@ -161,7 +162,7 @@ public class SessionManager {
 	
 	/**
 	 * Metodo que carga sesiones al buscar un archivo donde se ecuentra una lista de las sesiones.
-	 * Con esto se obtiene el ID de cada sesión y se busca su archivo para crear su sesión.
+	 * Con esto se obtiene el ID de cada sesiï¿½n y se busca su archivo para crear su sesiï¿½n.
 	 * */
 	private void loadSessions() {
 		if(this.fm.fileExists("sessions.json")) {
@@ -181,8 +182,8 @@ public class SessionManager {
 	
 	/**
 	 * Metodo que crea sesiones al llamar al JSONParser.
-	 * @param String sessionID Identificador de la sesión.
-	 * @return Session session Sesión creada.
+	 * @param String sessionID Identificador de la sesiï¿½n.
+	 * @return Session session Sesiï¿½n creada.
 	 * */
 	private Session loadSession(String sessionID) {
 		
@@ -199,15 +200,20 @@ public class SessionManager {
 	}
 	
 	/**
-	 * Metodo que revisa el estatus de conexión de cada jugador, si ambos están desconectados se borrará la sesión
-	 * y sus archivos de memoría.
+	 * Metodo que revisa el estatus de conexiï¿½n de cada jugador, si ambos estï¿½n desconectados se borrarï¿½ la sesiï¿½n
+	 * y sus archivos de memorï¿½a.
 	 * */
 	public void checkForEmptySessions() {
+		ArrayList<Session> emptySessions = new ArrayList<Session>();
 		for(Session element: this.activeSessions.values()) {
 			if( (element.getPlayerOne().getStatus() == Status.DISCONNECTED) && (element.getPlayerTwo().getStatus() == Status.DISCONNECTED) ) {
-				this.removeSession(element);
+				emptySessions.add(element);
 			}
 		}
-		this.saveSessions();
+		if(!emptySessions.isEmpty()){
+			for(int i = 0; i < emptySessions.size(); i++) {
+				this.removeSession(emptySessions.get(i));
+			}
+		}
 	}
 }

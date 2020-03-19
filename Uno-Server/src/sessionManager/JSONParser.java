@@ -22,11 +22,11 @@ public class JSONParser {
 		
 		ArrayList<Card> deck = new ArrayList<Card>();
 		
-		//Creación de las expresiones regulares
+		// Creación de las expresiones regulares
 		Pattern deckPattern = Pattern.compile( String.format("\"%s\":\\[[^((\\[)|(\\]))]*\\]", deckTitle) );
 		Pattern arrayPattern = Pattern.compile("\\{[^((\\[)|(\\]))]*\\}");
 		
-		//Comparación de la expresión regular contra la cadena ingresada
+		//Comparaciï¿½n de la expresiï¿½n regular contra la cadena ingresada
 		Matcher deckMatcher = deckPattern.matcher(json);
 		
 		//Si se encuentra
@@ -109,7 +109,7 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Método que transforma el estado de conexión de cada jugador en un json.
+	 * Mï¿½todo que transforma el estado de conexiï¿½n de cada jugador en un json.
 	 * @param boolean playerOneStatus Estado del jugador1
 	 * @param boolean playerTwoStatus Estado del jugador2
 	 * @return String json
@@ -137,8 +137,8 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Metodo que transforma una sesión en un json.
-	 * @param Session session La sesión a guardar.
+	 * Metodo que transforma una sesiï¿½n en un json.
+	 * @param Session session La sesiï¿½n a guardar.
 	 * @return String json La cadena json para guardar
 	 * */
 	public String sessionToJSON(Session session) {
@@ -187,7 +187,7 @@ public class JSONParser {
 		Player player = new Player();
 		player.setID(playerID);
 		
-		Pattern deckPattern = Pattern.compile( String.format("\"%s\":\\{\"deck\":\\[[^((\\[)|(\\]))]*\\],\"score\":\\d+,\"status\":\\w{4,5}", playerID) );
+		Pattern deckPattern = Pattern.compile( String.format("\"%s\":\\{\"deck\":\\[[^((\\[)|(\\]))]*\\],\"score\":\\d+,\"status\":\"\\w{9,12}\"", playerID) );
 		Pattern infoPattern = Pattern.compile("\"score\":\\d+,\"status\":\"\\w{9,12}\"");
 		Matcher deckMatch = deckPattern.matcher(json);
 		
@@ -200,15 +200,16 @@ public class JSONParser {
 			if(infoMatch.find()) {
 				String[] foundInfo = infoMatch.group(0).replaceAll("\"", "").split(",");
 				Pattern scorePattern = Pattern.compile("\\d+");
-				Pattern statusPattern = Pattern.compile(":\\w{4,5}");
+				Pattern statusPattern = Pattern.compile(":\\w{9,12}");
 				Matcher scoreMatch = scorePattern.matcher(foundInfo[0]);
 				Matcher statusMatch = statusPattern.matcher(foundInfo[1]);
 				
 				if(scoreMatch.find() && statusMatch.find()) {
 					player.setScore(Integer.parseInt(scoreMatch.group()));
-					String status = statusMatch.group();
+					String status = statusMatch.group().replaceAll(":", "");
+					boolean strCompared = status.equals("CONNECTED");
 					
-					if(Status.CONNECTED.toString() == status) {
+					if(strCompared) {
 						player.setStatus(Status.CONNECTED);
 					}else {
 						player.setStatus(Status.DISCONNECTED);
@@ -222,7 +223,7 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Metodo que obtiene el turno actual de la sesión.
+	 * Metodo que obtiene el turno actual de la sesiï¿½n.
 	 * @param String json El JSON enviado.
 	 * @return String currentTurn el turno actual.
 	 * */
@@ -241,9 +242,9 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Metodo que obtiene el identificador de la sesión.
+	 * Metodo que obtiene el identificador de la sesiï¿½n.
 	 * @param String json El JSON enviado.
-	 * @return String sessionID el identifcador de la sesión.
+	 * @return String sessionID el identifcador de la sesiï¿½n.
 	 * */
 	private String jsonToSessionID(String json) {
 		String sessionID = "";
@@ -258,9 +259,9 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Metodo que crea un clase sesión dado un json con su información.
-	 * @param String json El json con la información de la sesión.
-	 * @return Session session La sesión creada a base de la información del json.
+	 * Metodo que crea un clase sesiï¿½n dado un json con su informaciï¿½n.
+	 * @param String json El json con la informaciï¿½n de la sesiï¿½n.
+	 * @return Session session La sesiï¿½n creada a base de la informaciï¿½n del json.
 	 * */
 	public Session jsonToSession(String json) {
 		Session session = new Session();

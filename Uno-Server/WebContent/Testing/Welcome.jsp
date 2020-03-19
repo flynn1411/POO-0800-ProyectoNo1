@@ -7,14 +7,15 @@
 		<!-- <link rel="stylesheet" href="SkinToWelcome.css"> -->
 		<title>Ventana de bienvenida</title>
 		<style></style>
+		
 	</head> 
 
 	<body class="bodyContent">
 
 		<script src="scripts/BackEndToWelcome.js"></script>
-		<script src="scrpits/JsonManager.js"></script>
-		<script src="scripts/jquery3.4.1s.js"></script>
-							
+		<script src="scripts/JsonManager.js"></script>
+		<script src="scripts/jquery3.4.1.js"></script>
+			<div class="container">
 				<div class="btnStart" id="btnStart" onClick="clickedButton(1)">
 					<span id="titleBtn1" class="titleBtn1"></span>
 				</div>
@@ -30,6 +31,7 @@
 				<div class="btnCredits" id="btnCredits" onClick="clickedButton(4)">
 					<span class="titleBtn4"></span>
 				</div>
+			</div>				
 	  		
 				<div id="style"></div>
 			<!--Contenido/Ventana boton de iniciar partida.-->
@@ -40,11 +42,11 @@
 					<h2 id="accessCode"></h2><br><br>
 					
 					<button id="btnClosePopup" class="btnClosePopup"onClick="clickedButton(5)">Cancelar</button>
-					<button id ="btnEnter" class="btnEnter" onClick="location.href='http://localhost:8080/ContentToProject1/FrontEnd/GameTable/GameTablePage.jsp#'">Entrar</button>
+					<button id ="btnEnter" class="btnEnter" onClick="clickedButton(9)">Entrar</button>
 				
 				</div> 
 			</div> 
-			 
+	 
 			<!--Contenido/Ventana boton de reanudar partida.-->
 			<div class="overlayAccess" id="overlayAccess">
 				<div class="popupAccess" id ="popupAccess">
@@ -66,9 +68,9 @@
 				</div> 
 			</div>
 
-	<script src="BackEndToWelcome.js"></script>
-	<script src="JsonManager.js"></script>
-	<script src="CssContent.js"></script>
+	<script src="scripts/BackEndToWelcome.js"></script>
+	<script src="scripts/JsonManager.js"></script>
+	<script src="scripts/CssContent.js"></script>
 
 	<script>
 		window.onload = setStyleToBtn;
