@@ -33,20 +33,13 @@
             em.eventDeck(element);
         }
 
-
         em.paintCards();
-        console.log(container.innerHTML);
-        //console.log(block_green);
-        //console.log(em.getPrincipalDeck());
-        //console.log(em.extractIds(em.getPrincipalDeck()));
+        //console.log(container.innerHTML);
         em.setAnimations
         em.distributeCards()
-        //console.log(container.innerHTML);
-
         em.fishStyle();
         
         style.innerHTML =  em.getStyle();
-        //console.log(style.innerHTML);
     </script>
 
 </body>

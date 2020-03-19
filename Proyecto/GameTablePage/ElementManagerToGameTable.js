@@ -250,7 +250,7 @@ function ElementsManager(){
 
         tempArrPrincipalDeck.push(ID);
         
-        var style = `              
+        var style = `             
                     background-color: ${color};
                     border-radius: 12px;
                     border: solid black ;
@@ -264,13 +264,21 @@ function ElementsManager(){
                     left: 61%;
                     font-size: 50%; 
                     font-family: 'Fira Code', monospace; 
-                    line-height: 90*1.5vh; 
                     text-align: center;
+                    vertical-align: middle;
+                    line-height: 600%;
                     color:white;
+                    
+                    background-image:url('../Images/mancha.png');
+                    background-size:100% 50%;
+                    background-repeat: no-repeat;
+                    background-attachment: absolute;
+                    background-position: center center;
+                    opacity:1;
                     `;
 
         var html = `<div id="${ID}" class="${ID}" style="${style}" onClick="eventT(this);">
-                        <span style = "vertical-align: middle; display: inline-block">
+                        <span>
                             <h1><strong>${symbol}</strong></h1>
                         </span>
                     </div>\n`;
