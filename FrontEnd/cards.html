@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="flynn1411">
+    <meta name="description" content="Creador de cartas usando divs">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap" rel="stylesheet"> 
+    <title>Creador de Cartas</title>
+</head>
+<body>
+    <form>
+        <input type="number" id="width" placeholder="Ingrese la anchura de la carta.">
+        <select name="seleccion" id="seleccion">
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="blue">Azúl</option>
+            <option value="yellow">Amarillo</option>
+        </select>
+        <button onclick="showCard();">Crear carta</button>
+    </form>
+    
+    <script src="cardCreator.js"></script>
+    <script>
+        cardCreator = new CardCreator();
+        randomizer = new Randomizer();
+
+        function showCard(){
+            color = document.querySelector("#seleccion").value;
+            width = document.querySelector("#width").value;
+
+            cardCreator.createCard(new Card(randomizer.randomize(9,1) , color, width));
+        }
+
+    </script>
+
+</body>
+</html>
