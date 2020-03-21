@@ -1,0 +1,50 @@
+@charset "UTF-8";
+div.table {
+    position: fixed;
+    border: 2px solid black;
+    width: 100%;
+    height: 33%;
+}
+
+#areaP1 {
+    border: 2px solid black;
+    background-color: #C24832;
+    top: 0;
+    left: 0;
+    z-index:-10000;
+}
+
+#areaTable {
+    background-color: #f8d393;
+    top: 33%;
+    left: 0;
+    z-index:-10000;
+}
+
+#areaP2 {
+    background-color: #3FC65D;
+    bottom: 0;
+    right: 0;
+    z-index:-10000;
+}
+#discartedDeck {
+    border: 0px solid blue;
+    position: absolute;
+    border-radius: 12px;
+    top:36%;
+    left:30%;
+    width:8%;
+    height:26%;
+    box-shadow: 1px 1px 1px #777, 0px 0px 10px 10px #3740B4;
+    z-index:1;
+}
+#principalDeck {
+    border: 0px solid blue;
+    position: absolute;
+    border-radius: 12px;
+    top:36%;
+    left:60%;
+    width:8%;
+    height:26%;
+    box-shadow: 1px 1px 1px #777, 0px 0px 10px 10px #3740B4;
+}
