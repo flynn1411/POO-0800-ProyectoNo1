@@ -259,9 +259,9 @@ public class JSONParser {
 	}
 	
 	/**
-	 * Metodo que crea un clase sesiï¿½n dado un json con su informaciï¿½n.
-	 * @param String json El json con la informaciï¿½n de la sesiï¿½n.
-	 * @return Session session La sesiï¿½n creada a base de la informaciï¿½n del json.
+	 * Metodo que crea un clase sesión dado un json con su información.
+	 * @param String json El json con la información de la sesión.
+	 * @return Session session La sesión creada a base de la información del json.
 	 * */
 	public Session jsonToSession(String json) {
 		Session session = new Session();
@@ -274,6 +274,65 @@ public class JSONParser {
 		session.setplayerTwo(this.jsonToPlayer(String.format("%s_playerTwo", session.getSessionID()), json));
 		
 		return session;
+	}
+	
+	/**
+	 * Metodo que transforma de highScoreList a JSON.
+	 * @param ArrayList<HighScore> Lista de puntuaciones.
+	 * @return String json
+	 * */
+	public String highScoreListToJSON(ArrayList<HighScore> list) {
+		StringBuilder json = new StringBuilder("\\{\"highScores\":\\[");
+		
+		for(int i = 0; i < list.size(); i++) {
+			HighScore currentScore = list.get(i);
+			json.append(
+					String.format(
+							"\\{\"user\":\"%s\",\"score\":%s,\"date\":\"%s\"\\}",
+							currentScore.getUser(),
+							currentScore.getScore(),
+							currentScore.getDate()
+							)
+					);
+			if(i < (list.size() - 1)) {
+				json.append(",");
+			}
+		}
+		
+		json.append("\\]\\}");
+		
+		return json.toString();
+	}
+	
+	/**
+	 * Metodo que genera una lista de puntuaciones altas en base a un json dado.
+	 * @param String json El json con la lista.
+	 * @return ArrayList<HighScore> highScoreList Lista de puntuaciones.
+	 * */
+	public ArrayList<HighScore> jsonToHighScoreList(String json){
+		ArrayList<HighScore> highScoreList = new ArrayList<HighScore>();
+		
+		Pattern arrayPattern = Pattern.compile("\\{[^((\\[)|(\\]))]*\\}");
+		Matcher arrayMatch = arrayPattern.matcher(json);
+		
+		if(arrayMatch.find()) {
+			String found = arrayMatch.group(0);
+			String[] highScores = found.split("\\},\\{");
+			
+			for(int i = 0; i < highScores.length; i++) {
+				HighScore score = new HighScore();
+				String currentScore = highScores[i].replaceAll("((\")|(\\{)|(\\}))", "");
+				String[] scoreAttr = currentScore.split(",");
+				
+				score.setUser(String.format("%s", scoreAttr[0].split(":")[1]));
+				score.setScore(Integer.parseInt(scoreAttr[1].split(":")[1]));
+				score.setDate(String.format("%s", scoreAttr[2].split(":")[1]));
+				
+				highScoreList.add(score);
+			}
+		}
+		
+		return highScoreList;
 	}
 	
 }
