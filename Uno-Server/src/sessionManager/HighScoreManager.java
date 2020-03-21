@@ -38,7 +38,26 @@ public class HighScoreManager {
 	 * */
 	public void saveHighScores() {
 		if(!this.highScoreList.isEmpty()) {
-			fm.write(this.fileName, this.jsonParser.highScoreListToJSON(this.highScoreList));
+			this.fm.write(this.fileName, this.jsonParser.highScoreListToJSON(this.highScoreList));
 		}
+	}
+	
+	/**
+	 * Metodo que revisa si la puntutación obtenida por un jugador está en el rango de las puntuaciones más altas
+	 * @param HighScore possibleHighScore La puntuacion obtenida por el usuario.
+	 * @return @true si cumple para estar entre las puntuaciones mas altas @false si no cumple.
+	 * */
+	public boolean isThisAHighScore(HighScore possibleHighScore) {
+		this.sortScores(this.highScoreList);
+		
+		for(int i = 0; i < this.highScoreList.size(); i++) {
+			
+		}
+		
+		return true;
+	}
+	
+	private void sortScores(ArrayList<HighScore> highScores) {
+		
 	}
 }

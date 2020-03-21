@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 /** 
  * Unica clase que puede ingresar a la base de datos, hace lectura y escritura de archivos.
- * @version 0.1.0
+ * @version 0.1.3
  * */
 public class FileManager {
 	/** directorio actual*/
@@ -16,10 +16,23 @@ public class FileManager {
 	
 	public FileManager() {
 		this.directory = "DataBase/";
+		this.createDataBase();
 	}
 	
 	public FileManager(String directory) {
 		this.directory = directory;
+		this.createDataBase();
+	}
+	
+	/**
+	 * Metodo que revisa si el directorio actual existe o no.
+	 * De no existir se crea el directorio.
+	 * */
+	private void createDataBase() {
+		if(!this.fileExists(this.directory)) {
+			File dataBase = new File(this.directory);
+			dataBase.mkdir();
+		}
 	}
 	
 	/** 
@@ -91,8 +104,7 @@ public class FileManager {
 				String directory  = this.directory;
 				
 				if(fileName.contains("/")) {
-					String[] newFileName;
-					newFileName = fileName.split("/");
+					String[] newFileName = fileName.split("/");
 					directory = String.format("%s%s/", this.directory, newFileName[0]);
 					fileName = newFileName[1];
 				}
