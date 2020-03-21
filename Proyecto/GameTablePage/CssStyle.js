@@ -11,12 +11,12 @@ function CssContent(){
             border: solid black ;
             cursor: pointer;
             display: block;  
+            top: 19%;
+            left: 60.25%;
             width: 4%;
-            height: 15%;
+            height: 45%;
             padding: 20px 20px;
             position: absolute;
-            top: 38.7%;
-            left: 60.6%;
             
             background-image:url('../Images/${nameImage}.png');
             background-size:130% 100%;
@@ -24,6 +24,7 @@ function CssContent(){
             background-attachment: absolute;
             background-position: center;
             opacity:1;
+            animation:distributeCards 5s infinite;
             `;
         
         return style;

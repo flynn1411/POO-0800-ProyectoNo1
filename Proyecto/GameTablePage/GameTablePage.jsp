@@ -18,7 +18,7 @@
             <div id="areaTable"  class="table"></div>
             <div id="areaP2" class="table"></div>
             <div id="discartedDeck" class="discartedDeck" onClick="eventClickedPutOnDeck()"></div>
-            <div id="principalDeck" class="principalDeck" ondblclick="eventPrincipalDeck(this)"></div>
+            <div id="principalDeck" class="principalDeck" ondblclick="eventDoubleClickedGrabDeck(this)"></div>
         </div>
 
         <div id="cardsContainer">
@@ -44,9 +44,9 @@
             playerOne = new LinkedList(),
             playerTwo = new LinkedList(),
             putOnDeck = new LinkedList(),
-            grabDeck =  new LinkedList();
+            grabDeck =  new LinkedList(),
+            em = new ElementsManager();
         
-        var em = new ElementsManager();
         em.loadContent();
             
         function eventClickedCard(element){
@@ -55,6 +55,10 @@
         
         function eventClickedPutOnDeck(element){
             em.eventClickedPutOnDeck(element);
+        }
+
+        function eventDoubleClickedGrabDeck(){
+            em.eventDoubleClickedGrabDeck();
         }
     
     </script>
