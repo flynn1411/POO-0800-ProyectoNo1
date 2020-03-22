@@ -282,13 +282,13 @@ public class JSONParser {
 	 * @return String json
 	 * */
 	public String highScoreListToJSON(ArrayList<HighScore> list) {
-		StringBuilder json = new StringBuilder("\\{\"highScores\":\\[");
+		StringBuilder json = new StringBuilder("{\"highScores\":[");
 		
 		for(int i = 0; i < list.size(); i++) {
 			HighScore currentScore = list.get(i);
 			json.append(
 					String.format(
-							"\\{\"user\":\"%s\",\"score\":%s,\"date\":\"%s\"\\}",
+							"{\"user\":\"%s\",\"score\":%s,\"date\":\"%s\"}",
 							currentScore.getUser(),
 							currentScore.getScore(),
 							currentScore.getDate()
@@ -299,7 +299,7 @@ public class JSONParser {
 			}
 		}
 		
-		json.append("\\]\\}");
+		json.append("]}");
 		
 		return json.toString();
 	}

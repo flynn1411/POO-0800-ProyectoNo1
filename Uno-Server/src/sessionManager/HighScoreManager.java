@@ -11,16 +11,16 @@ public class HighScoreManager {
 	private String fileName = "highScores.json";
 	
 	/**Lista de las puntuaciones mas altas.*/
-	private ArrayList<HighScore> highScoreList;
+	private ArrayList<HighScore> highScoreList = new ArrayList<HighScore>();
 	
 	/**Lector de archivos*/
-	private FileManager fm;
+	private FileManager fm = new FileManager();
 	
 	/**Traductor de JSON*/
-	private JSONParser jsonParser;
+	private JSONParser jsonParser = new JSONParser();
 	
 	public HighScoreManager() {
-		this.loadHighScores();
+		//this.loadHighScores();
 	}
 	
 	/**
@@ -37,9 +37,14 @@ public class HighScoreManager {
 	 * Metodo que guarda la lista de puntuaciones en un archivo JSON.
 	 * */
 	public void saveHighScores() {
-		if(!this.highScoreList.isEmpty()) {
-			this.fm.write(this.fileName, this.jsonParser.highScoreListToJSON(this.highScoreList));
+		if(!(this.highScoreList.isEmpty())) {
+			String fileContent = this.jsonParser.highScoreListToJSON(this.highScoreList);
+			this.fm.write(this.fileName, fileContent);
 		}
+	}
+	
+	public void addHighScore(HighScore highScore) {
+		this.highScoreList.add(highScore);
 	}
 	
 	/**
@@ -50,14 +55,22 @@ public class HighScoreManager {
 	public boolean isThisAHighScore(HighScore possibleHighScore) {
 		this.sortScores(this.highScoreList);
 		
-		for(int i = 0; i < this.highScoreList.size(); i++) {
-			
+		if( (this.highScoreList.get( this.highScoreList.size()-1 ).getScore()) > possibleHighScore.getScore() ) {
+			this.highScoreList.add(possibleHighScore);
+			this.sortScores(this.highScoreList);
+			while( (this.highScoreList.size()) > 10) {
+				this.highScoreList.remove(this.highScoreList.size()-1);
+			}
 		}
 		
 		return true;
 	}
 	
+	/**
+	 * Metodo que utiliza QuickSort para organizar las puntuaciones de mayor a menor.
+	 * @param ArrayList<HighScore> highScores
+	 * */
 	private void sortScores(ArrayList<HighScore> highScores) {
-		
+			
 	}
 }

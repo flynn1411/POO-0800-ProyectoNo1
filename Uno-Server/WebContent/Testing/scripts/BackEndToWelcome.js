@@ -22,11 +22,15 @@
 			popupBtnPlay.classList.add('active');
 			//								}
 			//						);
-			var action = "sessionManager.jsp";
-			var parameters = {"newSession": "true"};
+			var action = "service1.jsp";
+			var parameters = {"command": "createNewSession"};
 			$.post(action, parameters, function(response){
 				response = JSON.parse(response);
-				document.getElementById('accessCode').innerHTML = response["code"];
+				var playerID = response["playerID"];
+				var sessionID = response["sessionID"];
+				document.cookie = `sessionID=${sessionID}`;
+				document.cookie = `playerID=${playerID}`;
+				document.getElementById('accessCode').innerHTML = sessionID;
 			});
 		} 
 		
@@ -53,9 +57,9 @@
 		
 		if(valueInt == 5){
 			var sessionID = document.getElementById('accessCode').innerHTML;
-			var parameters = {"deleteCurrentSession":true, "sessionID": sessionID};
+			var parameters = {"command":"deleteCurrentSession", "sessionID": sessionID};
 			
-			$.post('sessionManager.jsp', parameters, function(response){
+			$.post('service1.jsp', parameters, function(response){
 				console.log(response);
 			});
 			
@@ -82,7 +86,12 @@
         }
         if(valueInt == 9){
             //Ejecucion al clickear entrar a la partida.
-
+        	var cookies = document.cookie.trim().split(";");
+        	var parameters = [];
+        	for(i = 0; i<cookies.length; i++){
+        		parameters.push(cookies[i].split("=")[1]);
+        	}
+        	console.log(parameters)
         }
 	}  
 	
