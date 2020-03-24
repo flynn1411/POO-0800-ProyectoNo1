@@ -4,32 +4,32 @@ function clickedButton(idElement){
 	//Se guarda el id del elemento clickeado.
 	var idElement = idElement.getAttribute('id');
 	console.log(idElement);
-	//Boton iniciar nueva partida.
+	
+	//---------- Boton iniciar nueva partida. ----------
 	if(idElement == "btnStart"){		
 		//Con 'activeElements' se activan los elementos de la clase dada.
 		this.activeElements("contentBtn1");
 		accessCode.innerHTML= this.generateAccessCode(4);
-
 	} 
 
-	//Boton reanudar partida.
+	//---------- Boton reanudar partida. ----------
 	if(idElement == "btnLoad"){	   
 		textBox.value = "";							//Limpia la caja de texto.
 		this.activeElements("contentBtn2");
 	}
 		
-	//Boton tabla de calificaciones.
+	//---------- Boton tabla de calificaciones. ----------
 	if(idElement == "btnScore"){
 		this.activeElements("contentBtn3");
 		this.getJsonToJSP();						//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
 	}
 		
-	//Boton de creditos.
+	//---------- Boton de creditos. ----------
 	if(idElement == "btnCredits"){	 
 		this.activeElements("contentBtn4");		
 	}
 		
-	//Boton cerrar ventana emergente del boton nueva partida.
+	//------ Boton cerrar ventana emergente del boton nueva partida. ------
 	if(idElement == "btnCloseStart"){
 		//Si se quiere que las animaciones se repitan cada vez que se presione...
 		//... uno de los botones de inicio, de remueve todos los elementos, pero para...
@@ -39,7 +39,7 @@ function clickedButton(idElement){
 		popupBtnStart.classList.remove('active');
 	}
 
-	//Boton entrar de la ventana emergente del boton nueva partida.
+	//----- Boton entrar de la ventana emergente del boton nueva partida. -----
 	if(idElement == "btnEnterGame"){
 		//Aqui se iniciara sesion y se redigira a la mesa de juego.
 		var cookies = document.cookie.trim().split(";");
@@ -50,13 +50,13 @@ function clickedButton(idElement){
         console.log(parameters)
 	}
 
-	//Boton cerrar la ventana emergente del boton reanudar partida.
+	//---------- Boton cerrar la ventana emergente del boton reanudar partida.
 	if(idElement == "btnCloseLoad"){
 		overlayBtnLoad.classList.remove('active');
 		popupBtnLoad.classList.remove('active');
 	}
 
-	//Boton entrar a partida existente.
+	//---------- Boton entrar a partida existente. ----------
 	if(idElement == "btnEnterToGame"){
 		//Aqui se entrara a una partida existente validando el codigo.
 		var codeInput = textBox.value;
@@ -67,13 +67,13 @@ function clickedButton(idElement){
 		}
 	}
 		
-	//Boton cerrar tabla de calificaciones.
+	//---------- Boton cerrar tabla de calificaciones. ----------
 	if(idElement == "btnScore"){
 		overlayBtnScore.classList.remove('active')
 		popupBtnScore.classList.remove('active')
 	}
 
-	//Boton cerrar creditos.
+	//---------- Boton cerrar creditos. ----------
 	if(idElement == "btnCredits"){
 		overlayBtnCredits.classList.remove('active');
 		popupBtnCredits.classList.remove('active');
@@ -81,7 +81,7 @@ function clickedButton(idElement){
 
 }  
 	
-//Funcion que genera un codigo random validado.
+//---------- Funcion que genera un codigo random validado. ----------
 function generateAccessCode(quantity) {
 	   var result = "";
 	   var elements = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
