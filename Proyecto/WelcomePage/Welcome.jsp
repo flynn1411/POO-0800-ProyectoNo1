@@ -1,114 +1,63 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    	pageEncoding="ISO-8859-1"%>
-		<%@page import="Project.FileManager" %>
-		<%@page import="Project.GetJsonContent"%>
+pageEncoding="ISO-8859-1"%>
+<%@page import="Project.FileManager" %>
+<%@page import="Project.GetJsonContent"%>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<!-- <link rel="stylesheet" href="SkinToWelcome.css"> -->
 		<title>Ventana de bienvenida</title>
-		<style></style>
-		
+		<link rel="stylesheet" href="StyleWelcomePage.css">	
 	</head> 
-
-	<body class="bodyContent">
-
-		<script src="BackEndToWelcome.js"></script>
-		<script src="JsonManager.js"></script>
-		<script src="../jquery.js"></script>
-			<div class="container">
-				<div class="btnStart" id="btnStart" onClick="clickedButton(1)">
-					<span id="titleBtn1" class="titleBtn1"></span>
-				</div>
+	
+	<body>
+		<div id="buttons">
+			<div id="btnStart" class="button" onclick="clickedButton(this)"></div>
+			<div id="btnLoad" class="button" onclick="clickedButton(this)"></div>
+			<div id="btnScore" class="button" onclick="clickedButton(this)"></div>
+			<div id="btnCredits" class="button" onclick="clickedButton(this)"></div>
+		</div>
+		
+		<div id="overlayBtnStart" class="overlay">
+			<div id="popupBtnStart" class="popup">
+				<h1 id="titlePopupBtnStart">Enviale este codigo a tu amigo.</h1>
+				<h1 id="accessCode"></h1><br><br>
+				<button id="btnCloseStart" class="buttonPopup" onclick="clickedButton(this)">Cancelar</button>
+				<button id="btnEnterGame" class="buttonPopup" onclick="clickedButton(this)">Entrar</button>
+			</div>
+		</div>
+			
+		<div id="overlayBtnLoad" class="overlay">	
+			<div id="popupBtnLoad" class="popup">
+				<h1 id="titlePopupBtnLoad">Ingresa codigo de acceso.</h1><br>
+				<input type="text" id="textBox"><br><br><br><br>
+				<button id="btnCloseLoad" class="buttonPopup" onclick="clickedButton(this)">Cancelar</button>
+				<button id="btnEnterToGame" class="buttonPopup" onclick="clickedButton(this)">Entrar</button>
+			</div>
+		</div>
 				
-				<div class="btnLoad" id="btnLoad" onClick="clickedButton(2)">
-					<span class="titleBtn2"></span>
-				</div>
+		<div id="overlayBtnScore" class="overlay">
+			<div id="popupBtnScore" class="popup">
+				<h1 id="titlePopupBtnScore"></h1>
+				<table id="scoreTable" border="1"></table><br>
+				<button id="btnCloseScore" class="buttonPopup" onclick="clickedButton(this)">Cerrar</button>
+			</div>
+		</div>	
+			
+		<div id="overlayBtnCredits" class="overlay">
+			<div id="popupBtnCredits" class="popup">
+				<h1 id="titlePopupBtnCredist"></h1>
+				<button id="btnCloseCredits" class="buttonPopup"></button>
+			</div>
+		</div> 
 					
-				<div class="btnScore" id="btnScore" onClick="clickedButton(3)">
-					<span class="titleBtn3"></span>
-				</div>
-				
-				<div class="btnCredits" id="btnCredits" onClick="clickedButton(4)">
-					<span class="titleBtn4"></span>
-				</div>
-			</div>				
 	  		
-				<div id="style"></div>
-			<!--Contenido/Ventana boton de iniciar partida.-->
-			<div class="overlay" id="overlay">
-				<div class="popup" id="popup">
-				 
-					<h1 id="titleBtnStart">Enviale este codigo a tu amigo.</h1>
-					<h2 id="accessCode"></h2><br><br>
-					
-					<button id="btnClosePopup" class="btnClosePopup"onClick="clickedButton(5)">Cancelar</button>
-					<button id ="btnEnter" class="btnEnter" onClick="location.href='http://localhost:8080/ContentToProject1/FrontEnd/GameTable/GameTablePage.jsp#'">Entrar</button>
-				
-				</div> 
-			</div> 
-			 
-			<!--Contenido/Ventana boton de reanudar partida.-->
-			<div class="overlayAccess" id="overlayAccess">
-				<div class="popupAccess" id ="popupAccess">
-				
-					<h3 id="titleBtnLoad">Ingrese el codigo de acceso</h3><br>
-					<input type="text" class="textBox" id="textBox"><br><br><br><br>
-					<button id="btnCloseAccess" class="btnCloseAccess" onClick="clickedButton(7)">Cancelar</button>
-					<button type="submit" id="btnEnterAccess" class="btnEnterAccess" onClick="clickedButton(6)">Acceder</button>
-				
-				</div> 
-			</div>
-
-			<!--Contenido/Ventana del boton score.-->
-			<div class="overlayScore" id="overlayScore">
-				<div class="popupScore" id="popupScore">
-					<h1 id="titleBtnScore">Tabla de Calificaciones</h1>
-					<table class="scoreTable" id="scoreTable" border="1"></table><br>
-					<button id="btnCloseScore" class="btnCloseScore" onClick="clickedButton(8)">Cerrar</button>	
-				</div> 
-			</div>
-
+	<script src="BackEndToWelcome.js"></script>
+	<script src="../../jquery.js"></script>
 	<script src="BackEndToWelcome.js"></script>
 	<script src="JsonManager.js"></script>
-	<script src="CssContent.js"></script>
 
-	<script>
-		window.onload = setStyleToBtn;
-		function setStyleToBtn(){
-			var cssContent = new CssContent();
-			cssContent.paintButton("btnStart","10","13");
-			cssContent.paintButton("btnLoad","10","33");
-			cssContent.paintButton("btnScore","10","53");
-			cssContent.paintButton("btnCredits","10","73");
-
-			cssContent.paintOverlay("overlay");
-			cssContent.paintOverlay("overlayAccess");
-			cssContent.paintOverlay("overlayScore");
-			
-			cssContent.paintBtnToPopup("popup","btnEnter","1.6");
-			cssContent.paintBtnToPopup("popup","btnClosePopup","1.6");
-			cssContent.paintBtnToPopup("popupAccess","btnEnterAccess","1.6");
-			cssContent.paintBtnToPopup("popupAccess","btnCloseAccess","1.6");
-			cssContent.paintElementToScoreTable();
-			//cssContent.paintBtnToPopup("popupScore","btnCloseScore","1.6");
-
-			cssContent.paintPopup("popup","titleBtnStart",0);
-			cssContent.paintPopup("popupAccess","titleBtnAccess",1);
-			cssContent.paintPopup("popupLoad","titleBtnStart",2);
-
-
-			cssContent.paintTitles();
-
-			cssContent.paintAnimation();
-			cssContent.finishStyle();
-			style.innerHTML = cssContent.getStyleCss();	
-			
-		}
-		
-
-		 
+	<script>			 
 	</script>
 
 	</body>

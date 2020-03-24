@@ -6,7 +6,6 @@ function JSONManager(){
 				last = i;
 			}
 			return last;
-			
 	}
 	
 	//Metodo para agregar datos al registro(JSON) de calificaciones.
@@ -50,7 +49,7 @@ function JSONManager(){
 	this.sortJson = function(json){
 		var jsonArr = this.convertJsonToArray(json);
 		var tempArr = [];
-		while(jsonArr.length >0){
+		while(jsonArr.length > 0){
 			var highValue = 0;
 			var item=null;
 			var position = 0;

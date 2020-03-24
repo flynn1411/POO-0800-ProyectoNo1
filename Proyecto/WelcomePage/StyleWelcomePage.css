@@ -1,0 +1,230 @@
+body{
+    background: #4C3175;
+}
+/*---------------Clase de los botones ------------------*/
+.button{
+    display: inline-block;
+    background-size: 100% 100%;
+    border-radius: 12px;
+    box-shadow: 6px 6px 6px #A51E03;
+    display: block;
+    cursor: pointer; 
+    position: absolute;
+    width: 9%;
+    height: 29%;
+    opacity: 0;
+    animation: welcomeCard2 1s linear forwards;
+}
+
+.button:hover{
+    box-shadow: 4px 4px 4px #777, 0px 0px 150px 0px #00b7f8;
+    border-bottom:1px solid #0045A6;
+    text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
+    transform: translateY(4px);
+    transition: all 0.1s ease 0s;
+    margin: 20px auto 76px auto;
+}
+
+.button:active{
+    box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
+    transform: translateY(15px);
+    background-color: #A41B55;
+}
+
+/*------------Propiedades de los botones individuales----------*/
+div#btnStart{
+    background-image:url('../Images/uno.png');
+    top:20%;
+    left: 23%;
+}
+
+div#btnLoad{
+    background-image: url('../Images/uno.png');
+    top:20%;
+    left: 38%;
+}
+
+div#btnScore{
+    background-image: url('../Images/uno.png');
+    top:20%;
+    left: 53%;
+}
+
+div#btnCredits{
+    background-image: url('../Images/uno.png');
+    top:20%;
+    left: 68%;
+}
+
+/*----Overlay o contenedor de las ventanas emergentes---------*/
+.overlay {
+    background: rgba(0,0,0,.85);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+}
+
+.overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+/*----------Popup con contenido a mostrar------------------*/
+.popup {
+    background: #F8F8F8;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border: 7px solid #dc2c47;
+    width: 450px;
+    height:300px;
+    transition: .3s ease all;
+    transform: scale(0.7);
+    font-family: 'Chewy';
+    font-size: 10px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;    
+}
+.popup.active {
+    transform: scale(1);
+    opacity: 1;
+} 
+.buttonPopup {
+    background-color:#3cce33;
+    border-color:#d8d8d8;
+    border-width:3px;
+    border-style:solid;
+    border-radius:15px;
+    font-weight:700;
+    font-size:30px; 
+    color:white;
+    margin-bottom: 10px;
+    position: absolute;
+    width: 35%;
+    height: auto;
+    opacity: 0;
+    outline: none;
+    animation: zoomIn .9s ease .9s forwards;
+    animation-delay: 2.6s;
+}
+.buttonPopup.active{
+    animation: zoomIn .8s ease .9s forwards; 
+    animation-delay: 1.6s;
+    opacity: 1;
+}
+#btnCloseStart{
+    top: 70%;
+    left: 10%;
+}
+#btnEnterGame{
+    top: 70%;
+    left: 50%;
+}
+#accessCode{
+    opacity: 0;
+    font-size:70px; 
+    color:black;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
+    letter-spacing: 10px;
+    animation: zoomIn .9s ease .9s forwards;
+    animation-delay: 2s;
+}
+#btnCloseLoad{
+    top: 70%;
+    left: 10%;
+}
+#btnEnterToGame{
+    top: 70%;
+    left: 55%;
+}
+#textBox{
+    position: absolute;
+    text-align: center;
+    font-size:70px;
+    width: 300px;
+    height:80px;
+    top: 30%;
+    left: 20%;
+    border: 3px solid #A41B55;
+    border-radius: 20px 20px 20px 20px;
+    margin-bottom: 10px;
+    opacity: 1;
+}
+#textBox.active{
+    transform: rotate(180deg);
+    animation: zoomIn 2s linear forwards; 
+    animation-delay: 1.0s;
+}
+#scoreTable{
+    background-image: url("../Images/score.jpg");
+    background-repeat:no-repeat;
+    background-position:center top;
+    backdrop-filter: blur(4px);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border: 7px solid #dc2c47;
+
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    text-align: center;
+    width: 500px;
+    height:500px;
+    transition: .3s ease all;
+    transform: scale(0.7);
+    opacity: 0;
+}
+#scoreTable.active{
+    transform: scale(1);
+    opacity: 1;
+}
+#btnCloseScore{
+    top:70%;   
+    left: 20%;
+}
+
+
+
+
+/*--------------- Animaciones -----------------------*/
+@keyframes welcomeCard2 {
+    0% {
+    }
+    100%{
+        opacity: 1;
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale3d(0.3, 0.3, 0.3);
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    100%{ 
+    opacity:1;                
+    }
+  }
+
+@keyframes entradaTitulo {
+    from { 
+        opacity: 0;
+        transform: translateY(-100px);
+    } 
+    to {
+        transform: translateY(0);    
+        opacity: 1; 
+    }
+}   
