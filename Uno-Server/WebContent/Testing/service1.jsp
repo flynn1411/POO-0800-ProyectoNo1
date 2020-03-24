@@ -11,6 +11,8 @@
 <%
 
 	SessionManager sm = new SessionManager();
+	
+	//System.out.println(String.format("Parametro: %s", request.getParameter("command")));
 
 	if(request.getParameter("command") != null){
 		
@@ -29,7 +31,6 @@
 			
 			String sessionCode = sm.createNewSession(grabDeck, putOnDeck, playerOne, playerTwo);
 			String playerID = sm.getSession(sessionCode).getPlayerOne().getID();
-			//System.out.println(code);
 			
 			out.print(
 					String.format(
@@ -68,7 +69,7 @@
 			String highScoreJSON = fm.read("highScores.json");
 			
 			out.print(String.format(
-					"{\"fileContens\":%s}",
+					"{\"fileContent\":%s}",
 					highScoreJSON
 					));
 		}
@@ -85,7 +86,7 @@
 				String playerID = request.getParameter("playerID").toString().trim();
 				
 				response.sendRedirect(String.format(
-						"GameTable/GameTable.jsp?session=%s&playerID=%s",
+						"GameTable/GameTablePage.jsp?session=%s&playerID=%s",
 						sessionID,
 						playerID
 								));
@@ -96,11 +97,46 @@
 			
 		}
 		
+	/**El caso de buscar si una sesión existe o no.*/
 	else if(
 			request.getParameter("command").toString().equals("searchSession") &&
 			request.getParameter("sessionID") != null
 			){
+		
+		/**Se busca la sesión.*/
 		Session foundSession = sm.getSession(request.getParameter("sessionID").toString());
+		
+		/**Si la sesión existe.*/
+		if(foundSession != null){
+			
+			/**Si ambos jugadores ya están conectados, la partida está llena.*/
+			if( (foundSession.getPlayerOne().getStatus() == Status.CONNECTED) && (foundSession.getPlayerTwo().getStatus() == Status.CONNECTED) ){
+				out.print("{\"result\":\"fullSession\"}");
+			}
+			
+			/**Si el segundo jugador tiene un estatus de desconectado, se le da su id al cliente.*/
+			else if( (foundSession.getPlayerOne().getStatus() == Status.CONNECTED) && (foundSession.getPlayerTwo().getStatus() == Status.DISCONNECTED) ){
+				out.print(String.format(
+						"{\"sessionID\":\"%s\",\"playerID\":\"%s\"}",
+						foundSession.getSessionID(),
+						foundSession.getPlayerTwo().getID()
+						));
+			}
+			
+			/**Si el primer jugador tiene un estatus de Desconectado, se le da su id al cliente.*/
+			else{
+				out.print(String.format(
+						"{\"sessionID\":\"%s\",\"playerID\":\"%s\"}",
+						foundSession.getSessionID(),
+						foundSession.getPlayerOne().getID()
+						));
+			}
+		}
+		
+		/**Si no existe se devuelve un valor nulo.*/
+		else{
+			out.print("{\"result\":\"DoesNotExist\"}");
+		}
 	}
 		
 	}
