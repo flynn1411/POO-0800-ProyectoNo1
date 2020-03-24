@@ -11,6 +11,7 @@ pageEncoding="ISO-8859-1"%>
 	</head> 
 	
 	<body>
+		<!-- Contenedor de los botones principales--> 
 		<div id="buttons">
 			<div id="btnStart" class="button" onclick="clickedButton(this)"></div>
 			<div id="btnLoad" class="button" onclick="clickedButton(this)"></div>
@@ -18,6 +19,7 @@ pageEncoding="ISO-8859-1"%>
 			<div id="btnCredits" class="button" onclick="clickedButton(this)"></div>
 		</div>
 		
+		<!-- Elementos de la ventana emergente del btnStart -->
 		<div id="overlayBtnStart" class="overlay contentBtn1">
 			<div id="popupBtnStart" class="popup contentBtn1">
 				<h1 id="titlePopupBtnStart" class="contentBtn1">Enviale este codigo a tu amigo.</h1>
@@ -26,7 +28,8 @@ pageEncoding="ISO-8859-1"%>
 				<button id="btnEnterGame" class="buttonPopup contentBtn1" onclick="clickedButton(this)">Entrar</button>
 			</div>
 		</div>
-			
+		
+		<!-- Elementos de la ventana emergente del btnLoad -->
 		<div id="overlayBtnLoad" class="overlay contentBtn2">	
 			<div id="popupBtnLoad" class="popup contentBtn2">
 				<h1 id="titlePopupBtnLoad" class="contentBtn2">Ingresa codigo de acceso.</h1><br>
@@ -35,7 +38,8 @@ pageEncoding="ISO-8859-1"%>
 				<button id="btnEnterToGame" class="buttonPopup contentBtn2" onclick="clickedButton(this)">Entrar</button>
 			</div>
 		</div>
-				
+		
+		<!-- Elementos de la ventana emergente del btnScore -->
 		<div id="overlayBtnScore" class="overlay contentBtn3">
 			<div id="popupBtnScore" class="popup contentBtn3">
 				<h1 id="titlePopupBtnScore" class="contentBtn3"></h1>
@@ -44,6 +48,7 @@ pageEncoding="ISO-8859-1"%>
 			</div>
 		</div>	
 			
+		<!-- Elementos de la ventana emergente del btnCredits -->
 		<div id="overlayBtnCredits" class="overlay contentBtn4">
 			<div id="popupBtnCredits" class="popup contentBtn4">
 				<h1 id="titlePopupBtnCredist" class="contentBtn4"></h1>
