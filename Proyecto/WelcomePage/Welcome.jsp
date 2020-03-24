@@ -18,36 +18,36 @@ pageEncoding="ISO-8859-1"%>
 			<div id="btnCredits" class="button" onclick="clickedButton(this)"></div>
 		</div>
 		
-		<div id="overlayBtnStart" class="overlay">
-			<div id="popupBtnStart" class="popup">
-				<h1 id="titlePopupBtnStart">Enviale este codigo a tu amigo.</h1>
-				<h1 id="accessCode"></h1><br><br>
-				<button id="btnCloseStart" class="buttonPopup" onclick="clickedButton(this)">Cancelar</button>
-				<button id="btnEnterGame" class="buttonPopup" onclick="clickedButton(this)">Entrar</button>
+		<div id="overlayBtnStart" class="overlay contentBtn1">
+			<div id="popupBtnStart" class="popup contentBtn1">
+				<h1 id="titlePopupBtnStart" class="contentBtn1">Enviale este codigo a tu amigo.</h1>
+				<h1 id="accessCode" class="contentBtn1 contentBtn1"></h1><br>
+				<button id="btnCloseStart" class="buttonPopup contentBtn1" onclick="clickedButton(this)">Cancelar</button>
+				<button id="btnEnterGame" class="buttonPopup contentBtn1" onclick="clickedButton(this)">Entrar</button>
 			</div>
 		</div>
 			
-		<div id="overlayBtnLoad" class="overlay">	
-			<div id="popupBtnLoad" class="popup">
-				<h1 id="titlePopupBtnLoad">Ingresa codigo de acceso.</h1><br>
-				<input type="text" id="textBox"><br><br><br><br>
-				<button id="btnCloseLoad" class="buttonPopup" onclick="clickedButton(this)">Cancelar</button>
-				<button id="btnEnterToGame" class="buttonPopup" onclick="clickedButton(this)">Entrar</button>
+		<div id="overlayBtnLoad" class="overlay contentBtn2">	
+			<div id="popupBtnLoad" class="popup contentBtn2">
+				<h1 id="titlePopupBtnLoad" class="contentBtn2">Ingresa codigo de acceso.</h1><br>
+				<input type="text" id="textBox" class="contentBtn2"><br><br><br><br>
+				<button id="btnCloseLoad" class="buttonPopup contentBtn2" onclick="clickedButton(this)">Cancelar</button>
+				<button id="btnEnterToGame" class="buttonPopup contentBtn2" onclick="clickedButton(this)">Entrar</button>
 			</div>
 		</div>
 				
-		<div id="overlayBtnScore" class="overlay">
-			<div id="popupBtnScore" class="popup">
-				<h1 id="titlePopupBtnScore"></h1>
-				<table id="scoreTable" border="1"></table><br>
-				<button id="btnCloseScore" class="buttonPopup" onclick="clickedButton(this)">Cerrar</button>
+		<div id="overlayBtnScore" class="overlay contentBtn3">
+			<div id="popupBtnScore" class="popup contentBtn3">
+				<h1 id="titlePopupBtnScore" class="contentBtn3"></h1>
+				<table id="scoreTable" border="1" class="contentBtn3"></table><br>
+				<button id="btnCloseScore" class="buttonPopup contentBtn3" onclick="clickedButton(this)">Cerrar</button>
 			</div>
 		</div>	
 			
-		<div id="overlayBtnCredits" class="overlay">
-			<div id="popupBtnCredits" class="popup">
-				<h1 id="titlePopupBtnCredist"></h1>
-				<button id="btnCloseCredits" class="buttonPopup"></button>
+		<div id="overlayBtnCredits" class="overlay contentBtn4">
+			<div id="popupBtnCredits" class="popup contentBtn4">
+				<h1 id="titlePopupBtnCredist" class="contentBtn4"></h1>
+				<button id="btnCloseCredits" class="buttonPopup contentBtn4"></button>
 			</div>
 		</div> 
 					

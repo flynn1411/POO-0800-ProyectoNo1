@@ -6,36 +6,35 @@ function clickedButton(idElement){
 	console.log(idElement);
 	//Boton iniciar nueva partida.
 	if(idElement == "btnStart"){		
-		//Se agrega clase al elemento/objeto div para activarlo.
-		overlayBtnStart.classList.add('active');
-		popupBtnStart.classList.add('active');
-
+		//Con 'activeElements' se activan los elementos de la clase dada.
+		this.activeElements("contentBtn1");
 		accessCode.innerHTML= this.generateAccessCode(4);
+
 	} 
 
 	//Boton reanudar partida.
 	if(idElement == "btnLoad"){	   
 		textBox.value = "";							//Limpia la caja de texto.
-		overlayBtnLoad.classList.add('active');
-		popupBtnLoad.classList.add('active');
+		this.activeElements("contentBtn2");
 	}
 		
 	//Boton tabla de calificaciones.
 	if(idElement == "btnScore"){
+		this.activeElements("contentBtn3");
 		this.getJsonToJSP();						//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
-		console.log("HTML hay: ",scoreTable.innerHTML);	 
-		overlayBtnScore.classList.add('active');
-		popupBtnScore.classList.add('active');
 	}
 		
 	//Boton de creditos.
 	if(idElement == "btnCredits"){	 
-		overlayBtnCredits.classList.add('active');
-		popupBtnCredits.classList.add('active');		
+		this.activeElements("contentBtn4");		
 	}
 		
 	//Boton cerrar ventana emergente del boton nueva partida.
 	if(idElement == "btnCloseStart"){
+		//Si se quiere que las animaciones se repitan cada vez que se presione...
+		//... uno de los botones de inicio, de remueve todos los elementos, pero para...
+		//... que no sea molesto visualmente, solo se remueve la ventana y no sus elementos...
+		//... asi solo se veran las animaciones al clickear la primera vez.
 		overlayBtnStart.classList.remove('active');
 		popupBtnStart.classList.remove('active');
 	}
@@ -110,4 +109,16 @@ function getJsonToJSP(){
 		scoreTable.innerHTML = html;		
 	} 
 	$.post(action,callback);
+}
+
+function activeElements(_class){
+	var collectionElements = document.getElementsByClassName(_class);
+	var size = collectionElements.length;
+	for(let i=0;i<size; i++){collectionElements[i].classList.add('active');}
+}
+
+function inactivateElements(_class){
+	var collectionElements = document.getElementsByClassName(_class);
+	var size = collectionElements.length;
+	for(let i=0;i<size; i++){collectionElements[i].classList.remove('active');}
 }

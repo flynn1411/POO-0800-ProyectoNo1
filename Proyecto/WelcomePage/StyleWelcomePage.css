@@ -4,9 +4,9 @@ body{
 /*---------------Clase de los botones ------------------*/
 .button{
     display: inline-block;
-    background-size: 100% 100%;
+    background-size: 101% 101%;
     border-radius: 12px;
-    box-shadow: 6px 6px 6px #A51E03;
+    
     display: block;
     cursor: pointer; 
     position: absolute;
@@ -17,19 +17,19 @@ body{
 }
 
 .button:hover{
-    box-shadow: 4px 4px 4px #777, 0px 0px 150px 0px #00b7f8;
-    border-bottom:1px solid #0045A6;
+    box-shadow: 0px 0px 150px 0px #00b7f8;
+    border-bottom: 15px solid #110F0F;
     text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
-    transform: translateY(4px);
+    transform: translateY(-4px);
     transition: all 0.1s ease 0s;
-    margin: 20px auto 76px auto;
+    margin: -20px auto 76px auto;
 }
 
 .button:active{
-    box-shadow: 5px 5px 5px #777, 0px 0px 80px 0px #A41B55;
-    transform: translateY(15px);
-    background-color: #A41B55;
-}
+    border-bottom: none;
+	transform: translateY(-1px);
+    transition: all 0.1s ease 0s;
+    margin: 40px auto 76px auto;}
 
 /*------------Propiedades de los botones individuales----------*/
 div#btnStart{
@@ -94,9 +94,11 @@ div#btnCredits{
     opacity: 0;    
 }
 .popup.active {
+    animation: zoomIn .8s ease .9s forwards;
+    animation-delay: 0.2s;
     transform: scale(1);
-    opacity: 1;
 } 
+
 .buttonPopup {
     background-color:#3cce33;
     border-color:#d8d8d8;
@@ -111,14 +113,32 @@ div#btnCredits{
     width: 35%;
     height: auto;
     opacity: 0;
-    outline: none;
-    animation: zoomIn .9s ease .9s forwards;
-    animation-delay: 2.6s;
 }
 .buttonPopup.active{
-    animation: zoomIn .8s ease .9s forwards; 
-    animation-delay: 1.6s;
-    opacity: 1;
+    animation: zoomIn .8s ease .9s forwards;
+    animation-delay: 1s;
+    transform: scale(1);
+}
+
+/*--------- Elementos del popup de inicio de partida ---------*/
+#titlePopupBtnStart{
+    border-radius: 15px;
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;   
+}
+#accessCode{
+    position: absolute;
+    top: 15%;
+    left: 18%;
+    padding: 3px 10px;
+    border: #9D2F28 5px solid;
+    border-radius: 20px;
+    width: 60%;
+    opacity: 0;
+    font-size:70px; 
+    color:black;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
+    letter-spacing: 10px;
 }
 #btnCloseStart{
     top: 70%;
@@ -128,14 +148,15 @@ div#btnCredits{
     top: 70%;
     left: 50%;
 }
-#accessCode{
-    opacity: 0;
-    font-size:70px; 
-    color:black;
-    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
-    letter-spacing: 10px;
+#accessCode.active{
     animation: zoomIn .9s ease .9s forwards;
-    animation-delay: 2s;
+    animation-delay: 0.7s;  
+}
+
+/*--------- Elementos del popup de reanudar de partida ---------*/
+#titlePopupBtnLoad{
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;
 }
 #btnCloseLoad{
     top: 70%;
@@ -156,13 +177,14 @@ div#btnCredits{
     border: 3px solid #A41B55;
     border-radius: 20px 20px 20px 20px;
     margin-bottom: 10px;
-    opacity: 1;
+    opacity: 0;
 }
 #textBox.active{
-    transform: rotate(180deg);
-    animation: zoomIn 2s linear forwards; 
+    animation: zoomIn 0.3s linear forwards; 
     animation-delay: 1.0s;
 }
+
+/*--------- Elementos del popup tabla de calificaciones ---------*/
 #scoreTable{
     background-image: url("../Images/score.jpg");
     background-repeat:no-repeat;
@@ -193,6 +215,7 @@ div#btnCredits{
     left: 20%;
 }
 
+/*--------- Elementos del popup de creditos ---------*/
 
 
 
@@ -207,13 +230,13 @@ div#btnCredits{
 }
 
 @keyframes zoomIn {
-    0% {
+    from {
       opacity: 0;
       -webkit-transform: scale3d(0.3, 0.3, 0.3);
       transform: scale3d(0.3, 0.3, 0.3);
     }
 
-    100%{ 
+    to{ 
     opacity:1;                
     }
   }
@@ -221,7 +244,7 @@ div#btnCredits{
 @keyframes entradaTitulo {
     from { 
         opacity: 0;
-        transform: translateY(-100px);
+        transform: translateY(-200px);
     } 
     to {
         transform: translateY(0);    
