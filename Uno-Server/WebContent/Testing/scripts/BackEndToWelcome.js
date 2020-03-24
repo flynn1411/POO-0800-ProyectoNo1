@@ -22,11 +22,15 @@
 			popupBtnPlay.classList.add('active');
 			//								}
 			//						);
-			var action = "sessionManager.jsp";
-			var parameters = {"newSession": "true"};
+			var action = "service1.jsp";
+			var parameters = {"command": "createNewSession"};
 			$.post(action, parameters, function(response){
 				response = JSON.parse(response);
-				document.getElementById('accessCode').innerHTML = response["code"];
+				var playerID = response["playerID"];
+				var sessionID = response["sessionID"];
+				document.cookie = `sessionID=${sessionID}`;
+				document.cookie = `playerID=${playerID}`;
+				document.getElementById('accessCode').innerHTML = sessionID;
 			});
 		} 
 		
@@ -34,41 +38,52 @@
 			textBox.value = "";							//Limpia la caja de texto.
 			overlayBtnPlay2.classList.add('active');
 			popupBtnPlay2.classList.add('active');
-			//						}
-			//					);
 		}
 		
 		if(valueInt == 3){	 
-			this.getJsonToJSP();		//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
-			//btnScore.addEventListener('click',function(){
+			this.getJsonToJSP();
 				overlayBtnScore.classList.add('active');
 				popupBtnScore.classList.add('active');
-				//}
-				//);
+
 		}
 		
 		if(valueInt == 4){	 
-		//Ejecucion al 'clickear' entrar (Iniciar partida).
+
+			console.log("Credits.");
 		}
 		
 		if(valueInt == 5){
 			var sessionID = document.getElementById('accessCode').innerHTML;
-			var parameters = {"deleteCurrentSession":true, "sessionID": sessionID};
+			var parameters = {"command":"deleteCurrentSession", "sessionID": sessionID};
 			
-			$.post('sessionManager.jsp', parameters, function(response){
-				console.log(response);
+			$.post('service1.jsp', parameters, function(response){
+				console.log(response.trim());
 			});
 			
 			overlayBtnPlay.classList.remove('active');
 			popupBtnPlay.classList.remove('active');
 		}
 		if(valueInt == 6){
-			var codeInput = document.getElementById('textBox').value;
-			if(codeInput.match(/^([A-Z0-9]){4,4}?/)){
-				console.log("EL CODIGO SI ES VALIDO"); 
-			}else{
-				console.log("EL CODIGO DE ACCESO NO ES VALIDO");
-			}
+			var sessionID = textBox.value.toString();
+			var action = "service1.jsp";
+			var parameters = {"command":"searchSession","sessionID":sessionID};
+			
+			$.post(action, parameters, function(response){
+				response = JSON.parse(response.trim());
+				
+				if(response["result"] === "DoesNotExist"){
+					console.log("No existe la sesión.");
+				}
+				else if(response["result"] === "fullSession"){
+					console.log("La sesión ya se encuentra llena.");
+				}
+				else{
+					var sessionID = response["sessionID"];
+					var playerID = response["playerID"];
+					//window.location = "service1.jsp?command=joinSession&sessionID=" + sessionID + "&playerID=" + playerID;
+					window.location = `service1.jsp?command=joinSession&sessionID=${sessionID}&playerID=${playerID}`;
+				}
+			});
 			
 		}
 		if(valueInt == 7){
@@ -82,26 +97,38 @@
         }
         if(valueInt == 9){
             //Ejecucion al clickear entrar a la partida.
-
+        	var cookies = document.cookie.trim().split(";");
+        	var parameters = [];
+        	for(i = 0; i<cookies.length; i++){
+        		parameters.push(cookies[i].split("=")[1]);
+        	}
+        	var sessionID = parameters[0];
+        	var playerID = parameters[1];
+        	window.location = `service1.jsp?command=joinSession&sessionID=${sessionID}&playerID=${playerID}`;
         }
 	}  
 	
 	function getJsonToJSP(){
-		var action = "JsonContent.jsp";
+		var action = "service1.jsp";
 		var callback = function(content){
-		var jm = new JSONManager();	
-			var tempArr = content.split(";");
-			var result = tempArr.join('');
-			result = JSON.parse(result);
-			var sortJson = jm.sortJson(result); 
-			var table = document.getElementById('scoreTable');
-			table.innerHTML = '<thead><th>Posicion</th><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead>';
+			var json = JSON.parse(content.trim());
+			var highScoresArr = json["fileContent"]["highScores"];
 			
-			for (let i in sortJson){
-				let currentIndex = sortJson[i];
-				table.insertRow().innerHTML = `<td>${i}</td><td>${currentIndex['user']}</td><td>${currentIndex['score']}</td><td>${currentIndex['date']}</td>`;	
+			var html = '<thead><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead><tbody>';
+			
+			for(i=0; i<highScoresArr.length; i++){
+				html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["score"]}</td></tr>`;
 			}
-					
+			
+			html += "</tbody>";
+			
+			scoreTable.innerHTML = html;		
 		} 
-		$.post(action,callback);
+		$.post(action,{"command":"retrieveHighScores"},callback);
+	}
+	
+	function checkIfValid(inputElement){
+		if( !(inputElement.value.match(/([A-Z]|[0-9]){4}/)) ){
+			console.log("no valido");
+		}
 	}

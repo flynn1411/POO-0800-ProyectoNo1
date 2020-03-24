@@ -47,12 +47,12 @@
 				</div> 
 			</div> 
 	 
-			<!--Contenido/Ventana boton de reanudar partida.-->
+			<!--Contenido/Ventana boton de reanudar partida.-->s
 			<div class="overlayAccess" id="overlayAccess">
 				<div class="popupAccess" id ="popupAccess">
 				
 					<h3 id="titleBtnLoad">Ingrese el codigo de acceso</h3><br>
-					<input type="text" class="textBox" id="textBox"><br><br><br><br>
+					<input type="text" class="textBox" id="textBox" oninput="checkIfValid(this);" maxlength="4"><br><br><br><br>
 					<button id="btnCloseAccess" class="btnCloseAccess" onClick="clickedButton(7)">Cancelar</button>
 					<button type="submit" id="btnEnterAccess" class="btnEnterAccess" onClick="clickedButton(6)">Acceder</button>
 				

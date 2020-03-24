@@ -93,7 +93,7 @@ public class SessionManager {
 		boolean sessionWasAdded = this.saveSessionToJSON(this.activeSessions.get(sessionCode)) && this.saveSessions();
 		
 		if(sessionWasAdded) {
-			return sessionCode;
+			return this.getSession(sessionCode).getSessionID();
 		}
 		else {
 			return "Not Added";
