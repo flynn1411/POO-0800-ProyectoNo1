@@ -84,12 +84,16 @@
 					){
 				String sessionID = request.getParameter("sessionID").toString().trim();
 				String playerID = request.getParameter("playerID").toString().trim();
+				Session foundSession = sm.getSession(sessionID);
 				
-				response.sendRedirect(String.format(
-						"GameTable/GameTablePage.jsp?session=%s&playerID=%s",
-						sessionID,
-						playerID
-								));
+				/*if(foundSession.getPlayerOne().getID().equals(playerID)){
+					foundSession.getPlayerOne().setStatus(Status.CONNECTED);
+				}else{
+					foundSession.getPlayerTwo().setStatus(Status.CONNECTED);
+				}
+				sm.updateSession(foundSession);*/
+				
+				response.sendRedirect("GameTable/GameTablePage.jsp");
 			}
 			else{
 				out.print("Faltan parámetros.");

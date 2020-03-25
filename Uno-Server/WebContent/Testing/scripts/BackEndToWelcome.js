@@ -28,8 +28,15 @@
 				response = JSON.parse(response);
 				var playerID = response["playerID"];
 				var sessionID = response["sessionID"];
+				
+				//borrado de cookies
+				document.cookie = `sessionID=${sessionID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+				document.cookie = `playerID=${playerID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+				
+				//agregado de cookies
 				document.cookie = `sessionID=${sessionID}`;
 				document.cookie = `playerID=${playerID}`;
+				
 				document.getElementById('accessCode').innerHTML = sessionID;
 			});
 		} 
@@ -78,10 +85,18 @@
 					console.log("La sesión ya se encuentra llena.");
 				}
 				else{
-					var sessionID = response["sessionID"];
-					var playerID = response["playerID"];
+					var newSessionID = response["sessionID"];
+					var newPlayerID = response["playerID"];
+					
+					//borrado de cookies
+					document.cookie = `sessionID=${sessionID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+					document.cookie = `playerID=${playerID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+					
+					//agregado de cookies
+					document.cookie = `sessionID=${newSessionID}`;
+					document.cookie = `playerID=${newPlayerID}`;
 					//window.location = "service1.jsp?command=joinSession&sessionID=" + sessionID + "&playerID=" + playerID;
-					window.location = `service1.jsp?command=joinSession&sessionID=${sessionID}&playerID=${playerID}`;
+					window.location = `service1.jsp?command=joinSession&sessionID=${newSessionID}&playerID=${newPlayerID}`;
 				}
 			});
 			
@@ -117,12 +132,12 @@
 			var html = '<thead><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead><tbody>';
 			
 			for(i=0; i<highScoresArr.length; i++){
-				html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["score"]}</td></tr>`;
+				html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["date"]}</td></tr>`;
 			}
 			
 			html += "</tbody>";
 			
-			scoreTable.innerHTML = html;		
+			scoreTable.innerHTML = html;
 		} 
 		$.post(action,{"command":"retrieveHighScores"},callback);
 	}
