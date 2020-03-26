@@ -1,15 +1,28 @@
-	//Funcion que se ejecuta con el evento 'click' de los elementos...
-	//... de la pagina de bienvenida.
+var body = document.body;
+var currentStyle = "default";	
+//Funcion que se ejecuta con el evento 'click' de los elementos...
+//... de la pagina de bienvenida.	
 function clickedButton(idElement){
 	//Se guarda el id del elemento clickeado.
 	var idElement = idElement.getAttribute('id');
 	console.log(idElement);
-	
+
 	//---------- Boton iniciar nueva partida. ----------
 	if(idElement == "btnStart"){		
 		//Con 'activeElements' se activan los elementos de la clase dada.
 		this.activeElements("contentBtn1");
-		accessCode.innerHTML= this.generateAccessCode(4);
+		
+		var	action = "service1.jsp",
+			parameters = {"command": "createNewSession"},
+			callback = function(response){
+				response = JSON.parse(response);
+				var playerID = response["playerID"];
+				var sessionID = response["sessionID"];
+				document.cookie = `sessionID=${sessionID}`;
+				document.cookie = `playerID=${playerID}`;
+				accessCode.innerHTML = sessionID;
+			};
+		$.post(action, parameters, callback);
 	} 
 
 	//---------- Boton reanudar partida. ----------
@@ -37,34 +50,64 @@ function clickedButton(idElement){
 		//... asi solo se veran las animaciones al clickear la primera vez.
 		overlayBtnStart.classList.remove('active');
 		popupBtnStart.classList.remove('active');
+		
+		var sessionID = accessCode.innerHTML;
+		var parameters = {"command":"deleteCurrentSession", "sessionID": sessionID};
+		var callback = function(){
+			console.log(response.trim());
+		}
+
+		$.post('service1.jsp', parameters, callback);
 	}
 
 	//----- Boton entrar de la ventana emergente del boton nueva partida. -----
 	if(idElement == "btnEnterGame"){
-		//Aqui se iniciara sesion y se redigira a la mesa de juego.
-		var cookies = document.cookie.trim().split(";");
-        var parameters = [];
-        for(i = 0; i<cookies.length; i++){
-            parameters.push(cookies[i].split("=")[1]);
-        }
-        console.log(parameters)
+            //Ejecucion al clickear entrar a la partida.
+        	var cookies = document.cookie.trim().split(";");
+        	var parameters = [];
+        	for(i = 0; i<cookies.length; i++){
+        		parameters.push(cookies[i].split("=")[1]);
+        	}
+        	var sessionID = parameters[0];
+        	var playerID = parameters[1];
+        	window.location = `service1.jsp?command=joinSession&sessionID=${sessionID}&playerID=${playerID}`;
 	}
 
 	//---------- Boton cerrar la ventana emergente del boton reanudar partida.
 	if(idElement == "btnCloseLoad"){
 		overlayBtnLoad.classList.remove('active');
 		popupBtnLoad.classList.remove('active');
+		//this.activateMessage("La sesion a la que intenta acceder no existe.")
 	}
 
 	//---------- Boton entrar a partida existente. ----------
 	if(idElement == "btnEnterToGame"){
 		//Aqui se entrara a una partida existente validando el codigo.
-		var codeInput = textBox.value;
-		if(codeInput.match(/^([A-Z0-9]){4,4}?/)){
-			console.log("EL CODIGO SI ES VALIDO"); 
-		}else{
-			console.log("EL CODIGO DE ACCESO NO ES VALIDO");
-		}
+		
+		var sessionID = textBox.value.toString(),
+			action = "service1.jsp";
+			parameters = {"command":"searchSession","sessionID":sessionID};
+		
+		$.post(action, parameters, function(response){
+			response = JSON.parse(response.trim());
+			
+			if(response["result"] === "DoesNotExist"){
+				this.activateMessage("La sesion a la que intenta acceder no existe.");
+				//console.log("No existe la sesión.");
+			}
+			else if(response["result"] === "fullSession"){
+				this.activateMessage("La sesion a la que intenta acceder ya se encuentra llena.")
+				//console.log("La sesión ya se encuentra llena.");
+			}
+			else{
+				let newSessionID = response["sessionID"];
+				let newPlayerID = response["playerID"];
+				//window.location = "service1.jsp?command=joinSession&sessionID=" + sessionID + "&playerID=" + playerID;
+				document.cookie = `sessionID=${newSessionID}`;
+				document.cookie = `playerID=${newPlayerID}`;
+				window.location = `service1.jsp?command=joinSession&sessionID=${newSessionID}&playerID=${newPlayerID}`;
+			}
+		});
 	}
 		
 	//---------- Boton cerrar tabla de calificaciones. ----------
@@ -79,46 +122,74 @@ function clickedButton(idElement){
 		popupBtnCredits.classList.remove('active');
 	}
 
+	//---------- Boton cerrar/ok del mensaje emergente. ------------
+	if(idElement == "btnMessage"){
+		overlayMessage.classList.remove('active');
+		popupMessage.classList.remove('active');
+	}
 }  
 	
 //---------- Funcion que genera un codigo random validado. ----------
-function generateAccessCode(quantity) {
-	   var result = "";
-	   var elements = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-	   var n = elements.length;
-	   for ( var i = 0; i < quantity; i++ ) {
-	      result += elements.charAt(Math.floor(Math.random() * n));
-	   }
-	   return result;
-	}
-	
 function getJsonToJSP(){
-	var action = "JsonContent.jsp";
+	var action = "service1.jsp";
 	var callback = function(content){
-	var jm = new JSONManager();	
-		var tempArr = content.split(";");
-		var result = tempArr.join('');
-		result = JSON.parse(result);
-		var sortJson = jm.sortJson(result); 
-		var html = '<thead><th>Posicion</th><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead>';
+		var json = JSON.parse(content.trim());
+		var highScoresArr = json["fileContent"]["highScores"];
 		
-/* 			for (let i in sortJson){
-				let currentIndex = sortJson[i];
-				table.insertRow().innerHTML = `<td>${i}</td><td>${currentIndex['user']}</td><td>${currentIndex['score']}</td><td>${currentIndex['date']}</td>`;	
-			} */
+		var html = '<thead><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead><tbody>';
+		
+		for(i=0; i<highScoresArr.length; i++){
+			html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["date"]}</td></tr>`;
+		}
+		
+		html += "</tbody>";
+		
 		scoreTable.innerHTML = html;		
 	} 
-	$.post(action,callback);
+	$.post(action,{"command":"retrieveHighScores"},callback);
 }
 
+//Activa los elementos de una clase.
 function activeElements(_class){
+	//Se almacena los elementos dentro de la llamada.
 	var collectionElements = document.getElementsByClassName(_class);
 	var size = collectionElements.length;
+	
+	//Se recorren los elementos de la clase para activarlos.
 	for(let i=0;i<size; i++){collectionElements[i].classList.add('active');}
 }
 
+//Desactivar los elementos de un clase dada.
 function inactivateElements(_class){
 	var collectionElements = document.getElementsByClassName(_class);
 	var size = collectionElements.length;
 	for(let i=0;i<size; i++){collectionElements[i].classList.remove('active');}
+}
+
+function activateMessage(message){
+	textMessage.innerHTML = `${message}`;
+	overlayMessage.classList.add('active');
+	popupMessage.classList.add('active');
+}
+
+//Funcion para el cambio de temas.
+function eventTheme(element){
+  var element = element.getAttribute('id');
+  console.log("Estilo actyal: ",currentStyle);
+  
+  if(element == "dark"){
+    body.classList.replace(`${currentStyle}`, 'dark');
+    currentStyle = "dark";
+  }
+
+  if(element == "green"){
+    body.classList.replace(`${currentStyle}`, 'green');
+    currentStyle = "green";
+  }
+
+  if(element == "default"){
+    body.classList.replace(`${currentStyle}`, 'default');
+    console.log("entra");
+    currentStyle = "default"
+  }
 }
