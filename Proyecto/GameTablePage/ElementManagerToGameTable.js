@@ -5,11 +5,11 @@ function ElementsManager(){
     count = 1;                      //Contador de la cantidad de cartas.
     turn = 1;
     currentPlayer = 1;
-
+    
     //Carga el contenido inicial.
     this.loadContent  = function(){
         let json ={"sessionID":{"sessionID_player1":{"deck":[{"symbol":"reverse","color":"blue"},{"symbol":7,"color":"yellow"},{"symbol":0,"color":"blue"},{"symbol":2,"color":"blue"},{"symbol":1,"color":"yellow"},{"symbol":4,"color":"yellow"},{"symbol":5,"color":"yellow"}],"score":null,"status":null},"sessionID_player2":{"deck":[{"symbol":4,"color":"green"},{"symbol":"reverse","color":"yellow"},{"symbol":9,"color":"yellow"},{"symbol":"block","color":"blue"},{"symbol":"change color","color":"black"},{"symbol":"+2","color":"red"},{"symbol":"block","color":"green"}],"score":null,"status":null},"putOnDeck":[{"symbol":7,"color":"green"}],"grabDeck":[{"symbol":6,"color":"red"},{"symbol":2,"color":"red"},{"symbol":1,"color":"red"},{"symbol":0,"color":"red"},{"symbol":8,"color":"red"},{"symbol":2,"color":"yellow"},{"symbol":3,"color":"yellow"},{"symbol":2,"color":"blue"},{"symbol":7,"color":"red"},{"symbol":9,"color":"red"},{"symbol":"+2","color":"yellow"},{"symbol":"+2","color":"blue"},{"symbol":9,"color":"blue"},{"symbol":4,"color":"red"},{"symbol":1,"color":"green"},{"symbol":3,"color":"blue"},{"symbol":3,"color":"red"},{"symbol":8,"color":"green"},{"symbol":"+4","color":"black"},{"symbol":9,"color":"green"},{"symbol":2,"color":"yellow"},{"symbol":"+4","color":"black"},{"symbol":1,"color":"red"},{"symbol":8,"color":"blue"},{"symbol":6,"color":"green"},{"symbol":7,"color":"green"},{"symbol":8,"color":"yellow"},{"symbol":"+4","color":"black"},{"symbol":"reverse","color":"green"},{"symbol":2,"color":"green"},{"symbol":"change color","color":"black"},{"symbol":"change color","color":"black"},{"symbol":4,"color":"red"},{"symbol":"reverse","color":"green"},{"symbol":5,"color":"green"},{"symbol":6,"color":"red"},{"symbol":"+2","color":"yellow"},{"symbol":8,"color":"red"},{"symbol":8,"color":"green"},{"symbol":1,"color":"green"},{"symbol":7,"color":"yellow"},{"symbol":"+2","color":"red"},{"symbol":5,"color":"blue"},{"symbol":7,"color":"blue"},{"symbol":"+2","color":"green"},{"symbol":1,"color":"blue"},{"symbol":3,"color":"green"},{"symbol":4,"color":"yellow"},{"symbol":8,"color":"yellow"},{"symbol":"block","color":"red"},{"symbol":6,"color":"green"},{"symbol":6,"color":"yellow"},{"symbol":5,"color":"green"},{"symbol":6,"color":"blue"},{"symbol":"reverse","color":"blue"},{"symbol":"+2","color":"green"},{"symbol":"block","color":"red"},{"symbol":9,"color":"blue"},{"symbol":5,"color":"red"},{"symbol":6,"color":"yellow"},{"symbol":2,"color":"green"},{"symbol":"reverse","color":"red"},{"symbol":"change color","color":"black"},{"symbol":0,"color":"yellow"},{"symbol":3,"color":"green"},{"symbol":"+2","color":"blue"},{"symbol":9,"color":"green"},{"symbol":4,"color":"blue"},{"symbol":"reverse","color":"yellow"},{"symbol":4,"color":"blue"},{"symbol":7,"color":"red"},{"symbol":0,"color":"green"},{"symbol":6,"color":"blue"},{"symbol":1,"color":"blue"},{"symbol":3,"color":"blue"},{"symbol":"+4","color":"black"},{"symbol":3,"color":"yellow"},{"symbol":1,"color":"yellow"},{"symbol":5,"color":"red"},{"symbol":4,"color":"green"},{"symbol":"block","color":"blue"},{"symbol":7,"color":"blue"},{"symbol":"block","color":"yellow"},{"symbol":"reverse","color":"red"},{"symbol":"block","color":"green"},{"symbol":5,"color":"blue"},{"symbol":2,"color":"red"},{"symbol":9,"color":"yellow"},{"symbol":8,"color":"blue"},{"symbol":9,"color":"red"},{"symbol":5,"color":"yellow"},{"symbol":3,"color":"red"},{"symbol":"block","color":"yellow"}]}}
-        this.paintCards(json);
+        this.paintCards(json,turn);
     
     }
     //Obtiene los ids(string) creados en la tabla.
@@ -18,8 +18,8 @@ function ElementsManager(){
     }
 
     //Creacion de los objetos/divs cartas mediante LL.
-    this.paintCards = function(json){
-
+    this.paintCards = function(json,turn){
+        console.log("Turno actual: ",turn);
         jsonToList.parseToList(json);                                           //Convierte el json del server a LL.                                           //Convierte el json del servidor a LL.
         var decksArray = [playerOne,playerTwo,putOnDeck,grabDeck];              //Guarda en arr las 4 barajas de cartas.
             
@@ -30,25 +30,27 @@ function ElementsManager(){
                 let symbol = currentNode.value.symbol;
                 var color = currentNode.value.color;
                 
-                if(j == 1 || j == 3){
-                    color = "black";
-                    viewCard = 2;
+                if(turn == 1){
+                    if(j == 1 || j == 3){viewCard = 2;}
+                }else{
+                    if(j == 0 || j == 3){viewCard = 2;}
                 }
-
-                let result = this.createCard(symbol,color,i,viewCard);                   //  [html,id]  
-    
+                
+                let result = this.createCard(symbol,color,i,viewCard,turn);                   //  [html,id]  
                 currentNode.id = result[1];
 
-                //Asignacion de las cartas en sus respectivos contenedores/areas.
-                if(j == 0){
-                    areaP1.innerHTML += result[0];
+                //Si el turno actual es del jugador 1.
+                if(turn == 1){
+                    if(j == 0){areaP1.innerHTML += result[0];}
+                    if(j == 1){areaP2.innerHTML += result[0];document.getElementById(result[1]).style.backgroundImage = "url('../Images/uno.png')";}
                 }
-                if(j == 1){
-                    areaP2.innerHTML += result[0];
+                //Si el turno actual es del jugador 2.
+                if(turn == 2){
+                    if(j == 1){areaP1.innerHTML += result[0];}
+                    if(j == 0){areaP2.innerHTML += result[0];document.getElementById(result[1]).style.backgroundImage = "url('../Images/uno.png')";}
                 }
-                if(j == 2 || j == 3){
-                    areaTable.innerHTML += result[0];
-                }
+                //Si la lista actual es la descartada o principal.
+                if(j == 2 || j == 3){areaTable.innerHTML += result[0];if(j == 3){document.getElementById(result[1]).style.backgroundImage = "url('../Images/uno.png')"}}
     
                 count = count + 1;
             }
@@ -75,7 +77,7 @@ function ElementsManager(){
             }
 
         }else{
-            console.log("AGARRE UNA CARTA");
+            this.showMessage("Agarre una carta de la baraja.");
         } 
     }
     
@@ -87,7 +89,8 @@ function ElementsManager(){
             //Atributo 'name' del objeto div almacena la posicion del elemento respecto a la lista.
         	var position = parseInt(currentClickedCard.getAttribute('name'));           //Obtiene una carta respecto a la posicion en la LL.
             
-            if(ruler.logic(position) == true){
+            console.log("turno antes del logic: ",turn);
+            if(ruler.logic(position,turn) == true){
                 
                 //Envio al servidor.
                 jsonOfCards = listToJson.parseToJSON(playerOne,playerTwo,putOnDeck,grabDeck);
@@ -102,12 +105,18 @@ function ElementsManager(){
                 areaP2.innerHTML = "";
                 areaTable.innerHTML = "";
                 
+                if(turn == 1){turn = 2;}
+                else{turn = 1;};
+                console.log("turnoEn evento2: ",turn);
                 //Se repinta el contenedor con el nuevo cambio efectuado en las cartas.
-                this.paintCards(jsonOfCards);
+                this.paintCards(jsonOfCards,turn);
                                 
             }else{
+
                 //Cuando un moviminento no es validado.
-                alert("MOVIMIENTO NO ES VALIDO");
+                currentClickedCard.style.boxShadow = "none";
+                this.showMessage("Movimiento invalido");
+                //alert("MOVIMIENTO NO ES VALIDO");
             }
             currentClickedCard = null;
         }else{
@@ -137,7 +146,7 @@ function ElementsManager(){
             areaP1.innerHTML = "";
             
             //Se repinta el contenedor con el nuevo cambio efectuado en las cartas.
-            this.paintCards(jsonOfCards);
+            //this.paintCards(jsonOfCards);
         
         }
     }
@@ -216,53 +225,75 @@ function ElementsManager(){
     //Funcion para crear cartas.
     this.createCard = function(symbol,color,position,viewCard){
         let result = [],
-        tempColor = "",
-        ID = `${symbol}_${color}_${count}`,
-        cssContent = new CssContent(),
-        html,
-        styleText,
-        styleCard;
-        var nameImage;
-        
-        arrIDs.push(ID);   
-        
-        //Combio css al color basico.
-        if(symbol == "change color"){
-            //symbol = symbol.replace(" ","_");
-        }
-        if(color == "yellow"){
-            tempColor = "#CCE41C";
-        }
-        if(color == "red"){
-            tempColor = "#CC3131";
-        }
-        if(color == "blue"){
-            tempColor = "#2A2C91";
-        }
-        if(color == "green"){
-            tempColor = "#2D8B28";
-        }
-        if(color == "black"){
-            tempColor = "black";
-        }
-        if(viewCard == 2){
-            nameImage = "uno";
-        }
-        if(viewCard == 1){
-            nameImage = "fondo";
-        }
+            ID = `${symbol}_${color}_${count}`,
+            cssContent = new CssContent(),
+            html,
+            styleText;
 
-            styleCard = cssContent.getStyleCard(tempColor,nameImage);
-            styleText = cssContent.getStyleText(nameImage,symbol);
-            html = `<div id="${ID}" class="${ID}" name="${position}" style="${styleCard}" onClick="eventClickedCard(this);">
-                        <span>
-                            <h1 style="${styleText}">${symbol}</h1>
-                        </span>
-                    </div>\n`;
-        
+        styleText = cssContent.getStyleText(viewCard,symbol);
+        html = `<div id="${ID}" class="${color} card" name="${position}" onclick="eventClickedCard(this);">
+                    <span>
+                        <h1 style="${styleText}">${symbol}</h1>
+                    </span>
+                </div>\n`;
         result.push(html,ID);                               //[html,ID]
-
         return result;
     }
 
+    this.showMessage = function(message){
+        messageError.innerHTML = message;
+        popupError.classList.add('active');
+        setTimeout(function(){popupError.classList.remove('active')},2000);
+    }
+
+    this.colorPaletteOfCards = function(option){
+        var elementsClass = [],
+            red = "red",
+            green = "green",
+            yellow = "yellow",
+            blue = "blue";
+
+        elementsClass.push(document.getElementsByClassName('yellow')),
+        elementsClass.push(document.getElementsByClassName('green')),
+        elementsClass.push(document.getElementsByClassName('blue')),
+        elementsClass.push(document.getElementsByClassName('red'));
+    
+        if(option == 1){
+            red = "#351375"; green = "#B2B247"; 
+            yellow = "#24C8CA"; blue = "#DC41B6";
+        }
+        if(option == 2){
+            red = "#A93316"; green = "#12C875"; yellow = "#9F1EED"; blue = "#ECA904";
+        }
+        if(option == 3){
+            red = "#008080"; green = "#04FF00"; yellow = "#104DEE"; blue = "#EE1010";
+        }
+        if(option == 4){
+            red = "#58933D"; green = "#9B2F1E"; yellow = "#0F166B"; blue = "#6B0F5E";
+        }
+        if(option == 5){
+            red = "#F04A29"; green = "#59BB57"; yellow = "#5783BB"; blue = "#9850C1";
+        }
+        
+        for (var _class in elementsClass){
+            var size = elementsClass[_class].length;
+            for (var card=0; card<size; card++){
+                var element = elementsClass[_class][card];
+                
+                if(_class == 0){
+                    element.style.backgroundColor = yellow;
+                }
+                if(_class == 1){
+                    element.style.backgroundColor = green;
+                }
+                if(_class == 2){
+                    element.style.backgroundColor = blue;
+                }
+                if(_class == 3){
+                    element.style.backgroundColor = red;
+                }
+                    console.log(element.style.top);
+            }
+        }
+    }
 }

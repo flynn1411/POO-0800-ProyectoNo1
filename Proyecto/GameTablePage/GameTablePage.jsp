@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -21,9 +21,10 @@
             <div id="principalDeck" class="principalDeck" ondblclick="eventDoubleClickedGrabDeck(this)"></div>
         </div>
 
-        <div id="cardsContainer">
-            
+        <div id="popupError" class="popupMessageE">
+            <h1 id="messageError"></h1>
         </div>
+
     </div>
 
     <script src="ElementManagerToGameTable.js"></script>
@@ -37,6 +38,7 @@
     <script src="CssStyle.js"></script>
 
     <script>
+        //Instancias de las clases a utilizar.
         var val = new Validator(),
             ruler = new UNOLogic(),
             listToJson = new ListToJSON(),
@@ -46,20 +48,13 @@
             putOnDeck = new LinkedList(),
             grabDeck =  new LinkedList(),
             em = new ElementsManager();
-        
-        em.loadContent();
-            
-        function eventClickedCard(element){
-            em.eventClickedCard(element);
-        }
-        
-        function eventClickedPutOnDeck(element){
-            em.eventClickedPutOnDeck(element);
-        }
 
-        function eventDoubleClickedGrabDeck(){
-            em.eventDoubleClickedGrabDeck();
-        }
+        em.loadContent();
+        em.colorPaletteOfCards(3);													//Seleccion de opcion del color de las cartas. (1-5).
+        //Funciones de los eventos en las cartas.    
+        function eventClickedCard(element){em.eventClickedCard(element);}
+        function eventClickedPutOnDeck(element){em.eventClickedPutOnDeck(element);}
+        function eventDoubleClickedGrabDeck(){em.eventDoubleClickedGrabDeck();}
     
     </script>
 
