@@ -1,1 +1,0 @@
-Directorio donde contendra las imagenes utilizadas por la pagina de Inicio.
