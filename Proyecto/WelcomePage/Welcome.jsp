@@ -12,20 +12,19 @@ pageEncoding="ISO-8859-1"%>
 	<body class="default">
 		<nav class="generalNav">
 			<ul class="navbar-nav">
-			  <li class="has-dropdown">
-				<a href="#">Aspecto</a>
-				<ul class="box">
-					<li class="stylesBox">
-					  <a id="default" href="#" onclick="eventTheme(this)">Predeterminado</a>
-				  	<li class="stylesBox">
-						<a id="green" href="#" onclick="eventTheme(this)">Verde</a>
-				  	</li>
-				  	<li class="stylesBox">
-						<a id="dark" href="#" onclick="eventTheme(this)">Oscuro</a>
-				  	</li>
-				  </li>
-				</ul>
-			  </li>
+				<li class="has-dropdown">
+					<a href="#">Aspecto</a>
+						<ul class="box">
+							<li class="stylesBox">
+					  			<a id="default" href="#" onclick="eventTheme(this)">Predeterminado</a>
+				  			<li class="stylesBox">
+								<a id="green" href="#" onclick="eventTheme(this)">Verde</a>
+				  			</li>
+				  			<li class="stylesBox">
+								<a id="dark" href="#" onclick="eventTheme(this)">Oscuro</a>
+				  			</li>
+				 	</ul>
+				 </li>
 			</ul>
 		  </nav>
 	  
@@ -94,7 +93,6 @@ pageEncoding="ISO-8859-1"%>
 	<script src="../../jquery.js"></script>
 	<script src="BackEndToWelcome.js"></script>
 	<script src="JsonManager.js"></script>
-	<script src="app.js"></script>
 	<script>
 		//activateMessage(screen.width);
 		//window.screen.lockOrientation("landscape-secondary");
