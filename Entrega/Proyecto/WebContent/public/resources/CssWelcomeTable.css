@@ -1,0 +1,90 @@
+@charset "UTF-8";
+div.table {
+    position: fixed;
+    width: 100%;
+    height: 33%;
+}
+
+#areaP1 {
+    border: 5px solid black;
+    background-color: #3FC65D;
+    bottom: 0;
+    right: 0;
+    z-index:-10000;
+    overflow-x:auto;
+}
+
+#areaTable {
+    border: 5px solid black;
+    background-color: #F0C37D;
+    top: 33%;
+    left: 0;
+    z-index:-10000;
+    animation: intensity 15s infinite;
+}
+
+#areaP2 {
+    border: 5px solid black;
+    background-color: #C24832;
+    top: 0;
+    left: 0;
+    z-index:-10000;
+    overflow-x:auto;
+}
+
+#discartedDeck {
+    border: 0px solid blue;
+    position: absolute;
+    border-radius: 12px;
+    top:40%;
+    left:30.6%;
+    width:6.85%;
+    height:21%;
+    box-shadow: 1px 1px 1px #777, 10px 10px 0px 0px #5B5858;
+    z-index:1;
+}
+#principalDeck {
+    border: 0px solid blue;
+    position: absolute;
+    border-radius: 12px;
+    top:40%;
+    left:60.47%;
+    width:6.95%;
+    height:21%;
+    box-shadow: 1px 1px 1px #777, 10px 10px 0px 0px #5B5858;
+}
+
+@keyframes intensity{
+    0%{
+        background-color:#DAAD68; 
+    }
+    20%{
+        background-color: #C29651;
+    }
+    40%{
+        background-color:#B68232; 
+    }
+    60%{
+        background-color: #A9772A;
+    }
+    80%{
+        background-color: #9C6A1D;
+    }
+    90%{
+        background-color: #88570B;
+    }
+    100%{
+        background-color:#DAAD68;
+    }                
+}
+
+@keyframes distributeCards {
+    from { 
+        opacity: 1;
+    } 
+
+    to {
+        transform: rotateY(180deg);    
+        opacity: 1; 
+    }
+}

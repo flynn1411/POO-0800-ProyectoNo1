@@ -3,11 +3,7 @@ function Validator(){
     this.movementValidator = function(playerDeck,putOnDeck){
      
         //obtener la ultima carta de putOnDeck
-        last = putOnDeck.first
-        while(last.next){
-            last = last.next;
-        }
-    
+        last = putOnDeck.last();
         current = playerDeck.first;
         
         while(current.next){
