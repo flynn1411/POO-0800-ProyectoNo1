@@ -88,7 +88,6 @@ div#btnCredits{
     border-radius: 0px 0px 0px 0px;
     -moz-border-radius: 0px 0px 0px 0px;
     -webkit-border-radius: 0px 0px 0px 0px;
-    border: 7px solid #dc2c47;
     width: 450px;
     height:300px;
     transition: .3s ease all;
@@ -97,7 +96,8 @@ div#btnCredits{
     font-size: 10px;
     padding: 20px;
     text-align: center;
-    opacity: 0;    
+    opacity: 0;
+    border: 7px solid #2BA93C;    
 }
 .popup.active {
     animation: zoomIn .8s ease .9s forwards;
@@ -106,7 +106,6 @@ div#btnCredits{
 } 
 
 .buttonPopup {
-    background-color:#3cce33;
     border-color:#d8d8d8;
     border-width:3px;
     border-style:solid;
@@ -132,12 +131,14 @@ div#btnCredits{
     animation: entradaTitulo 2s linear forwards;
     animation-duration: 2.5s;   
 }
+#popupBtnStart{
+    border: 7px solid #2BA93C;
+}
 #accessCode{
     position: absolute;
     top: 15%;
     left: 18%;
     padding: 3px 10px;
-    border: #9D2F28 5px solid;
     border-radius: 20px;
     width: 60%;
     opacity: 0;
@@ -147,10 +148,12 @@ div#btnCredits{
     letter-spacing: 10px;
 }
 #btnCloseStart{
+    background-color:#3cce33;
     top: 70%;
     left: 10%;
 }
 #btnEnterGame{
+    background-color:#3cce33;
     top: 70%;
     left: 50%;
 }
@@ -164,11 +167,16 @@ div#btnCredits{
     animation: entradaTitulo 2s linear forwards;
     animation-duration: 2.5s;
 }
+#popupBtnLoad{
+    border: 7px solid #A9362B;
+}
 #btnCloseLoad{
+    background-color:#A9362B;
     top: 70%;
     left: 10%;
 }
 #btnEnterToGame{
+    background-color:#A9362B;
     top: 70%;
     left: 55%;
 }
@@ -191,37 +199,76 @@ div#btnCredits{
 }
 
 /*--------- Elementos del popup tabla de calificaciones ---------*/
-#scoreTable{
+#popupBtnScore{
+    height: 350px;
     background-image: url("img/score.jpg");
     background-repeat:no-repeat;
     background-position:center top;
-    backdrop-filter: blur(4px);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-    
-    border-radius: 0px 0px 0px 0px;
-    -moz-border-radius: 0px 0px 0px 0px;
-    -webkit-border-radius: 0px 0px 0px 0px;
-    border: 7px solid #dc2c47;
-
-    font-family: 'Montserrat', sans-serif;
-    padding: 20px;
+}
+#popupBtnScore{
+    border: 7px solid #3941A3;
+    background-color:#3941A3;
+}
+#titlePopupBtnScore{
+    background-color: white;
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;
+}
+#scoreTable{
+    position: absolute;    
+    border: 1px solid black;
+    display: block;
+    background-color: white;
+    font-family: 'Arial';
+    font-size: 18px;
     text-align: center;
-    width: 500px;
-    height:500px;
-    transition: .3s ease all;
-    transform: scale(0.7);
-    opacity: 0;
+    width: auto;
+    height:auto;
+    opacity: 1;
+    left: 19%;
+    color: black;
+    border-collapse: collapse;
+}
+thead{
+    width: 100%;
+    background-color: #1C9234;
+    color: white;
+    border-bottom: solid 5px #0F362D;
+}
+tr{
+    border: hidden;
+}
+td{
+    border: hidden;
+}
+tr:nth-child(even){
+	background-color: #ddd;
+}
+
+tr:hover td{
+	background-color: #55BB6A;
+    color: white;
+    cursor: pointer;
 }
 #scoreTable.active{
     transform: scale(1);
     opacity: 1;
 }
 #btnCloseScore{
-    top:70%;   
-    left: 20%;
+    width: 20%;
+    height: auto;
+    top:90%;   
+    left: 40%;
+    font-size: 20px;
+    background-color: #593D9E;
 }
-
 /*--------- Elementos del popup de creditos ---------*/
+#popupBtnCredits{
+    border: 7px solid #C6DA36;
+}
+#btnCloseCredits{
+    background-color: #C6DA36;
+}
 /*--------- Propiedars del popup de mensaje emergente ---------*/
 #popupMessage{
     width: 280px;
@@ -277,16 +324,16 @@ div#btnCredits{
 }
 
 @keyframes rotateCardA{
-    0% {}100%{background-image: url('img/newGame.png');opacity: 1;transform: rotateY(180deg);}
+    0% {}100%{background-image: var(--bg-card1);opacity: 1;transform: rotateY(180deg);}
 }
 @keyframes rotateCardB{
-    0% {}100%{background-image: url('img/loadGame.png');opacity: 1;transform: rotateY(180deg);}
+    0% {}100%{background-image: var(--bg-card2);opacity: 1;transform: rotateY(180deg);}
 }
 @keyframes rotateCardC{
-    0% {}100%{background-image: url('img/highScoreTable.png');opacity: 1;transform: rotateY(180deg);}
+    0% {}100%{background-image: var(--bg-card3);opacity: 1;transform: rotateY(180deg);}
 }
 @keyframes rotateCardD{
-    0% {}100%{background-image: url('img/credits.png');opacity: 1;transform: rotateY(180deg);}
+    0% {}100%{background-image: var(--bg-card4);opacity: 1;transform: rotateY(180deg);}
 }
 
 @keyframes zoomIn {
@@ -324,14 +371,23 @@ div#btnCredits{
 
 
 /*========================== M E N U =======================*/
+:root{
+    --borderPopup-red: #A9362B;
+}
+
 /* Definicon de cada uno de los estilos del tema.*/
 .green {
     --bg: #3FD65D;
     --bg-nav: linear-gradient(to right, #dbe1e8, #309E46);
     --bg-styleBox: #f8f8f8;
     --textBox: #12181b;
+    --borderPopup-color: 
     --selection-border-color: #0084a5;
     --shadowDark: #12181b;
+    --bg-card1: url('img/Minimalista/new.png');
+    --bg-card2: url('img/Minimalista/join.png');
+    --bg-card3: url('img/Minimalista/score.png');
+    --bg-card4: url('img/Minimalista/credits.png');
 } 
 .dark {
     --bg: #2a2e35;
@@ -340,6 +396,10 @@ div#btnCredits{
     --textBox: #f8f8f8;
     --selection-border-color: #a82dd1;
     --shadowDark: white;
+    --bg-card1: url('img/Basico/new.png');
+    --bg-card2: url('img/Basico/join.png');
+    --bg-card3: url('img/Basico/score.png');
+    --bg-card4: url('img/Basico/credits.png');
 }
 .default{
     --bg: #5E398A;
@@ -349,6 +409,10 @@ div#btnCredits{
     --textBox: #f8f8f8;
     --selection-border-color: #a82dd1;
     --shadowDark: white;
+    --bg-card1: url('img/Classic/new.png');
+    --bg-card2: url('img/Classic/join.png');
+    --bg-card3: url('img/Classic/score.png');
+    --bg-card4: url('img/Classic/credits.png');
 }
 #dark::before {
     background: #2a2e35;
@@ -410,7 +474,7 @@ header {
     z-index: 2;
     background: var(--bg-styleBox);
     border-top: 4px solid var(--selection-border-color);
-
+    
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     
