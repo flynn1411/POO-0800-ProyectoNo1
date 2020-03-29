@@ -65,9 +65,11 @@ pageEncoding="UTF-8"%>
 				  <!-- Elementos de la ventana emergente del btnScore -->
 				  <div id="overlayBtnScore" class="overlay contentBtn3">
 					  <div id="popupBtnScore" class="popup contentBtn3">
-						  <h1 id="titlePopupBtnScore" class="contentBtn3"></h1>
-						  <table id="scoreTable" border="1" class="contentBtn3"></table><br>
-						  <button id="btnCloseScore" class="buttonPopup contentBtn3" onclick="clickedButton(this)">Cerrar</button>
+							<h1 id="titlePopupBtnScore" class="contentBtn3">Tabla de calificaciones</h1>
+							  
+							<table id="scoreTable" border="1" class="contentBtn3"></table><br>
+							  
+							<button id="btnCloseScore" class="buttonPopup contentBtn3" onclick="clickedButton(this)">Cerrar</button> 
 					  </div>
 				  </div>	
 					  
