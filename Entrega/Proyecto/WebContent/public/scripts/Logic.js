@@ -6,16 +6,16 @@ function UNOLogic(){
     	
     	if(currentPlayer == "1"){
     		currrent = playerOne.search(n);
-    		console.log("playerOne");
+    		console.log(currrent);
     	}else{
     		currrent = playerTwo.search(n);
-    		console.log("playerTwo");
+    		//console.log("playerTwo");
     	}
 
         if( 
-        	last.value.symbol == current.value.symbol 	||
-        	last.value.color == current.value.color		|| 
-            "black" == current.value.color
+        	current.value.symbol == last.value.symbol	||
+        	current.value.color == last.value.color		|| 
+            current.value.color == "black" 
         ){ 
         	
             return true;

@@ -10,7 +10,7 @@
     
     </style>
 </head>
-<body id="contentBody" onload="loadGame();">
+<body class="minimalistCards" onload="loadGame();">
     <div id="container">
         <div id="welcomeContent">
             <div id="style"></div>    
@@ -26,44 +26,50 @@
         </div>
     </div>
 
+    <script src="../scripts/CssStyle.js"></script>
+    <script src="../scripts/DeckV2.js"></script>
     <script src="../scripts/ElementManagerToGameTable.js"></script>
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/JsonCardManager.js"></script>
-    <script src="../scripts/DeckV2.js"></script>
     <script src="../scripts/JsonToListV2.js"></script>
-    <script src="../scripts/MovementValidation.js"></script>
-    <script src="../scripts/Logic.js"></script>
     <script src="../scripts/ListToJsonV2.js"></script>
-    <script src="../scripts/CssStyle.js"></script>
-
+    <script src="../scripts/Logic.js"></script>
+    <script src="../scripts/MovementValidation.js"></script>
+    <script src="../scripts/CookieManager.js"></script>
+    
     <script>
     	function loadGame(){
-    		//console.log(document.cookie);
-    		var cookies = document.cookie.trim().split(";");
-        	var parameters = [];
-        	for(i = 0; i<cookies.length; i++){
-        		parameters.push(cookies[i].split("=")[1]);
-        	}
-        	var sessionID = parameters[0];
-        	var playerID = parameters[1];
-        	var parameters = {"command":"loadData","sessionID":sessionID};
+			document.cookie = "currentTurn=0";
+
+			ck = new CookieManager();
+			var cookies = ck.getCookies();			
+        	var sessionID = cookies[1];
+        	var playerID = cookies[2];
+        	
+        	
+            var parameters = {"command":"loadData","sessionID":sessionID};
     		$.post("../gameService.jsp",parameters,function(data){
 
+    			//console.log(data);
                 var json = JSON.parse(data);
+                
                 var currentTurn = json[sessionID]["currentTurn"];
                 
                 if(playerID.match(/(_playerOne)/g)){
-                	if(currentTurn === playerID){
-                		em.loadContent(json, sessionID,"1",true);
-                    }
-                	em.loadContent(json, sessionID,"1",false);
+	                em.loadContent(json, sessionID,"1",currentTurn);
                 }else{
-                	if(currentTurn === playerID){
-                		em.loadContent(json, sessionID,"2",true);
-                    }
-                	em.loadContent(json, sessionID,"2",false);
+                	em.loadContent(json, sessionID,"2",currentTurn);
                 }
-	                em.setCookies(sessionID, playerID);
+	           		
+                //Se pide informacion de tener el turno.
+                if(currentTurn != playerID){
+                	                   
+                	setInterval(reLoad,10000);
+                	function reLoad(){
+                		em.empty();
+	                    loadGame();
+                	}                	
+                }
 
             });
     	}
@@ -76,19 +82,14 @@
             playerTwo = new LinkedList(),
             putOnDeck = new LinkedList(),
             grabDeck =  new LinkedList(),
-            em = new ElementsManager();
-            
-        function eventClickedCard(element){
-            em.eventClickedCard(element);
-        }
+            em = new ElementsManager(),
+            ck = new CookieManager();
         
-        function eventClickedPutOnDeck(element){
-            em.eventClickedPutOnDeck(element);
-        }
-
-        function eventDoubleClickedGrabDeck(){
-            em.eventDoubleClickedGrabDeck();
-        }
+        
+        //console.log("La clase actual es:",document.body.className);
+        function eventClickedCard(element){em.eventClickedCard(element);}
+        function eventClickedPutOnDeck(element){em.eventClickedPutOnDeck(element);}
+        function eventDoubleClickedGrabDeck(){em.eventDoubleClickedGrabDeck();}
     
     </script>
 

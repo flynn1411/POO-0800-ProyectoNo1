@@ -1,0 +1,23 @@
+
+
+var itsMyTurn = false;
+
+function checkForTurn(itsMyTurn){
+    $.post("service", "command"Checkin, function(response){
+        json = JSON.parse
+        if(json[sessionID][currentTurn] == currentPlayer){
+            itsMyTurn = true;
+            update(json);
+        }else{
+            setTimeout(checkForTurn, 8000);
+        }
+    });
+}
+
+...
+movimeinto
+//callback
+...
+if(response[valid] == true){
+    checkForTurn(false);
+}

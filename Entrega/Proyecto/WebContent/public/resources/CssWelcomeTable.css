@@ -1,4 +1,38 @@
 @charset "UTF-8";
+.defaultCards{
+    --bg-yellow : url('../resources/Images/Classic/yellow/yellow.png');
+    --bg-blue : url('../resources/Images/Classic/blue/blue.png');
+    --bg-green : url('../resources/Images/Classic/green/green.png');
+    --bg-red : url('../resources/Images/Classic/red/red.png');
+    --bg-back : url('../resources/Images/Classic/back.png');
+    --bg-changeColor : url('../resources/Images/Classic/change.png');
+    --bg-plus4 : url('../resources/Images/Classic/plus4.png');
+    --bg-block : url('../resources/Images/Classic/block.png');
+}
+.basicCards{
+    --bg-yellow : url('../resources/Images/Basic/yellow.png');
+    --bg-blue : url('../resources/Images/Basic/blue.png');
+    --bg-green : url('../resources/Images/Basic/green.png');
+    --bg-red : url('../resources/Images/Basic/red.png');
+    --bg-back : url('../resources/Images/Basic/back.png');
+    --bg-changeColor : url('../resources/Images/Basic/change.png');
+    --bg-plus4 : url('../resources/Images/Basic/plus4.png');
+    --bg-block : url('../resources/Images/Basic/block.png');
+}
+.minimalistCards{
+    --bg-yellow : url('../resources/Images/Minimalist/yellow/yellow.png');
+    --bg-blue : url('../resources/Images/Minimalist/blue/blue.png');
+    --bg-green : url('../resources/Images/Minimalist/green/green.png');
+    --bg-red : url('../resources/Images/Minimalist/red/red.png');
+    --bg-back : url('../resources/Images/Minimalist/back.png');
+    --bg-changeColor : url('../resources/Images/Minimalist/change.png');
+    --bg-plus4 : url('../resources/Images/Minimalist/plus4.png');
+    --bg-block : url('../resources/Images/Minimalist/block.png');
+    --font-family : font-family: 'Fira Code', monospace;
+    --font-transform : none;
+    --font-color : white;
+}
+
 div.table {
     position: fixed;
     width: 100%;
@@ -13,7 +47,6 @@ div.table {
     z-index:-10000;
     overflow-x:auto;
 }
-
 #areaTable {
     border: 5px solid black;
     background-color: #F0C37D;
@@ -21,6 +54,16 @@ div.table {
     left: 0;
     z-index:-10000;
     animation: intensity 15s infinite;
+}
+#textTurn{
+    position: absolute; 
+    font-size: 50px;
+    font-family: 'Spicy Rice', cursive;
+    color: white;
+    cursor: default;
+    top: 45%;
+    left: 43%;
+    text-shadow: none;
 }
 
 #areaP2 {
@@ -54,28 +97,90 @@ div.table {
     box-shadow: 1px 1px 1px #777, 10px 10px 0px 0px #5B5858;
 }
 
+#popupError{
+    position: absolute;
+    background: #F8F8F8;
+    border: 7px solid #dc2c47;
+    border-radius: 15px;
+    width: 220px;
+    height:auto;
+    font-family: 'Chewy';
+    font-size: 10px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    top: 43%;
+    left: 40.3%;
+}
+#popupError.active{
+    animation: showMessage 1.5s linear forwards;        
+}
+.card{
+    position: absolute;
+    border-radius: 12px;
+    border: solid black ;
+    cursor: pointer;
+    display: block;  
+    top: 19%;
+    left: 60.25%;
+    width: 3.6%;
+    height: 47%;
+    padding: 20px 20px;
+    font-size: 0;
+    
+    background-image: var(--bg-back);
+    background-size:120% 115%;
+    background-repeat: no-repeat;
+    background-attachment: absolute;
+    background-position: center;
+    opacity:1;
+}
+#textCard{
+    font-size:130%;
+    font-family: var(--font-family); 
+    text-align: center;
+    vertical-align: middle;
+    color: var(--font-color); 
+    transform: var(--font-transform);
+    /* line-height:340%; */
+}
+
+#currentTheme{
+    
+}
+
+
+.yellow{
+    background-image: var(--bg-yellow);
+    font-size:130%;
+}
+.red{
+    background-image: var(--bg-red);
+    font-size:130%;
+}
+.blue{
+    background-image: var(--bg-blue);
+    font-size:130%;
+}
+.green{
+    background-image: var(--bg-green);
+    font-size:130%;
+}
+.change_color{
+    background-image: var(--bg-changeColor);
+}
+.plus4{
+    background-image: var(--bg-plus4);
+}
+
 @keyframes intensity{
-    0%{
-        background-color:#DAAD68; 
-    }
-    20%{
-        background-color: #C29651;
-    }
-    40%{
-        background-color:#B68232; 
-    }
-    60%{
-        background-color: #A9772A;
-    }
-    80%{
-        background-color: #9C6A1D;
-    }
-    90%{
-        background-color: #88570B;
-    }
-    100%{
-        background-color:#DAAD68;
-    }                
+    0%{background-color:#DAAD68; }
+    20%{background-color: #C29651;}
+    40%{background-color:#B68232; }
+    60%{background-color: #A9772A;}
+    80%{background-color: #9C6A1D;}
+    90%{background-color: #88570B;}
+    100%{background-color:#DAAD68;}                
 }
 
 @keyframes distributeCards {
@@ -87,4 +192,12 @@ div.table {
         transform: rotateY(180deg);    
         opacity: 1; 
     }
+}
+
+@keyframes showMessage{
+    0%{opacity: 0.4;}
+    25%{opacity: 0.8;}
+    50%{opacity: 1;}
+    75%{opacity: 1;}
+    100%{opacity: 0;}    
 }

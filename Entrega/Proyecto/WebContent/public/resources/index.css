@@ -43,22 +43,22 @@ img{
 
 /*------------Propiedades de los botones individuales----------*/
 div#btnStart{
-    background-image:url('img/uno.png');
+    background-image:url('Images/uno.png');
     animation: welcomeCardA 0.6s linear forwards,welcomeCardA2 0.6s linear forwards, rotateCardA 1s linear forwards;
     animation-delay: 1.3s,1.7s,2s;
 }
 div#btnLoad{
-    background-image: url('img/uno.png');
+    background-image: url('Images/uno.png');
     animation: welcomeCardB 0.6s linear forwards,welcomeCardB2 0.6s linear forwards, rotateCardB 1s linear forwards;
     animation-delay: 1.3s,1.7s,2.3s;
 }
 div#btnScore{
-    background-image: url('img/uno.png');
+    background-image: url('Images/uno.png');
     animation: welcomeCardC 0.6s linear forwards,welcomeCardC2 0.6s linear forwards, rotateCardC 1s linear forwards;
     animation-delay: 1.3s,1.7s,2.6s;
 }
 div#btnCredits{
-    background-image: url('img/uno.png');
+    background-image: url('Images/uno.png');
     animation: welcomeCardD 0.6s linear forwards,welcomeCardD2 0.6s linear forwards, rotateCardD 1s linear forwards;
     animation-delay: 1.3s,1.7s,2.9s;
 }
@@ -97,7 +97,8 @@ div#btnCredits{
     padding: 20px;
     text-align: center;
     opacity: 0;
-    border: 7px solid #2BA93C;    
+    border: 7px solid #2BA93C;
+    font-family: var(--font-currentTheme);  
 }
 .popup.active {
     animation: zoomIn .8s ease .9s forwards;
@@ -112,12 +113,13 @@ div#btnCredits{
     border-radius:15px;
     font-weight:700;
     font-size:30px; 
-    color:white;
+    color: var(--startPopUp-bg);
     margin-bottom: 10px;
     position: absolute;
     width: 35%;
     height: auto;
     opacity: 0;
+    font-family: var(--font-currentTheme);
 }
 .buttonPopup.active{
     animation: zoomIn .8s ease .9s forwards;
@@ -132,7 +134,8 @@ div#btnCredits{
     animation-duration: 2.5s;   
 }
 #popupBtnStart{
-    border: 7px solid #2BA93C;
+    border: 7px solid var(--startPopUp-bg);
+    color: var(--startPopUp-bg);
 }
 #accessCode{
     position: absolute;
@@ -143,17 +146,20 @@ div#btnCredits{
     width: 60%;
     opacity: 0;
     font-size:70px; 
-    color:black;
+    color: var(--text-color);
+    background-color: var(--startPopUp-bg);
     text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
     letter-spacing: 10px;
 }
 #btnCloseStart{
-    background-color:#3cce33;
+    background-color: var(--text-color);
+    color: var(--startPopUp-bg);
     top: 70%;
     left: 10%;
 }
 #btnEnterGame{
-    background-color:#3cce33;
+    background-color: var(--text-color);
+    color: var(--startPopUp-bg);
     top: 70%;
     left: 50%;
 }
@@ -168,15 +174,18 @@ div#btnCredits{
     animation-duration: 2.5s;
 }
 #popupBtnLoad{
-    border: 7px solid #A9362B;
+    border: 7px solid var(--joinPopUp-bg);
+    color: var(--joinPopUp-bg);
 }
 #btnCloseLoad{
-    background-color:#A9362B;
+    background-color: var(--text-color);
+    color: var(--joinPopUp-bg);
     top: 70%;
     left: 10%;
 }
 #btnEnterToGame{
-    background-color:#A9362B;
+    background-color: var(--text-color);
+    color: var(--joinPopUp-bg);
     top: 70%;
     left: 55%;
 }
@@ -188,6 +197,8 @@ div#btnCredits{
     height:80px;
     top: 30%;
     left: 20%;
+    color:var(--text-color);
+    background-color: var(--joinPopUp-bg);
     border: 3px solid #A41B55;
     border-radius: 20px 20px 20px 20px;
     margin-bottom: 10px;
@@ -201,14 +212,11 @@ div#btnCredits{
 /*--------- Elementos del popup tabla de calificaciones ---------*/
 #popupBtnScore{
     height: 350px;
-    background-image: url("img/score.jpg");
+    background-color: var(--HSPopUp-bg);
     background-repeat:no-repeat;
     background-position:center top;
 }
-#popupBtnScore{
-    border: 7px solid #3941A3;
-    background-color:#3941A3;
-}
+
 #titlePopupBtnScore{
     background-color: white;
     animation: entradaTitulo 2s linear forwards;
@@ -219,16 +227,29 @@ div#btnCredits{
     border: 1px solid black;
     display: block;
     background-color: white;
-    font-family: 'Arial';
+    font-family: var(--font-currentTheme);
     font-size: 18px;
     text-align: center;
     width: auto;
     height:auto;
-    opacity: 1;
     left: 19%;
     color: black;
     border-collapse: collapse;
 }
+#scoreTable.active{
+    transform: scale(1);
+    opacity: 1;
+}
+#btnCloseScore{
+    width: 20%;
+    height: auto;
+    top:90%;   
+    left: 40%;
+    font-size: 20px;
+    background-color: var(--text-color);
+    color: var(--HSPopUp-bg);
+}
+
 thead{
     width: 100%;
     background-color: #1C9234;
@@ -250,18 +271,8 @@ tr:hover td{
     color: white;
     cursor: pointer;
 }
-#scoreTable.active{
-    transform: scale(1);
-    opacity: 1;
-}
-#btnCloseScore{
-    width: 20%;
-    height: auto;
-    top:90%;   
-    left: 40%;
-    font-size: 20px;
-    background-color: #593D9E;
-}
+
+
 /*--------- Elementos del popup de creditos ---------*/
 #popupBtnCredits{
     border: 7px solid #C6DA36;
@@ -288,6 +299,38 @@ tr:hover td{
     opacity: 1;
 }
 
+#currentTheme{
+    position: absolute;
+    width: 18vw;
+    height: 7vh;
+    top: 85%;
+    left: 0;
+    opacity: 1;
+    background-color: var(--bg-currentTheme);
+    border: solid 5px var(--border-color);
+    line-height: 180%;
+    border-radius: 10px;
+    text-align: left;
+    color: var(--font-color);
+    font-weight: bold;
+    font-size: 30px;
+    font-family: var(--font-currentTheme);
+}
+#btnSelectTheme{
+    position: absolute;
+    width: 4.4vw;
+    height: 13vh;
+    top: -48%;
+    border-radius: 12px;
+    background-size: 104% 106%;
+    left: 73%;
+    opacity: 1;
+    animation: infiniteAnimation 0.5s infinite;
+}
+#currentTheme span{
+    vertical-align: middle;
+}
+
 /*--------------- Animaciones -----------------------*/
 @keyframes zoomOn{
     from {opacity: 0;-webkit-transform: scale3d(0.3, 0.3, 0.3);transform: scale3d(3, 3, 3);}
@@ -295,7 +338,7 @@ tr:hover td{
 }
 @keyframes byeBox{
     0% {opacity: 1;}
-    100%{ top: 100%;opacity: 0;}
+    100%{ opacity: 0; display: none;}
 }
 @keyframes welcomeCardA{
     0% {top:50%;left: 45%;}100%{opacity: 1;top:20%;left: 45%;}
@@ -359,6 +402,14 @@ tr:hover td{
     }
 }
 
+@keyframes infiniteAnimation{
+    from{
+        transform: translateY(-8px);
+    }
+    to{
+    }
+}
+
 @media screen and (max-width: 980px){
     body{
         background-color: #9D2F28;
@@ -377,29 +428,49 @@ tr:hover td{
 
 /* Definicon de cada uno de los estilos del tema.*/
 .green {
-    --bg: #3FD65D;
-    --bg-nav: linear-gradient(to right, #dbe1e8, #309E46);
-    --bg-styleBox: #f8f8f8;
-    --textBox: #12181b;
-    --borderPopup-color: 
-    --selection-border-color: #0084a5;
-    --shadowDark: #12181b;
-    --bg-card1: url('img/Minimalista/new.png');
-    --bg-card2: url('img/Minimalista/join.png');
-    --bg-card3: url('img/Minimalista/score.png');
-    --bg-card4: url('img/Minimalista/credits.png');
-} 
-.dark {
     --bg: #2a2e35;
     --bg-nav: linear-gradient(to right, #2a2e35, #12181b);
+    --bg-styleBox: #f8f8f8;
+    --textBox: #12181b;
+    --borderPopup-color: ;
+    --selection-border-color: #0084a5;
+    --shadowDark: #12181b;
+    --bg-card1: url('Images/Minimalist/new.png');
+    --bg-card2: url('Images/Minimalist/join.png');
+    --bg-card3: url('Images/Minimalist/score.png');
+    --bg-card4: url('Images/Minimalist/credits.png');
+    --bg-currentTheme : transparent;
+    --border-color : #db1f20;
+    --font-currentTheme : 'Fira Code', monospace;
+    --bg-btnSelectTheme : url('Images/Minimalist/minimalista_icon.png');
+    --font-color: #f6cf0e;
+    --startPopUp-bg: #62ce00;
+    --joinPopUp-bg: #e1432f;
+    --HSPopUp-bg: #2e64a1;
+    --creditPopUp-bg: #f5c642;
+    --text-color:#f8f8f8;
+} 
+.dark {
+    --bg: #3FD65D;
+    --bg-nav: linear-gradient(to right,#dbe1e8 , #309E46);
     --bg-styleBox: #12181b;
     --textBox: #f8f8f8;
     --selection-border-color: #a82dd1;
     --shadowDark: white;
-    --bg-card1: url('img/Basico/new.png');
-    --bg-card2: url('img/Basico/join.png');
-    --bg-card3: url('img/Basico/score.png');
-    --bg-card4: url('img/Basico/credits.png');
+    --bg-card1: url('Images/Basic/new.png');
+    --bg-card2: url('Images/Basic/join.png');
+    --bg-card3: url('Images/Basic/score.png');
+    --bg-card4: url('Images/Basic/credits.png');
+    --bg-currentTheme : transparent;
+    --border-color : #2D923C;
+    --font-currentTheme : 'Noto Serif', serif;
+    --bg-btnSelectTheme : url('Images/Basic/basic_icon.png');
+    --font-color: #A42E2E;
+    --startPopUp-bg: #008037;
+    --joinPopUp-bg: #c32a2a;
+    --HSPopUp-bg: #004aad;
+    --creditPopUp-bg: #ffde59;
+    --text-color: #000000;
 }
 .default{
     --bg: #5E398A;
@@ -409,10 +480,20 @@ tr:hover td{
     --textBox: #f8f8f8;
     --selection-border-color: #a82dd1;
     --shadowDark: white;
-    --bg-card1: url('img/Classic/new.png');
-    --bg-card2: url('img/Classic/join.png');
-    --bg-card3: url('img/Classic/score.png');
-    --bg-card4: url('img/Classic/credits.png');
+    --bg-card1: url('Images/Classic/new.png');
+    --bg-card2: url('Images/Classic/join.png');
+    --bg-card3: url('Images/Classic/score.png');
+    --bg-card4: url('Images/Classic/credits.png');
+    --font-color: black;
+    --bg-currentTheme : #fae983;
+    --border-color:#553e94;
+    --font-currentTheme : 'Poppins', sans-serif;
+    --bg-btnSelectTheme : url('Images/Classic/classic_icon.png');
+    --startPopUp-bg: #008037;
+    --joinPopUp-bg: #c32a2a;
+    --HSPopUp-bg: #004aad;
+    --creditPopUp-bg: #ffde59;
+    --text-color: #000000;
 }
 #dark::before {
     background: #2a2e35;
@@ -427,89 +508,11 @@ tr:hover td{
     background: #43389E;
 }
 
-/*Cabecera*/
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-/*Texto del boton menu/tema*/
-a {
-    color: currentColor;
-    text-decoration: none;
-}
-
 header {
     padding: 1em;
-    clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
+    /* clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0); */
     background: var(--bg-nav);
     margin-bottom: 1em;
     padding-bottom: 3.5em;
     text-align: center;
-}
-
-/* Navegacion*/
-/*Cabecera - area del boton tema*/
-.generalNav {
-    height: 70px;
-    width: 100%;
-    background-color: var(--bgSecundary);
-    color: var(--textBox);
-}
-
-/*Prop. generales de la navegacion*/
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100%;
-}
-
-/*Caja desglosada con las opciones de temas*/
-.box {
-    position: absolute;
-    width: 500px;
-    opacity: 0;
-    z-index: 2;
-    background: var(--bg-styleBox);
-    border-top: 4px solid var(--selection-border-color);
-    
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 1.5rem;
-    margin-top: 2rem;
-    padding: 0.5rem;
-    top: 3%;
-    box-shadow: rgba(2, 8, 20, 0.1) 0px 0.175em 0.5em;
-    transform: translateX(-40%);
-
-    transition: opacity .15s ease-out;
-}
-/*Activacion de desplegar la caja de estilos*/
-.has-dropdown:focus-within .box   {
-    opacity: 1;
-    pointer-events: auto;
-}
-.stylesBox a {
-    width: 100%;
-    height: 100%;
-    size: 0.7rem;
-    padding-left: 10px;
-    font-weight: bold;
-}
-/*Circunsferencia de seleccion de tema*/
-.stylesBox a::before {
-    content: ' ';
-    border: 2px solid var(--selection-border-color);
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
 }

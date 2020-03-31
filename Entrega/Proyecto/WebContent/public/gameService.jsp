@@ -11,9 +11,10 @@
     FileManager fm = new FileManager();
 
     if(
-    		request.getParameter("command") != null &&
-    		request.getParameter("sessionID") != null
-    		){
+    	request.getParameter("command") != null &&
+    	request.getParameter("sessionID") != null
+    	){
+    	
     	String sessionID = request.getParameter("sessionID").toString().trim();
     	
     	//cargar Datos
@@ -31,40 +32,55 @@
     			request.getParameter("command").toString().equals("validate") &&
     			request.getParameter("playerID") != null &&
     			request.getParameter("card") != null
-    			){
-    		Session foundSession = sm.getSession(sessionID);
-    		int card = Integer.parseInt(request.getParameter("card").toString());
-    		String playerID = request.getParameter("playerID").toString();
-  
-    		ArrayList<Card> playerDeck = new ArrayList<Card>();
+    		   ){
+    		
     		Logic gameLogic = new Logic();
-    		ArrayList<ArrayList<Card>> result = new ArrayList<ArrayList<Card>>();
+
+    		int card = Integer.parseInt(request.getParameter("card").toString());
+    		Session foundSession = sm.getSession(sessionID);
+    		String playerID = request.getParameter("playerID").toString();
     		
     		//Si es el turno del jugador 1
     		if(foundSession.getPlayerOne().getID().equals(playerID)){
-    			playerDeck = foundSession.getPlayerOne().getDeck();
-	    		result= gameLogic.move(card, playerDeck, foundSession.getPutOnDeck());
-	    		foundSession.getPlayerOne().setDeck(result.get(0));
-	    		//se cambian los turnos
-	    		foundSession.setCurrentTurn(foundSession.getPlayerTwo().getID());
-	    	//Si es el turno del jugador 1
+    			
+	    		int n = 1;
+    			gameLogic.move(card,foundSession,n);
+	    	
+	    	//Si es el turno del jugador 2
     		}else{
-    			playerDeck = foundSession.getPlayerTwo().getDeck();
-    			result= gameLogic.move(card, playerDeck, foundSession.getPutOnDeck());
-    			foundSession.getPlayerTwo().setDeck(result.get(0));
+    			int n = 2;
+    			gameLogic.move(card,foundSession,n);
+    			
     			//se cambian los turnos
-    			foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
+	    		foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
     		}
-    		
-    		foundSession.setPutOnDeck(result.get(1));
-    		//foundSession.setCurrentTurn(turn);
-    		sm.updateSession(foundSession);
-    		
-    		String json = fm.read(String.format("activeSessions/%s.json",sessionID));
-
-            out.print(json);
     	}
     	
+    	//Agarrar una carta 
+    	else if(
+    			request.getParameter("command").toString().equals("grab") &&
+    			request.getParameter("playerID") != null 
+    		){
+    		
+    		Logic gameLogic = new Logic();
+
+    		Session foundSession = sm.getSession(sessionID);
+    		int card = 1;
+    		String playerID = request.getParameter("playerID").toString();
+    		
+    		//Si es el turno del jugador 1
+    		if(foundSession.getPlayerOne().getID().equals(playerID)){
+    			int n = 3;
+    			gameLogic.move(card,foundSession,n);
+	    		
+	    	
+	    	//Si es el turno del jugador 2
+    		}else{
+    			int n = 4;
+    			gameLogic.move(card,foundSession,n);
+    			
+    		}
+    	}
     }else{
     	out.print("Comando no encontrado.");
     }

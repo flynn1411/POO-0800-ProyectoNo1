@@ -1,26 +1,18 @@
 function ElementsManager(){
-	this.sessionID = "";
-	this.playerID = "";
-    var currentClickedCard,                //Almacena el objeto/div de la carta seleccionada.
+	var currentClickedCard,                //Almacena el objeto/div de la carta seleccionada.
     currentzIndex = -299,
     arrIDs = [],                    //Arreglo de los IDs.
     count = 1;                      //Contador de la cantidad de cartas.
     turn = 1;
     currentPlayer = 1;
-    
-    this.setCookies = function(sessionID, playerID) {
-    	this.sessionID = sessionID;
-    	this.playerID = playerID;
-    	console.log(document.cookie);
-    	//document.cookie = `sessionID=${sessionID}`;
-    	//document.cookie = `playerID=${playerID}`;
-    };
-    
+           
     //Carga el contenido inicial.
     this.loadContent  = function(json, sessionID,n, currentTurn){
         this.paintCards(json, sessionID,n);
-    
+        document.cookie = "currentTurn= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+        document.cookie = `currentTurn=${currentTurn}`;
     }
+    
     //Obtiene los ids(string) creados en la tabla.
     this.getArrIDs = function(){
         return arrIDs;
@@ -39,45 +31,33 @@ function ElementsManager(){
                 let symbol = currentNode.value.symbol;
                 var color = currentNode.value.color;
                 
-                if(n == "1"){
-                	if(j == 1 || j == 3){
-                		color = "black";
-                		viewCard = 2;
-                	}
+                if(n == "1"){ //Jugador 1
+                	if(j == 1 || j == 3){color = "black";viewCard = "hide";}
                 	
-                }else{
-                	if(j == 0 || j == 3){
-                		color = "black";
-                		viewCard = 2;
-                	}
+                }else{ //Jugador 2
+                	if(j == 0 || j == 3){color = "black";viewCard = "hide";}
                 }
                 
-
                 let result = this.createCard(symbol,color,i,viewCard);                   //  [html,id]  
     
                 currentNode.id = result[1];
 
                 //Asignacion de las cartas en sus respectivos contenedores/areas.
                 if(n == "1"){
-                	if(j == 0){
-                		areaP1.innerHTML += result[0];
-                	}
-                	if(j == 1){
-                		areaP2.innerHTML += result[0];
-                	}
-                
+                	//Cuando Jugador uno entra
+                	if(j == 0)areaP1.innerHTML += result[0];
+                	if(j == 1)areaP2.innerHTML += result[0];
+                	
                 }else{
-                	if(j == 0){
-                		areaP2.innerHTML += result[0];
-                	}
-                	if(j == 1){
-                		areaP1.innerHTML += result[0];
-                	}
+                	//Cuando Jugador dos entra
+                	if(j == 0)areaP2.innerHTML += result[0];
+                	if(j == 1)areaP1.innerHTML += result[0];
+                	
                 }
+                //Crear el area de la Mesa
                 if(j == 2 || j == 3){
-                    areaTable.innerHTML += result[0];
+                	areaTable.innerHTML += result[0];
                 }
-    
                 count = count + 1;
             }
         }
@@ -87,24 +67,55 @@ function ElementsManager(){
     
    //Element es el div de la carta. Lo mismo si usara getElementById
     this.eventClickedCard = function(element){
-        var status = val.movementValidator(playerOne,putOnDeck);
-        if(status == true){
-            
-            if(currentClickedCard == null){                                     //Si no hay una carta seleccionada.
-                currentClickedCard = element;                                   //Se almacena la nueva carta seleccionada.
-                currentClickedCard.style.transition = "all 0.2s ease 0s"
-                currentClickedCard.style.boxShadow = "1px 1px 1px #777, 0px 0px 30px 30px #B43B37";
-                        
-            }else{
-            	currentClickedCard.style.boxShadow = "none";
-                currentClickedCard = element;
-                currentClickedCard.style.transition = "all 0.2s ease 0s"
-                currentClickedCard.style.boxShadow = "1px 1px 1px #777, 0px 0px 30px 30px #B43B37";
-            }
+       
+    	//Buscamos el jugador y de quien es el turno 
+    	var cookies = ck.getCookies();		
+    	var currentTurn = cookies[0];  	
+    	var sessionID = cookies[1];
+    	var playerID = cookies[2]; 	
+    	
+    	//Accion de hacer click en una carta
+    	function clickCard(status,deck){
+    		if(status == true){
+    			for(i=1; i <= deck.amount() ; i++){
+    				current = deck.search(i).id;
+    				selectedElement = element.getAttribute("id");
+    				
+    				if(selectedElement == current){
+    					if(currentClickedCard == null){                                     //Si no hay una carta seleccionada.
+    						currentClickedCard = element;                                   //Se almacena la nueva carta seleccionada.
+    						currentClickedCard.style.transition = "all 0.2s ease 0s"
+   							currentClickedCard.style.boxShadow = "1px 1px 1px #777, 0px 0px 30px 30px #B43B37";
+    					}else{
+    						currentClickedCard.style.boxShadow = "none";
+    						currentClickedCard = element;
+    						currentClickedCard.style.transition = "all 0.2s ease 0s"
+   							currentClickedCard.style.boxShadow = "1px 1px 1px #777, 0px 0px 30px 30px #B43B37";
+    					}
+    				}
+    			}
+    		}else{
+    			console.log("Agarra una carta");
+    		}
+    	}
 
-        }else{
-            console.log("AGARRE UNA CARTA");
-        } 
+    	//Especificamos de quien es el turno
+	    if(playerID == currentTurn){
+	    	//para jugador 1
+	    	if(playerID.match(/(_playerOne)/g)){
+	    		//validacion de si tiene un movimiento
+	    		var status = val.movementValidator(playerOne,putOnDeck);
+	    		clickCard(status,playerOne);
+
+	    	//para jugador 2 	
+	    	}else{
+	    		//validacion de si tiene un movimiento
+	    		var status = val.movementValidator(playerTwo,putOnDeck);
+	    		clickCard(status,playerTwo);
+	    	}
+	    }else{
+	    	//no es tu turno 
+	    }
     }
     
     //Evento al clickear en la carta encima de la baraja descartada.
@@ -114,86 +125,65 @@ function ElementsManager(){
             
             //Atributo 'name' del objeto div almacena la posicion del elemento respecto a la lista.
         	var position = parseInt(currentClickedCard.getAttribute('name'));           //Obtiene una carta respecto a la posicion en la LL.
-            
-        	var cookies = document.cookie.trim().split(";");
-        	var parameters = [];
-        	for(i = 0; i<cookies.length; i++){
-        		parameters.push(cookies[i].split("=")[1]);
-        	}
-        	var currentSessionID = parameters[0];
-        	var currentPlayerID = parameters[1];
+            console.log(playerOne.first);
         	
+        	var cookies = ck.getCookies();
+        	var currentTurn = cookies[0];  	
+        	var sessionID = cookies[1];
+        	var currentPlayerID = cookies[2]; 
+        	
+        	//Verificar que jugador sos 
         	 if(currentPlayerID.match(/(_playerOne)/g)){
-	                
-             	//em.loadContent(json, sessionID,"1");
-	                //console.log("hi");
-	                var validation = ruler.logic(position, "1");
+        		 var validation = ruler.logic(position, "1"); //Jugador uno
 	                	                
              }else{
-             	//em.loadContent(json, sessionID,"2");
-             	//console.log("hi2");
-             	var validation = ruler.logic(position, "2");
-             	
+            	 var validation = ruler.logic(position, "2"); //Jugador dos
              }
         	
             if(validation == true){
-                            	
-                //Envio al servidor.
-                var parameters = {"command":"validate", "playerID":this.playerID, "sessionID": this.sessionID, "card": position};
                 
+            	//Envio al servidor.
+                var parameters = {"command":"validate", "playerID": currentPlayerID, "sessionID": sessionID, "card": position};
                 $.post("../gameService.jsp", parameters, function(response){
-                	location.reload();
+                	loadGame();
                 });
-                //Se limpian las LL de las cartas.
-                playerOne.clear();
-                playerTwo.clear();
-                putOnDeck.clear();
-                grabDeck.clear();
-                
-                //Se limpia el html de los 'contenedores'.
-                areaP1.innerHTML = "";
-                areaP2.innerHTML = "";
-                areaTable.innerHTML = "";
-                
-                //Se repinta el contenedor con el nuevo cambio efectuado en las cartas.
-                //this.paintCards(jsonOfCards);
+                //Limpiar LL y HTML
+                this.empty();
                                 
             }else{
-                //Cuando un moviminento no es validado.
-                alert("MOVIMIENTO NO ES VALIDO");
+              
+            	//Cuando un moviminento no es validado.
+                console.log("MOVIMIENTO NO ES VALIDO");
             }
             currentClickedCard = null;
         }else{
             console.log("No hay carta seleccionada.")
         }
-
     }
     
     this.eventDoubleClickedGrabDeck = function(){
-        console.log("Se ha dado click 2 veces");
-        if(currentPlayer == 1){
-            let lastPosition = grabDeck.amount();
-            let cardToDeliver = grabDeck.extract(lastPosition);
-            playerOne.add(cardToDeliver.value.symbol,cardToDeliver.value.color);
-            
-            //Envio al servidor.
-            jsonOfCards = listToJson.parseToJSON(playerOne,playerTwo,putOnDeck,grabDeck);
-            
-            //Se limpian las LL de las cartas.
-            playerOne.clear();
-            playerTwo.clear();
-            putOnDeck.clear();
-            grabDeck.clear();
-            
-            //Se limpia el html del contenedor 'cardsContainer'.
-            areaTable.innerHTML = "";
-            areaP1.innerHTML = "";
-            
-            //Se repinta el contenedor con el nuevo cambio efectuado en las cartas.
-            this.paintCards(jsonOfCards);
+        //console.log("Se ha dado click 2 veces");
+           
+        	//Buscamos el jugador y de quien es el turno 
+    		var cookies = ck.getCookies();
+	    	var currentTurn = cookies[0];  	
+	    	var sessionID = cookies[1];
+	    	var playerID = cookies[2]; 	
         
+	    	if(playerID == currentTurn){
+		    		
+	    		//Envio al servidor.
+	    		var parameters = {"command":"grab", "playerID":playerID, "sessionID":sessionID};
+	    		$.post("../gameService.jsp", parameters, function(response){
+	    			loadGame();
+	    		});
+	    		//Limpiar LL y HTML
+	    		this.empty();
+	    		
+	    	}else{
+	    		//No es tu turno
+	    	}
         }
-    }
     
     //Llama la distribucion de cartas de la LL de manera individual.
     this.distributeAllDeck = function(){
@@ -263,60 +253,53 @@ function ElementsManager(){
             if(option == 3){
                 currentDiv.style.left = left;
             }
-
         }
     }
     
     //Funcion para crear cartas.
     this.createCard = function(symbol,color,position,viewCard){
         let result = [],
-        tempColor = "",
         ID = `${symbol}_${color}_${count}`,
-        cssContent = new CssContent(),
         html,
         styleText,
-        styleCard;
-        var nameImage;
-        
-        arrIDs.push(ID);   
-        
-        //Combio css al color basico.
-        if(symbol == "change color"){
-            //symbol = symbol.replace(" ","_");
-        }
-        if(color == "yellow"){
-            tempColor = "#CCE41C";
-        }
-        if(color == "red"){
-            tempColor = "#CC3131";
-        }
-        if(color == "blue"){
-            tempColor = "#2A2C91";
-        }
-        if(color == "green"){
-            tempColor = "#2D8B28";
-        }
-        if(color == "black"){
-            tempColor = "black";
-        }
-        if(viewCard == 2){
-            nameImage = "uno";
-        }
-        if(viewCard == 1){
-            nameImage = "fondo";
-        }
+        nameClass = color;
 
-            styleCard = cssContent.getStyleCard(tempColor,nameImage);
-            styleText = cssContent.getStyleText(nameImage,symbol);
-            html = `<div id="${ID}" class="${ID}" name="${position}" style="${styleCard}" onClick="eventClickedCard(this);">
-                        <span>
-                            <h1 style="${styleText}">${symbol}</h1>
-                        </span>
-                    </div>\n`;
+    if(color == "black"){
+        //symbol == "change color" || symbol == "reverse" || symbol == "block" || symbol == "+2" || symbol == "+4"
         
-        result.push(html,ID);                               //[html,ID]
-
-        return result;
+        if(symbol == "change color" || symbol == "+4"){
+            if(viewCard != "hide"){
+                if(symbol == "change color"){
+                    nameClass = "change_color";
+                }else{
+                    nameClass = "plus4";
+                }
+            }
+        }
     }
 
+    //styleText = cssContent.getStyleText(viewCard,symbol);
+    html = `<div id="${ID}" class="${nameClass} card" name="${position}" onclick="eventClickedCard(this);">
+                <span>
+                    <h1 id="textCard">${symbol}</h1>
+                </span>
+            </div>\n`;
+
+    result.push(html,ID);                               //[html,ID]
+    return result;
+    }
+    
+    //Limpiar
+    this.empty = function(){
+		//Se limpian las LL de las cartas.
+        playerOne.clear();
+        playerTwo.clear();
+        putOnDeck.clear();
+        grabDeck.clear();
+        
+        //Se limpia el html de los 'contenedores'.
+        areaP1.innerHTML = "";
+        areaP2.innerHTML = "";
+        areaTable.innerHTML = "";
+	}
 }

@@ -7,31 +7,15 @@ pageEncoding="UTF-8"%>
 		<meta charset="UTF-8">
 		<title>Ventana de bienvenida</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif|Poppins&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="resources/index.css">	
 		<script src="scripts/index.js"></script>
 		<script src="scripts/jquery.js"></script>
 	</head> 
 	<body class="default">
-		<nav class="generalNav">
-			<ul class="navbar-nav">
-				<li class="has-dropdown">
-					<a href="#">Aspecto</a>
-						<ul class="box">
-							<li class="stylesBox">
-					  			<a id="default" href="#" onclick="eventTheme(this)">Predeterminado</a>
-				  			<li class="stylesBox">
-								<a id="green" href="#" onclick="eventTheme(this)">Verde</a>
-				  			</li>
-				  			<li class="stylesBox">
-								<a id="dark" href="#" onclick="eventTheme(this)">Oscuro</a>
-				  			</li>
-				 	</ul>
-				 </li>
-			</ul>
-		  </nav>
 	  
 		  <header>
-			  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>  
+			  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>  
 			  <div id="container">
 				  <!-- Contenedor de los botones principales--> 
 				  <div id="buttons">
@@ -40,7 +24,7 @@ pageEncoding="UTF-8"%>
 					  <div id="btnScore" class="button" onclick="clickedButton(this)"></div>
 					  <div id="btnCredits" class="button" onclick="clickedButton(this)"></div>
 				  </div>
-				  <img src="resources/img/boxUno.png">
+				  <img src="resources/Images/boxUno.png">
 	  
 				  <!-- Elementos de la ventana emergente del btnStart -->
 				  <div id="overlayBtnStart" class="overlay contentBtn1">
@@ -65,11 +49,9 @@ pageEncoding="UTF-8"%>
 				  <!-- Elementos de la ventana emergente del btnScore -->
 				  <div id="overlayBtnScore" class="overlay contentBtn3">
 					  <div id="popupBtnScore" class="popup contentBtn3">
-							<h1 id="titlePopupBtnScore" class="contentBtn3">Tabla de calificaciones</h1>
-							  
+						 	<h1 id="titlePopupBtnScore" class="contentBtn3">Tabla de calificaciones</h1>							  
 							<table id="scoreTable" border="1" class="contentBtn3"></table><br>
-							  
-							<button id="btnCloseScore" class="buttonPopup contentBtn3" onclick="clickedButton(this)">Cerrar</button> 
+							<button id="btnCloseScore" class="buttonPopup contentBtn3" onclick="clickedButton(this)">Cerrar</button> --> 
 					  </div>
 				  </div>	
 					  
@@ -81,6 +63,12 @@ pageEncoding="UTF-8"%>
 					  </div>
 				  </div> 
 			  
+
+				  <div id="currentTheme" class="currentThemeClass">
+					  <span>Tema actual</span>
+					  <img src="resources/Images/Classic/classic_icon.png" id="btnSelectTheme" onclick="clickedChangeTheme()">
+				  </div>
+				  
 				  <!-- Ventana de mensaje -->
 				  <div id="overlayMessage" class="overlay">
 					  <div id="popupMessage" class="popup">
@@ -89,7 +77,7 @@ pageEncoding="UTF-8"%>
 					  </div>
 				  </div>
 				  
-			  </div>
+			  	</div>
 		  </header>
 
 	</body>

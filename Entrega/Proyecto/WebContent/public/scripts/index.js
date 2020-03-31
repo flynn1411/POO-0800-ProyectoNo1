@@ -1,5 +1,6 @@
 var body = document.body;
-var currentStyle = "default";	
+var currentStyle = "default";
+var countTheme = 1;	
 //Funcion que se ejecuta con el evento 'click' de los elementos...
 //... de la pagina de bienvenida.	
 function clickedButton(idElement){
@@ -18,8 +19,10 @@ function clickedButton(idElement){
 				response = JSON.parse(response);
 				var playerID = response["playerID"];
 				var sessionID = response["sessionID"];
+				
 				document.cookie = `sessionID=${sessionID}`;
 				document.cookie = `playerID=${playerID}`;
+				
 				accessCode.innerHTML = sessionID;
 			};
 		$.post(action, parameters, callback);
@@ -35,6 +38,7 @@ function clickedButton(idElement){
 	if(idElement == "btnScore"){
 		this.activeElements("contentBtn3");
 		this.getJsonToJSP();						//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
+		//console.log(scoreTable);
 	}
 		
 	//---------- Boton de creditos. ----------
@@ -54,7 +58,7 @@ function clickedButton(idElement){
 		var sessionID = accessCode.innerHTML;
 		var parameters = {"command":"deleteCurrentSession", "sessionID": sessionID};
 		var callback = function(){
-			console.log(response.trim());
+			console.log(response);
 		}
 
 		$.post('service1.jsp', parameters, callback);
@@ -110,19 +114,20 @@ function clickedButton(idElement){
 				//agregado de Cookies
 				document.cookie = `sessionID=${newSessionID}`;
 				document.cookie = `playerID=${newPlayerID}`;
+				
 				window.location = `service1.jsp?command=joinSession&sessionID=${newSessionID}&playerID=${newPlayerID}`;
 			}
 		});
 	}
 		
 	//---------- Boton cerrar tabla de calificaciones. ----------
-	if(idElement == "btnScore"){
+	if(idElement == "btnCloseScore"){
 		overlayBtnScore.classList.remove('active')
 		popupBtnScore.classList.remove('active')
 	}
 
 	//---------- Boton cerrar creditos. ----------
-	if(idElement == "btnCredits"){
+	if(idElement == "btnCloseCredits"){
 		overlayBtnCredits.classList.remove('active');
 		popupBtnCredits.classList.remove('active');
 	}
@@ -140,7 +145,6 @@ function getJsonToJSP(){
 	var callback = function(content){
 		var json = JSON.parse(content.trim());
 		var highScoresArr = json["fileContent"]["highScores"];
-		
 		var html = '<thead><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead><tbody>';
 		
 		for(i=0; i<highScoresArr.length; i++){
@@ -197,4 +201,23 @@ function eventTheme(object){
     console.log("entra");
     currentStyle = "default"
   }
+}
+
+function clickedChangeTheme(){
+	var arrThemes = ["default","green","dark"];
+    let newTheme = countTheme%arrThemes.length;
+    document.body.classList.replace(`${currentStyle}`,`${arrThemes[newTheme]}`);
+    currentStyle = arrThemes[newTheme];
+
+    //Para cambiar la imagen del tema actual.
+    if(currentStyle == "default"){
+        btnSelectTheme.src = "resources/Images/Classic/classic_icon.png";
+    }
+    if(currentStyle == "dark"){
+        btnSelectTheme.src = "resources/Images/Basic/basic_icon.png";
+    }
+    if(currentStyle == "green"){
+        btnSelectTheme.src = "resources/Images/Minimalist/minimalista_icon.png";
+    }
+    countTheme ++;
 }
