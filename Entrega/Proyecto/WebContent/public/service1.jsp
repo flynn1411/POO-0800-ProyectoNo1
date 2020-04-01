@@ -68,6 +68,11 @@
 			FileManager fm = new FileManager();
 			String highScoreJSON = fm.read("highScores.json");
 			
+			if(highScoreJSON.equals("")){
+				
+				highScoreJSON = "\"Empty\"";
+			}
+			
 			out.print(String.format(
 					"{\"fileContent\":%s}",
 					highScoreJSON
@@ -82,16 +87,16 @@
 					request.getParameter("playerID") != null &&
 					request.getParameter("sessionID") != null
 					){
-				String sessionID = request.getParameter("sessionID").toString().trim();
-				String playerID = request.getParameter("playerID").toString().trim();
+				String sessionID = request.getParameter("sessionID").toString();
+				String playerID = request.getParameter("playerID").toString();
 				Session foundSession = sm.getSession(sessionID);
 				
-				/*if(foundSession.getPlayerOne().getID().equals(playerID)){
+				if(foundSession.getPlayerOne().getID().equals(playerID)){
 					foundSession.getPlayerOne().setStatus(Status.CONNECTED);
 				}else{
 					foundSession.getPlayerTwo().setStatus(Status.CONNECTED);
 				}
-				sm.updateSession(foundSession);*/
+				sm.updateSession(foundSession);
 				
 				response.sendRedirect("GameTable/GameTablePage.jsp");
 			}
@@ -141,13 +146,13 @@
 		else{
 			out.print("{\"result\":\"DoesNotExist\"}");
 		}
-	}
+	  }
 		
 	}
 	
 	else{
 		out.print(
-				"Comando no identificado."
+				"{\"Error\":\"Faltan uno o mas parámetros.\"}"
 				);
 	}
 

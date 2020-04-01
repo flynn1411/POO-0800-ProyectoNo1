@@ -12,10 +12,10 @@ pageEncoding="UTF-8"%>
 		<script src="scripts/index.js"></script>
 		<script src="scripts/jquery.js"></script>
 	</head> 
-	<body class="default">
+	<body class="A1">
 	  
-		  <header>
-			  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>  
+		  <!--<header>-->
+			  <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->  
 			  <div id="container">
 				  <!-- Contenedor de los botones principales--> 
 				  <div id="buttons">
@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
 					  <div id="btnScore" class="button" onclick="clickedButton(this)"></div>
 					  <div id="btnCredits" class="button" onclick="clickedButton(this)"></div>
 				  </div>
-				  <img src="resources/Images/boxUno.png">
+				  <img id="startIcon" src="resources/Images/boxUno.png">
 	  
 				  <!-- Elementos de la ventana emergente del btnStart -->
 				  <div id="overlayBtnStart" class="overlay contentBtn1">
@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
 			  
 
 				  <div id="currentTheme" class="currentThemeClass">
-					  <span>Tema actual</span>
+					  <span>Cambiar tema</span>
 					  <img src="resources/Images/Classic/classic_icon.png" id="btnSelectTheme" onclick="clickedChangeTheme()">
 				  </div>
 				  
@@ -77,8 +77,10 @@ pageEncoding="UTF-8"%>
 					  </div>
 				  </div>
 				  
+  
+				  
 			  	</div>
-		  </header>
+		  <!--</header>-->
 
 	</body>
 </html> 

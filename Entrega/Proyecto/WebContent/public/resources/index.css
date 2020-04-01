@@ -44,23 +44,23 @@ img{
 /*------------Propiedades de los botones individuales----------*/
 div#btnStart{
     background-image:url('Images/uno.png');
-    animation: welcomeCardA 0.6s linear forwards,welcomeCardA2 0.6s linear forwards, rotateCardA 1s linear forwards;
-    animation-delay: 1.3s,1.7s,2s;
+    animation: var(--animation1);
+    animation-delay: var(--animation1-delay);
 }
 div#btnLoad{
     background-image: url('Images/uno.png');
-    animation: welcomeCardB 0.6s linear forwards,welcomeCardB2 0.6s linear forwards, rotateCardB 1s linear forwards;
-    animation-delay: 1.3s,1.7s,2.3s;
+    animation: var(--animation2);
+    animation-delay: var(--animation2-delay);
 }
 div#btnScore{
     background-image: url('Images/uno.png');
-    animation: welcomeCardC 0.6s linear forwards,welcomeCardC2 0.6s linear forwards, rotateCardC 1s linear forwards;
-    animation-delay: 1.3s,1.7s,2.6s;
+    animation: var(--animation3);
+    animation-delay: var(--animation3-delay);
 }
 div#btnCredits{
     background-image: url('Images/uno.png');
-    animation: welcomeCardD 0.6s linear forwards,welcomeCardD2 0.6s linear forwards, rotateCardD 1s linear forwards;
-    animation-delay: 1.3s,1.7s,2.9s;
+    animation: var(--animation4);
+    animation-delay: var(--animation4-delay);
 }
 
 /*----Overlay o contenedor de las ventanas emergentes---------*/
@@ -97,8 +97,7 @@ div#btnCredits{
     padding: 20px;
     text-align: center;
     opacity: 0;
-    border: 7px solid #2BA93C;
-    font-family: var(--font-currentTheme);  
+    border: 7px solid #2BA93C;    
 }
 .popup.active {
     animation: zoomIn .8s ease .9s forwards;
@@ -113,13 +112,12 @@ div#btnCredits{
     border-radius:15px;
     font-weight:700;
     font-size:30px; 
-    color: var(--startPopUp-bg);
+    color:white;
     margin-bottom: 10px;
     position: absolute;
     width: 35%;
     height: auto;
     opacity: 0;
-    font-family: var(--font-currentTheme);
 }
 .buttonPopup.active{
     animation: zoomIn .8s ease .9s forwards;
@@ -131,11 +129,13 @@ div#btnCredits{
 #titlePopupBtnStart{
     border-radius: 15px;
     animation: entradaTitulo 2s linear forwards;
-    animation-duration: 2.5s;   
+    animation-duration: 2.5s;
+    color: white;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
 }
 #popupBtnStart{
-    border: 7px solid var(--startPopUp-bg);
-    color: var(--startPopUp-bg);
+    border: 7px solid var(--start);
+    background-color: var(--start);
 }
 #accessCode{
     position: absolute;
@@ -145,21 +145,21 @@ div#btnCredits{
     border-radius: 20px;
     width: 60%;
     opacity: 0;
-    font-size:70px; 
-    color: var(--text-color);
-    background-color: var(--startPopUp-bg);
+    font-size:70px;
+    font-family: var(--font-currentTheme);
+    color: white;
     text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
     letter-spacing: 10px;
 }
 #btnCloseStart{
-    background-color: var(--text-color);
-    color: var(--startPopUp-bg);
+    background-color: white;
+    color: var(--start);
     top: 70%;
     left: 10%;
 }
 #btnEnterGame{
-    background-color: var(--text-color);
-    color: var(--startPopUp-bg);
+    background-color: white;
+    color: var(--start);
     top: 70%;
     left: 50%;
 }
@@ -172,21 +172,22 @@ div#btnCredits{
 #titlePopupBtnLoad{
     animation: entradaTitulo 2s linear forwards;
     animation-duration: 2.5s;
+    color: white;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
 }
 #popupBtnLoad{
-    border: 7px solid var(--joinPopUp-bg);
-    color: var(--joinPopUp-bg);
+	background-color: var(--load);
+    border: 7px solid #A9362B;
 }
 #btnCloseLoad{
-    background-color: var(--text-color);
-    color: var(--joinPopUp-bg);
+    background-color: white;
+    color: var(--load);
     top: 70%;
     left: 10%;
 }
 #btnEnterToGame{
-    background-color: var(--text-color);
-    color: var(--joinPopUp-bg);
-    top: 70%;
+    background-color: white;
+    color: var(--load);
     left: 55%;
 }
 #textBox{
@@ -197,9 +198,9 @@ div#btnCredits{
     height:80px;
     top: 30%;
     left: 20%;
-    color:var(--text-color);
-    background-color: var(--joinPopUp-bg);
-    border: 3px solid #A41B55;
+    border: 3px solid white;
+    color: white;
+    background-color: var(--load);
     border-radius: 20px 20px 20px 20px;
     margin-bottom: 10px;
     opacity: 0;
@@ -212,28 +213,31 @@ div#btnCredits{
 /*--------- Elementos del popup tabla de calificaciones ---------*/
 #popupBtnScore{
     height: 350px;
-    background-color: var(--HSPopUp-bg);
+    background-color: var(--highScore);
+    border: var(highScore);
     background-repeat:no-repeat;
     background-position:center top;
 }
 
 #titlePopupBtnScore{
-    background-color: white;
+        background-color: var(--highScore);
     animation: entradaTitulo 2s linear forwards;
     animation-duration: 2.5s;
+    color: white;
+    font-size: 1.4rem;
 }
 #scoreTable{
     position: absolute;    
     border: 1px solid black;
     display: block;
     background-color: white;
+    color: grey;
     font-family: var(--font-currentTheme);
     font-size: 18px;
     text-align: center;
     width: auto;
     height:auto;
-    left: 19%;
-    color: black;
+    left: 15%;
     border-collapse: collapse;
 }
 #scoreTable.active{
@@ -246,15 +250,14 @@ div#btnCredits{
     top:90%;   
     left: 40%;
     font-size: 20px;
-    background-color: var(--text-color);
-    color: var(--HSPopUp-bg);
+    background-color: #593D9E;
 }
 
 thead{
     width: 100%;
-    background-color: #1C9234;
+    background-color: var(--highScore);
     color: white;
-    border-bottom: solid 5px #0F362D;
+    border-bottom: solid 5px var(--highScore);
 }
 tr{
     border: hidden;
@@ -275,7 +278,7 @@ tr:hover td{
 
 /*--------- Elementos del popup de creditos ---------*/
 #popupBtnCredits{
-    border: 7px solid #C6DA36;
+    border: 7px solid var();
 }
 #btnCloseCredits{
     background-color: #C6DA36;
@@ -284,7 +287,7 @@ tr:hover td{
 #popupMessage{
     width: 280px;
     height:140px;
-    font-family: 'Chewy';
+    font-family: var(--font-currentTheme);
     font-size: 10px;
 }
 #btnMessage{
@@ -301,34 +304,35 @@ tr:hover td{
 
 #currentTheme{
     position: absolute;
-    width: 18vw;
-    height: 7vh;
+    width: 15%;
     top: 85%;
     left: 0;
     opacity: 1;
     background-color: var(--bg-currentTheme);
     border: solid 5px var(--border-color);
-    line-height: 180%;
     border-radius: 10px;
     text-align: left;
     color: var(--font-color);
     font-weight: bold;
-    font-size: 30px;
+    font-size: 100%;
     font-family: var(--font-currentTheme);
 }
 #btnSelectTheme{
-    position: absolute;
-    width: 4.4vw;
-    height: 13vh;
+    /*position: absolute;*/
     top: -48%;
     border-radius: 12px;
     background-size: 104% 106%;
     left: 73%;
     opacity: 1;
     animation: infiniteAnimation 0.5s infinite;
+    display:inline-block;
+    width: 25%;
 }
 #currentTheme span{
     vertical-align: middle;
+    position:relative;
+    display:inline-block;
+    width: 73%;
 }
 
 /*--------------- Animaciones -----------------------*/
@@ -410,47 +414,111 @@ tr:hover td{
     }
 }
 
-@media screen and (max-width: 980px){
-    body{
-        background-color: #9D2F28;
-    }
-    .button{
-        width: 12%;
-        height: 9%;
-    }
+@media screen and (max-width: 800px){
+	
+	/*------------Propiedades de los botones individuales----------*/
+	@keyframes welcomeCardA2{
+    	0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardB2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardC2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardD2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	
+	div.button {
+		position: relative;
+		display: block;
+		width: 100%;
+    	height: 68%;
+	}
+	
+	div#buttons{
+	    height: 100vh;
+	    position: absolute;
+	    width: 80vw;
+	    align-items: center;
+	    left: 5vh;
+	}
+	
+	#textBox{
+	    position: initial;
+	    text-align: center;
+	    font-size: 70px;
+	    width: 100%;
+	    height: 80px;
+	}
+	
+	.buttonPopup{
+		font-size:5vh;
+		width: auto;
+		position: sticky;
+	}
+	
+	#btnCloseScore{
+		width: auto;
+		position: absolute !important;
+		top: 105%;
+		left: 70%;
+	}
+	
+	#currentTheme{
+		position: fixed;
+    	width: 66vw;
+    	height: 8vh;
+    	bottom: 25px;
+    	font-size: 1.4rem;
+	}
+	
+	#startIcon{
+		width: 80vw;
+		height: auto;
+		top: 10vh;
+		left: 10vw;
+	}
 }
-
 
 /*========================== M E N U =======================*/
 :root{
-    --borderPopup-red: #A9362B;
+    --borderPopup-red: var(--bg);
+    --animation1: welcomeCardA 0.6s linear forwards,welcomeCardA2 0.6s linear forwards, rotateCardA 1s linear forwards;
+    --animation1-delay: 1.3s,1.7s,2s;
+    --animation2: welcomeCardB 0.6s linear forwards,welcomeCardB2 0.6s linear forwards, rotateCardB 1s linear forwards;
+    --animation2-delay: 1.3s,1.7s,2.3s;
+    --animation3: welcomeCardC 0.6s linear forwards,welcomeCardC2 0.6s linear forwards, rotateCardC 1s linear forwards;
+    --animation3-delay: 1.3s,1.7s,2.6s;
+    --animation4: welcomeCardD 0.6s linear forwards,welcomeCardD2 0.6s linear forwards, rotateCardD 1s linear forwards;
+    --animation4-delay: 1.3s,1.7s,2.9s;
 }
 
 /* Definicon de cada uno de los estilos del tema.*/
-.green {
+.A3 {
     --bg: #2a2e35;
     --bg-nav: linear-gradient(to right, #2a2e35, #12181b);
     --bg-styleBox: #f8f8f8;
     --textBox: #12181b;
-    --borderPopup-color: ;
+    --borderPopup-color: 
     --selection-border-color: #0084a5;
     --shadowDark: #12181b;
     --bg-card1: url('Images/Minimalist/new.png');
     --bg-card2: url('Images/Minimalist/join.png');
     --bg-card3: url('Images/Minimalist/score.png');
     --bg-card4: url('Images/Minimalist/credits.png');
-    --bg-currentTheme : transparent;
+    --bg-currentTheme : #2a2e35;
     --border-color : #db1f20;
     --font-currentTheme : 'Fira Code', monospace;
     --bg-btnSelectTheme : url('Images/Minimalist/minimalista_icon.png');
     --font-color: #f6cf0e;
-    --startPopUp-bg: #62ce00;
-    --joinPopUp-bg: #e1432f;
-    --HSPopUp-bg: #2e64a1;
-    --creditPopUp-bg: #f5c642;
-    --text-color:#f8f8f8;
+    --start: #62ce00;
+    --load: #e1432f;
+    --highScore: #2e64a1;
+    --credits: #f5c642;
 } 
-.dark {
+.A2 {
     --bg: #3FD65D;
     --bg-nav: linear-gradient(to right,#dbe1e8 , #309E46);
     --bg-styleBox: #12181b;
@@ -461,18 +529,17 @@ tr:hover td{
     --bg-card2: url('Images/Basic/join.png');
     --bg-card3: url('Images/Basic/score.png');
     --bg-card4: url('Images/Basic/credits.png');
-    --bg-currentTheme : transparent;
+    --bg-currentTheme : #dbe1e8;
     --border-color : #2D923C;
     --font-currentTheme : 'Noto Serif', serif;
     --bg-btnSelectTheme : url('Images/Basic/basic_icon.png');
     --font-color: #A42E2E;
-    --startPopUp-bg: #008037;
-    --joinPopUp-bg: #c32a2a;
-    --HSPopUp-bg: #004aad;
-    --creditPopUp-bg: #ffde59;
-    --text-color: #000000;
+    --start: #008037;
+    --load: #c32a2a;
+    --highScore: #004aad;
+    --credits: #ffde59;
 }
-.default{
+.A1{
     --bg: #5E398A;
     --bgSecundary:#5E398A;
     --bg-nav: linear-gradient(var(--bg), #A884D2);
@@ -489,11 +556,10 @@ tr:hover td{
     --border-color:#553e94;
     --font-currentTheme : 'Poppins', sans-serif;
     --bg-btnSelectTheme : url('Images/Classic/classic_icon.png');
-    --startPopUp-bg: #008037;
-    --joinPopUp-bg: #c32a2a;
-    --HSPopUp-bg: #004aad;
-    --creditPopUp-bg: #ffde59;
-    --text-color: #000000;
+    --start: #00953e;
+    --load: #d3291c;
+    --highScore: #004aad;
+    --credits: #ffde59;
 }
 #dark::before {
     background: #2a2e35;

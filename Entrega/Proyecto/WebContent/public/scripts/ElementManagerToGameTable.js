@@ -20,7 +20,7 @@ function ElementsManager(){
 
     //Creacion de los objetos/divs cartas mediante LL.
     this.paintCards = function(json, sessionID,n){
-
+        
         jsonToList.parseToList(json, sessionID);                                //Convierte el json del server a LL.                                           //Convierte el json del servidor a LL.
         var decksArray = [playerOne,playerTwo,putOnDeck,grabDeck];              //Guarda en arr las 4 barajas de cartas.
             
@@ -44,17 +44,17 @@ function ElementsManager(){
 
                 //Asignacion de las cartas en sus respectivos contenedores/areas.
                 if(n == "1"){
-                	//Cuando Jugador uno entra
+                	//Cuando Jugador uno entra.
                 	if(j == 0)areaP1.innerHTML += result[0];
                 	if(j == 1)areaP2.innerHTML += result[0];
                 	
                 }else{
-                	//Cuando Jugador dos entra
+                	//Cuando Jugador dos entra.
                 	if(j == 0)areaP2.innerHTML += result[0];
                 	if(j == 1)areaP1.innerHTML += result[0];
                 	
                 }
-                //Crear el area de la Mesa
+                //Crear el area de la Mesa.
                 if(j == 2 || j == 3){
                 	areaTable.innerHTML += result[0];
                 }
@@ -62,18 +62,19 @@ function ElementsManager(){
             }
         }
         count = 1;     
-        this.distributeAllDeck();                                               //Distribuye todos los decks.  
+        this.distributeAllDeck();
     }    
     
    //Element es el div de la carta. Lo mismo si usara getElementById
     this.eventClickedCard = function(element){
-       
     	//Buscamos el jugador y de quien es el turno 
     	var cookies = ck.getCookies();		
-    	var currentTurn = cookies[0];  	
-    	var sessionID = cookies[1];
-    	var playerID = cookies[2]; 	
+    	var currentTurn = cookies[0];
+    	var currentStyle = cookies[1];
+    	var playerID = cookies[2];
+    	var sessionID = cookies[3];
     	
+    
     	//Accion de hacer click en una carta
     	function clickCard(status,deck){
     		if(status == true){
@@ -95,7 +96,13 @@ function ElementsManager(){
     				}
     			}
     		}else{
-    			console.log("Agarra una carta");
+                //let last = grabDeck.search(grabDeck.amount());
+                //document.getElementById(last.id).style.animation = "grabAnimation 1s infinite";
+                image.style.visibility = "visible";
+                image.style.animation = "grabAnimation 1s infinite";
+
+                setTimeout(function(){image.style.visibility = "hidden";},2000);
+                //this.showMessage("Agarre una carta.");
     		}
     	}
 
@@ -114,7 +121,7 @@ function ElementsManager(){
 	    		clickCard(status,playerTwo);
 	    	}
 	    }else{
-	    	//no es tu turno 
+	    	this.showMessage("No es su turno."); 
 	    }
     }
     
@@ -125,15 +132,15 @@ function ElementsManager(){
             
             //Atributo 'name' del objeto div almacena la posicion del elemento respecto a la lista.
         	var position = parseInt(currentClickedCard.getAttribute('name'));           //Obtiene una carta respecto a la posicion en la LL.
-            console.log(playerOne.first);
+                    	
+            var cookies = ck.getCookies();		
+        	var currentTurn = cookies[0];
+        	var currentStyle = cookies[1];
+        	var playerID = cookies[2];
+        	var sessionID = cookies[3];
         	
-        	var cookies = ck.getCookies();
-        	var currentTurn = cookies[0];  	
-        	var sessionID = cookies[1];
-        	var currentPlayerID = cookies[2]; 
-        	
-        	//Verificar que jugador sos 
-        	 if(currentPlayerID.match(/(_playerOne)/g)){
+        	//Verificar que jugador es. 
+        	 if(playerID.match(/(_playerOne)/g)){
         		 var validation = ruler.logic(position, "1"); //Jugador uno
 	                	                
              }else{
@@ -143,7 +150,7 @@ function ElementsManager(){
             if(validation == true){
                 
             	//Envio al servidor.
-                var parameters = {"command":"validate", "playerID": currentPlayerID, "sessionID": sessionID, "card": position};
+                var parameters = {"command":"validate", "playerID": playerID, "sessionID": sessionID, "card": position};
                 $.post("../gameService.jsp", parameters, function(response){
                 	loadGame();
                 });
@@ -153,23 +160,24 @@ function ElementsManager(){
             }else{
               
             	//Cuando un moviminento no es validado.
-                console.log("MOVIMIENTO NO ES VALIDO");
+                this.showMessage("Movimiento no valido.");
             }
             currentClickedCard = null;
         }else{
-            console.log("No hay carta seleccionada.")
+            this.showMessage("No hay carta seleccionada.");
         }
     }
     
+    //Evento a hacer doble click a la baraja principal para obtener una carta.
     this.eventDoubleClickedGrabDeck = function(){
-        //console.log("Se ha dado click 2 veces");
            
         	//Buscamos el jugador y de quien es el turno 
-    		var cookies = ck.getCookies();
-	    	var currentTurn = cookies[0];  	
-	    	var sessionID = cookies[1];
-	    	var playerID = cookies[2]; 	
-        
+	    	var cookies = ck.getCookies();		
+	    	var currentTurn = cookies[0];
+	    	var currentStyle = cookies[1];
+	    	var playerID = cookies[2];
+	    	var sessionID = cookies[3];
+	        
 	    	if(playerID == currentTurn){
 		    		
 	    		//Envio al servidor.
@@ -181,7 +189,7 @@ function ElementsManager(){
 	    		this.empty();
 	    		
 	    	}else{
-	    		//No es tu turno
+	    		this.showMessage("No es su turno.")
 	    	}
         }
     
@@ -261,12 +269,9 @@ function ElementsManager(){
         let result = [],
         ID = `${symbol}_${color}_${count}`,
         html,
-        styleText,
         nameClass = color;
 
-    if(color == "black"){
-        //symbol == "change color" || symbol == "reverse" || symbol == "block" || symbol == "+2" || symbol == "+4"
-        
+    if(color == "black"){        
         if(symbol == "change color" || symbol == "+4"){
             if(viewCard != "hide"){
                 if(symbol == "change color"){
@@ -277,8 +282,8 @@ function ElementsManager(){
             }
         }
     }
-
-    //styleText = cssContent.getStyleText(viewCard,symbol);
+    
+    //Creacion del html que contrendra el objeto/div carta.
     html = `<div id="${ID}" class="${nameClass} card" name="${position}" onclick="eventClickedCard(this);">
                 <span>
                     <h1 id="textCard">${symbol}</h1>
@@ -287,6 +292,22 @@ function ElementsManager(){
 
     result.push(html,ID);                               //[html,ID]
     return result;
+    }
+
+    //Muestra un mensaje en un pop up con un texto dado.
+    this.showMessage = function(message){
+        messageError.innerHTML = message;
+        popupError.classList.add('active');
+        setTimeout(function(){popupError.classList.remove('active')},2000);
+    }
+
+    this.activeTurn = function(state){
+        if(state == true){
+            document.getElementById('textTurn').classList.add('active');
+        }
+        if(state == false){
+            document.getElementById('textTurn').classList.remove('active');
+        }
     }
     
     //Limpiar
@@ -301,5 +322,26 @@ function ElementsManager(){
         areaP1.innerHTML = "";
         areaP2.innerHTML = "";
         areaTable.innerHTML = "";
-	}
+    }
+    
+    this.eventClickBtnPopup = function(element){ 
+        if(element.getAttribute('id') == 'closeBtn'){
+            overlayInputName.classList.add('active');
+            popupInputName.classList.add('active');
+        }
+        if(element.getAttribute('id') == 'cancelInputName'){
+            overlayInputName.classList.remove('active');
+            popupInputName.classList.remove('active');
+        }
+        if(element.getAttribute('id') == 'acceptInputName'){
+            var userName = textInput.value;
+            if(userName != ""){
+                textInput.value = "";
+                
+            }else{
+                errorInput.style.visibility = "visible";
+                setTimeout(function(){errorInput.style.visibility="hidden";},2000);
+            }
+        }
+    }
 }

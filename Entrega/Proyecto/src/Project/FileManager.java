@@ -82,7 +82,7 @@ public class FileManager {
 							
 			}
 		}catch(Exception e) {
-			return "Not Found";
+			return "";
 		}
 		
 		return content.toString();

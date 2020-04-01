@@ -1,5 +1,5 @@
 var body = document.body;
-var currentStyle = "default";
+var currentStyle = "A1";	
 var countTheme = 1;	
 //Funcion que se ejecuta con el evento 'click' de los elementos...
 //... de la pagina de bienvenida.	
@@ -22,7 +22,8 @@ function clickedButton(idElement){
 				
 				document.cookie = `sessionID=${sessionID}`;
 				document.cookie = `playerID=${playerID}`;
-				
+				document.cookie = `currentStyle=${currentStyle}`;
+				console.log(document.cookie);
 				accessCode.innerHTML = sessionID;
 			};
 		$.post(action, parameters, callback);
@@ -38,7 +39,6 @@ function clickedButton(idElement){
 	if(idElement == "btnScore"){
 		this.activeElements("contentBtn3");
 		this.getJsonToJSP();						//Ejecuta el llamado del json por $.get contenido en el body de GetJsonToJSP.jsp
-		//console.log(scoreTable);
 	}
 		
 	//---------- Boton de creditos. ----------
@@ -58,7 +58,7 @@ function clickedButton(idElement){
 		var sessionID = accessCode.innerHTML;
 		var parameters = {"command":"deleteCurrentSession", "sessionID": sessionID};
 		var callback = function(){
-			console.log(response);
+			console.log(response.trim());
 		}
 
 		$.post('service1.jsp', parameters, callback);
@@ -72,9 +72,19 @@ function clickedButton(idElement){
         	for(i = 0; i<cookies.length; i++){
         		parameters.push(cookies[i].split("=")[1]);
         	}
-        	var sessionID = parameters[0];
-        	var playerID = parameters[1];
-        	window.location = `service1.jsp?command=joinSession&sessionID=${sessionID}&playerID=${playerID}`;
+        	console.log(parameters);
+        	for(i=0; i<parameters.length; i++){
+        		if(parameters[i].match(/_playerOne/g) || parameters[i].match(/_playerTwo/g)){
+        			newPlayerID = parameters[i]
+        		
+        		}else if(parameters[i].match(/A/g)){
+        			trash = parameters[i]
+            		
+        		}else{
+        			newSessionID = parameters[i];
+        		}
+        	 }
+        	window.location = `service1.jsp?command=joinSession&sessionID=${newSessionID}&playerID=${newPlayerID}`;
 	}
 
 	//---------- Boton cerrar la ventana emergente del boton reanudar partida.
@@ -108,12 +118,14 @@ function clickedButton(idElement){
 				let newPlayerID = response["playerID"];
 				
 				//borrado de cookies
-				document.cookie = `sessionID=${sessionID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
-				document.cookie = `playerID=${playerID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+				document.cookie = `sessionID=${newSessionID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+				document.cookie = `playerID=${newPlayerID}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
+				document.cookie = `currentStyle=${currentStyle}; expires=Thu, 01-Jan-70 00:00:01 GMT;`;
 				
 				//agregado de Cookies
 				document.cookie = `sessionID=${newSessionID}`;
 				document.cookie = `playerID=${newPlayerID}`;
+				document.cookie = `currentStyle=${currentStyle}`;		
 				
 				window.location = `service1.jsp?command=joinSession&sessionID=${newSessionID}&playerID=${newPlayerID}`;
 			}
@@ -144,12 +156,31 @@ function getJsonToJSP(){
 	var action = "service1.jsp";
 	var callback = function(content){
 		var json = JSON.parse(content.trim());
-		var highScoresArr = json["fileContent"]["highScores"];
+		
 		var html = '<thead><th>Nombre</th><th>Calificacion</th><th>Fecha</th></thead><tbody>';
 		
-		for(i=0; i<highScoresArr.length; i++){
-			html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["date"]}</td></tr>`;
+		if(json["fileContent"] != "Empty"){
+			var highScoresArr = json["fileContent"]["highScores"];
+			
+			for(i=0; i<highScoresArr.length; i++){
+				html += `<tr><td>${highScoresArr[i]["user"]}</td><td>${highScoresArr[i]["score"]}</td><td>${highScoresArr[i]["date"]}</td></tr>`;
+			}
+			
+			if(highScoresArr.length < 10){
+				let iterations = 10 - highScoresArr.length;
+				
+				for(j=0; j<iterations; j++){
+					html += "<tr><td>N/A</td><td>N/A</td><td>N/A</td></tr>";
+				}
+			}
+			
+		}else{
+			
+			for(i=0; i<10; i++){
+				html += "<tr><td>N/A</td><td>N/A</td><td>N/A</td></tr>";
+			}
 		}
+		
 		
 		html += "</tbody>";
 		
@@ -181,43 +212,23 @@ function activateMessage(message){
 	popupMessage.classList.add('active');
 }
 
-//Funcion para el cambio de temas.
-function eventTheme(object){
-  var element = object.getAttribute("id");
-  console.log("Estilo actual: ",currentStyle);
-  
-  if(element == "dark"){
-    document.body.classList.replace(`${currentStyle}`, 'dark');
-    currentStyle = "dark";
-  }
-
-  if(element == "green"){
-    document.body.classList.replace(`${currentStyle}`, 'green');
-    currentStyle = "green";
-  }
-
-  if(element == "default"){
-    document.body.classList.replace(`${currentStyle}`, 'default');
-    console.log("entra");
-    currentStyle = "default"
-  }
-}
-
+//Funcion que ejecuta al clickear la carta de cambiar tema.
 function clickedChangeTheme(){
-	var arrThemes = ["default","green","dark"];
-    let newTheme = countTheme%arrThemes.length;
-    document.body.classList.replace(`${currentStyle}`,`${arrThemes[newTheme]}`);
-    currentStyle = arrThemes[newTheme];
-
-    //Para cambiar la imagen del tema actual.
-    if(currentStyle == "default"){
-        btnSelectTheme.src = "resources/Images/Classic/classic_icon.png";
-    }
-    if(currentStyle == "dark"){
-        btnSelectTheme.src = "resources/Images/Basic/basic_icon.png";
-    }
-    if(currentStyle == "green"){
-        btnSelectTheme.src = "resources/Images/Minimalist/minimalista_icon.png";
-    }
-    countTheme ++;
+	var arrThemes = ["A1","A3","A2"];
+	let newTheme = countTheme%arrThemes.length;
+	document.body.classList.replace(`${currentStyle}`,`${arrThemes[newTheme]}`);
+	currentStyle = arrThemes[newTheme];
+	
+	//Para cambiar la imagen del tema actual.
+	if(currentStyle == "A1"){
+		btnSelectTheme.src = "resources/Images/Classic/classic_icon.png";
+	}
+	if(currentStyle == "A2"){
+		btnSelectTheme.src = "resources/Images/Basic/basic_icon.png";
+	}
+	if(currentStyle == "A3"){
+		btnSelectTheme.src = "resources/Images/Minimalist/minimalista_icon.png";
+	}
+	countTheme ++;
+	
 }

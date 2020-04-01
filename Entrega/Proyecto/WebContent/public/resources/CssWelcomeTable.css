@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.defaultCards{
+.A1{
     --bg-yellow : url('../resources/Images/Classic/yellow/yellow.png');
     --bg-blue : url('../resources/Images/Classic/blue/blue.png');
     --bg-green : url('../resources/Images/Classic/green/green.png');
@@ -9,17 +9,17 @@
     --bg-plus4 : url('../resources/Images/Classic/plus4.png');
     --bg-block : url('../resources/Images/Classic/block.png');
 }
-.basicCards{
+.A2{
     --bg-yellow : url('../resources/Images/Basic/yellow.png');
     --bg-blue : url('../resources/Images/Basic/blue.png');
     --bg-green : url('../resources/Images/Basic/green.png');
     --bg-red : url('../resources/Images/Basic/red.png');
     --bg-back : url('../resources/Images/Basic/back.png');
-    --bg-changeColor : url('../resources/Images/Basic/change.png');
-    --bg-plus4 : url('../resources/Images/Basic/plus4.png');
-    --bg-block : url('../resources/Images/Basic/block.png');
+    --bg-changeColor : url('../resources/Images/Classic/change.png');
+    --bg-plus4 : url('../resources/Images/Classic/plus4.png');
+    --bg-block : url('../resources/Images/Classic/block.png');
 }
-.minimalistCards{
+.A3{
     --bg-yellow : url('../resources/Images/Minimalist/yellow/yellow.png');
     --bg-blue : url('../resources/Images/Minimalist/blue/blue.png');
     --bg-green : url('../resources/Images/Minimalist/green/green.png');
@@ -38,7 +38,13 @@ div.table {
     width: 100%;
     height: 33%;
 }
-
+#closeBtn{
+    position: absolute;
+    top: 34.2%;
+    left: 0.4%;
+    width: 90px;
+    height: 30px;
+}
 #areaP1 {
     border: 5px solid black;
     background-color: #3FC65D;
@@ -65,6 +71,14 @@ div.table {
     left: 43%;
     text-shadow: none;
 }
+#image{
+    position: absolute;
+    width: 6%;
+    height: auto;
+    left: 70%;
+    transform: rotate(45deg);
+    visibility: hidden;
+}
 
 #areaP2 {
     border: 5px solid black;
@@ -84,7 +98,6 @@ div.table {
     width:6.85%;
     height:21%;
     box-shadow: 1px 1px 1px #777, 10px 10px 0px 0px #5B5858;
-    z-index:1;
 }
 #principalDeck {
     border: 0px solid blue;
@@ -106,21 +119,103 @@ div.table {
     height:auto;
     font-family: 'Chewy';
     font-size: 10px;
-    padding: 20px;
     text-align: center;
     opacity: 0;
     top: 43%;
     left: 40.3%;
+    z-index: 10;
 }
 #popupError.active{
     animation: showMessage 1.5s linear forwards;        
 }
+
+#overlayInputName {
+    background: rgba(0,0,0,.85);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+}
+#overlayInputName.active{
+    visibility: visible;
+    opacity: 1;
+}
+#popupInputName{
+    position: absolute;
+    background: #F8F8F8;
+    border: 5px solid #dc2c47;
+    border-radius: 15px;
+    width: 400px;
+    height:200px;
+    text-align: center;
+    opacity: 0;
+    top: 33.2%;
+    left: 35%;    
+}
+#popupInputName.active{
+    opacity: 1;
+}
+.littleInput{
+    position: absolute;
+    font-family: 'Chewy';
+    font-size: 17px;
+    top: 5%;
+    left: 36%;
+}
+#errorInput{
+    left: 25%;
+    top: 30%;
+    color: red;
+    visibility: hidden;
+}
+#finalScore{
+    top:15%;
+    left: 32%;
+}
+#textInput{
+    position: absolute;
+    text-align: center;
+    font-size: 20px;
+    top:50%;
+    left: 22%;
+    width: 55%;
+    height: 15%;
+    border-radius: 5px;
+    border: 3px solid #A41B55;
+}
+.buttonInputName{
+    border-color: black;
+    background-color: #A22727;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 15px;
+    font-weight: 15px;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 10px;
+    position: absolute;
+    width: 20%;
+    height: 16%;
+    top: 80%;
+}
+#cancelInputName{
+    left: 27%;
+}
+#acceptInputName{
+    left: 53%;
+}
+
 .card{
     position: absolute;
     border-radius: 12px;
     border: solid black ;
     cursor: pointer;
-    display: block;  
+    display: inline-block;  
     top: 19%;
     left: 60.25%;
     width: 3.6%;
@@ -144,11 +239,31 @@ div.table {
     transform: var(--font-transform);
     /* line-height:340%; */
 }
-
-#currentTheme{
-    
+#textTurn{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    width: 100%;
+    height: auto;
+    font-size: 200%;
+    font-family: 'Titan One', cursive;
+    opacity: 0.4; 
 }
-
+#textTurn.active{
+    color: #fff;
+    opacity: 1;
+    font-weight: 900;
+    text-shadow:
+    0 0 100px #F30808,
+    0 0 15px #F30808,
+    0 0 25px #F30808,
+    0 0 45px #8E1313,
+    0 0 85px #8E1313,
+    0 0 95px #8E1313,
+    0 0 105px #680E0E,
+    0 0 145px #680E0E,
+    0 0 185px #680E0E;
+}
 
 .yellow{
     background-image: var(--bg-yellow);
@@ -200,4 +315,12 @@ div.table {
     50%{opacity: 1;}
     75%{opacity: 1;}
     100%{opacity: 0;}    
+}
+
+@keyframes grabAnimation{
+    from{
+        transform: translateY(-8px);
+    }
+    to{
+    }
 }

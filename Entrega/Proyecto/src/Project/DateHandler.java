@@ -18,7 +18,7 @@ public class DateHandler {
 		return String.format(
 				"%s/%s/%s",
 				this.currentDate.getDayOfMonth(),
-				this.currentDate.getMonth(),
+				this.currentDate.getMonthValue(),
 				this.currentDate.getYear()
 				);
 	}
