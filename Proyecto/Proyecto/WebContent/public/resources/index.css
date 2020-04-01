@@ -1,0 +1,607 @@
+body{
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+img{
+    position: absolute;
+    width: 20%;
+    height: auto;
+    top: 60%;
+    left: 40%;
+    animation: zoomOn 0.7s linear forwards, byeBox 2s linear forwards;
+    animation-delay:0s,2s;
+}
+/*---------------Clase de los botones ------------------*/
+.button{
+    display: inline-block;
+    background-size: 101% 101%;
+    border-radius: 12px;
+    display: block;
+    cursor: pointer; 
+    position: absolute;
+    width: 9%;
+    height: 29%;
+    opacity: 1;
+}
+.button:hover{
+    border-radius: 12px;
+    box-shadow: 0px 0px 50px 0px var(--shadowDark);
+    border-bottom: 15px solid #0C470B;
+    transform: translateY(-4px);
+    transition: all 0.1s ease 0s;
+    margin: -20px auto 76px auto;
+}
+.button:active{
+    border-bottom: none;
+	transform: translateY(-1px);
+    transition: all 0.1s ease 0s;
+    margin: 40px auto 76px auto;
+}
+
+/*------------Propiedades de los botones individuales----------*/
+div#btnStart{
+    background-image:url('Images/uno.png');
+    animation: var(--animation1);
+    animation-delay: var(--animation1-delay);
+}
+div#btnLoad{
+    background-image: url('Images/uno.png');
+    animation: var(--animation2);
+    animation-delay: var(--animation2-delay);
+}
+div#btnScore{
+    background-image: url('Images/uno.png');
+    animation: var(--animation3);
+    animation-delay: var(--animation3-delay);
+}
+div#btnCredits{
+    background-image: url('Images/uno.png');
+    animation: var(--animation4);
+    animation-delay: var(--animation4-delay);
+}
+
+/*----Overlay o contenedor de las ventanas emergentes---------*/
+.overlay {
+    background: rgba(0,0,0,.85);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+}
+.overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+/*----------Popup con contenido a mostrar------------------*/
+.popup {
+    background: #F8F8F8;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    width: 450px;
+    height:300px;
+    transition: .3s ease all;
+    transform: scale(0.7);
+    font-family: 'Chewy';
+    font-size: 10px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    border: 7px solid #2BA93C;    
+}
+.popup.active {
+    animation: zoomIn .8s ease .9s forwards;
+    animation-delay: 0.2s;
+    transform: scale(1);
+} 
+
+.buttonPopup {
+    border-color:#d8d8d8;
+    border-width:3px;
+    border-style:solid;
+    border-radius:15px;
+    font-weight:700;
+    font-size:30px; 
+    color:white;
+    margin-bottom: 10px;
+    position: absolute;
+    width: 35%;
+    height: auto;
+    opacity: 0;
+}
+.buttonPopup.active{
+    animation: zoomIn .8s ease .9s forwards;
+    animation-delay: 1s;
+    transform: scale(1);
+}
+
+/*--------- Elementos del popup de inicio de partida ---------*/
+#titlePopupBtnStart{
+    border-radius: 15px;
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;
+    color: white;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
+}
+#popupBtnStart{
+    border: 7px solid var(--start);
+    background-color: var(--start);
+}
+#accessCode{
+    position: absolute;
+    top: 15%;
+    left: 18%;
+    padding: 3px 10px;
+    border-radius: 20px;
+    width: 60%;
+    opacity: 0;
+    font-size:70px;
+    font-family: var(--font-currentTheme);
+    color: white;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
+    letter-spacing: 10px;
+}
+#btnCloseStart{
+    background-color: white;
+    color: var(--start);
+    top: 70%;
+    left: 10%;
+}
+#btnEnterGame{
+    background-color: white;
+    color: var(--start);
+    top: 70%;
+    left: 50%;
+}
+#accessCode.active{
+    animation: zoomIn .9s ease .9s forwards;
+    animation-delay: 0.7s;  
+}
+
+/*--------- Elementos del popup de reanudar de partida ---------*/
+#titlePopupBtnLoad{
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;
+    color: white;
+    text-shadow: 0px 0px 0px gray, 0px 0px 5px #C1463E;
+}
+#popupBtnLoad{
+	background-color: var(--load);
+    border: 7px solid #A9362B;
+}
+#btnCloseLoad{
+    background-color: white;
+    color: var(--load);
+    top: 70%;
+    left: 10%;
+}
+#btnEnterToGame{
+    background-color: white;
+    color: var(--load);
+    left: 55%;
+    top: 70%;
+}
+#textBox{
+    position: absolute;
+    text-align: center;
+    font-size:70px;
+    width: 300px;
+    height:80px;
+    top: 30%;
+    left: 20%;
+    border: 3px solid white;
+    color: white;
+    background-color: var(--load);
+    border-radius: 20px 20px 20px 20px;
+    margin-bottom: 10px;
+    opacity: 0;
+}
+#textBox.active{
+    animation: zoomIn 0.3s linear forwards; 
+    animation-delay: 1.0s;
+}
+
+/*--------- Elementos del popup tabla de calificaciones ---------*/
+#popupBtnScore{
+    height: 350px;
+    background-color: var(--highScore);
+    border: var(highScore);
+    background-repeat:no-repeat;
+    background-position:center top;
+}
+
+#titlePopupBtnScore{
+        background-color: var(--highScore);
+    animation: entradaTitulo 2s linear forwards;
+    animation-duration: 2.5s;
+    color: white;
+    font-size: 1.4rem;
+}
+#scoreTable{
+    position: absolute;    
+    border: 1px solid black;
+    display: block;
+    background-color: white;
+    color: grey;
+    font-family: var(--font-currentTheme);
+    font-size: 18px;
+    text-align: center;
+    width: auto;
+    height:auto;
+    left: 15%;
+    border-collapse: collapse;
+}
+#scoreTable.active{
+    transform: scale(1);
+    opacity: 1;
+}
+#btnCloseScore{
+    width: 20%;
+    height: auto;
+    top:90%;   
+    left: 40%;
+    font-size: 20px;
+    background-color: #593D9E;
+}
+
+thead{
+    width: 100%;
+    background-color: var(--highScore);
+    color: white;
+    border-bottom: solid 5px var(--highScore);
+}
+tr{
+    border: hidden;
+}
+td{
+    border: hidden;
+}
+tr:nth-child(even){
+	background-color: #ddd;
+}
+
+tr:hover td{
+	background-color: #55BB6A;
+    color: white;
+    cursor: pointer;
+}
+
+#popupSelectColor{
+    opacity: 1;
+}
+/*--------- Elementos del popup de creditos ---------*/
+#popupBtnCredits{
+    background-color: var(--credits);
+    border: var(--credits);
+    width: 43%;
+    height: 49%;
+} 
+#btnCloseCredits{
+    background-color: #fff;
+    position: absolute;
+    top: 85%;
+    left: 43%;
+    width: 18%;
+    height: 12%;
+    color: var(--credits);
+    font-size: 17px;
+}
+#textCredits{
+    font-size: 17px;
+    font-family: 'Sen', sans-serif;
+    position: absolute;
+    text-align: center;
+    position: absolute;
+    left: 8%;
+    top: 8%;
+}
+
+/*--------- Propiedars del popup de mensaje emergente ---------*/
+#popupMessage{
+    width: 280px;
+    height:140px;
+    font-family: var(--font-currentTheme);
+    font-size: 10px;
+}
+#btnMessage{
+    background-color:#3cce33;
+    font-weight:500;
+    font-size:20px; 
+    color:white;
+    width: 18%;
+    height: auto;    
+    left: 42%;
+    top: 80%;
+    opacity: 1;
+}
+
+#currentTheme{
+    position: absolute;
+    width: 15%;
+    top: 85%;
+    left: 0;
+    opacity: 1;
+    background-color: var(--bg-currentTheme);
+    border: solid 5px var(--border-color);
+    border-radius: 10px;
+    text-align: left;
+    color: var(--font-color);
+    font-weight: bold;
+    font-size: 100%;
+    font-family: var(--font-currentTheme);
+}
+#btnSelectTheme{
+    /*position: absolute;*/
+    top: -48%;
+    border-radius: 12px;
+    background-size: 104% 106%;
+    left: 73%;
+    opacity: 1;
+    animation: infiniteAnimation 0.5s infinite;
+    display:inline-block;
+    width: 25%;
+}
+#currentTheme span{
+    vertical-align: middle;
+    position:relative;
+    display:inline-block;
+    width: 73%;
+}
+
+/*--------------- Animaciones -----------------------*/
+@keyframes zoomOn{
+    from {opacity: 0;-webkit-transform: scale3d(0.3, 0.3, 0.3);transform: scale3d(3, 3, 3);}
+    to{ opacity:1;}
+}
+@keyframes byeBox{
+    0% {opacity: 1;}
+    100%{ opacity: 0; display: none;}
+}
+@keyframes welcomeCardA{
+    0% {top:50%;left: 45%;}100%{opacity: 1;top:20%;left: 45%;}
+}
+@keyframes welcomeCardB{
+    0% {top:50%;left: 45%;}100%{opacity: 1;top:20%;left: 45%;}
+}
+@keyframes welcomeCardC{
+    0% {top:50%;left: 45%;}100%{opacity: 1;top:20%;left: 45%;}
+}
+@keyframes welcomeCardD{
+    0% {top:50%;left: 45%;}100%{opacity: 1;top:20%;left: 45%;}
+}
+
+@keyframes welcomeCardA2{
+    0% {}100%{opacity: 1;top:20%;left: 13%;}
+}
+@keyframes welcomeCardB2{
+    0% {}100%{opacity: 1;top:20%;left: 33%;}
+}
+@keyframes welcomeCardC2{
+    0% {}100%{opacity: 1;top:20%;left: 53%;}
+}
+@keyframes welcomeCardD2{
+    0% {}100%{opacity: 1;top:20%;left: 73%;}
+}
+
+@keyframes rotateCardA{
+    0% {}100%{background-image: var(--bg-card1);opacity: 1;transform: rotateY(180deg);}
+}
+@keyframes rotateCardB{
+    0% {}100%{background-image: var(--bg-card2);opacity: 1;transform: rotateY(180deg);}
+}
+@keyframes rotateCardC{
+    0% {}100%{background-image: var(--bg-card3);opacity: 1;transform: rotateY(180deg);}
+}
+@keyframes rotateCardD{
+    0% {}100%{background-image: var(--bg-card4);opacity: 1;transform: rotateY(180deg);}
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    
+    to{ 
+        opacity:1;                
+    }
+}
+
+@keyframes entradaTitulo {
+    from { 
+        opacity: 0;
+        transform: translateY(-200px);
+    } 
+    to {
+        transform: translateY(0);    
+        opacity: 1; 
+    }
+}
+
+@keyframes infiniteAnimation{
+    from{
+        transform: translateY(-8px);
+    }
+    to{
+    }
+}
+
+@media screen and (max-width: 1030px){
+	
+	/*------------Propiedades de los botones individuales----------*/
+	@keyframes welcomeCardA2{
+    	0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardB2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardC2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	@keyframes welcomeCardD2{
+	    0% {}100%{opacity: 1;top:5%;left: 0%;}
+	}
+	
+	div.button {
+		position: relative;
+		display: block;
+		width: 100%;
+    	height: 68%;
+	}
+	
+	div#buttons{
+	    height: 100vh;
+	    position: absolute;
+	    width: 80vw;
+	    align-items: center;
+	    left: 5vh;
+	}
+	
+	#textBox{
+	    position: initial;
+	    text-align: center;
+	    font-size: 70px;
+	    width: 100%;
+	    height: 80px;
+	}
+	
+	.buttonPopup{
+		font-size:5vh;
+		width: auto;
+		position: sticky;
+	}
+	
+	#btnCloseScore{
+		width: auto;
+		position: absolute !important;
+		top: 105%;
+		left: 70%;
+	}
+	
+	#currentTheme{
+		position: fixed;
+    	width: 66vw;
+    	height: 8vh;
+    	bottom: 25px;
+    	font-size: 1.4rem;
+	}
+	
+	#startIcon{
+		width: 80vw;
+		height: auto;
+		top: 10vh;
+		left: 10vw;
+	}
+}
+
+/*========================== M E N U =======================*/
+:root{
+    --borderPopup-red: var(--bg);
+    --animation1: welcomeCardA 0.6s linear forwards,welcomeCardA2 0.6s linear forwards, rotateCardA 1s linear forwards;
+    --animation1-delay: 1.3s,1.7s,2s;
+    --animation2: welcomeCardB 0.6s linear forwards,welcomeCardB2 0.6s linear forwards, rotateCardB 1s linear forwards;
+    --animation2-delay: 1.3s,1.7s,2.3s;
+    --animation3: welcomeCardC 0.6s linear forwards,welcomeCardC2 0.6s linear forwards, rotateCardC 1s linear forwards;
+    --animation3-delay: 1.3s,1.7s,2.6s;
+    --animation4: welcomeCardD 0.6s linear forwards,welcomeCardD2 0.6s linear forwards, rotateCardD 1s linear forwards;
+    --animation4-delay: 1.3s,1.7s,2.9s;
+}
+
+/* Definicon de cada uno de los estilos del tema.*/
+.A3 {
+    --bg: #2a2e35;
+    --bg-nav: linear-gradient(to right, #2a2e35, #12181b);
+    --bg-styleBox: #f8f8f8;
+    --textBox: #12181b;
+    --borderPopup-color: 
+    --selection-border-color: #0084a5;
+    --shadowDark: #12181b;
+    --bg-card1: url('Images/Minimalist/new.png');
+    --bg-card2: url('Images/Minimalist/join.png');
+    --bg-card3: url('Images/Minimalist/score.png');
+    --bg-card4: url('Images/Minimalist/credits.png');
+    --bg-currentTheme : #2a2e35;
+    --border-color : #db1f20;
+    --font-currentTheme : 'Fira Code', monospace;
+    --bg-btnSelectTheme : url('Images/Minimalist/minimalista_icon.png');
+    --font-color: #f6cf0e;
+    --start: #62ce00;
+    --load: #e1432f;
+    --highScore: #2e64a1;
+    --credits: #f5c642;
+} 
+.A2 {
+    --bg: #3FD65D;
+    --bg-nav: linear-gradient(to right,#dbe1e8 , #309E46);
+    --bg-styleBox: #12181b;
+    --textBox: #f8f8f8;
+    --selection-border-color: #a82dd1;
+    --shadowDark: white;
+    --bg-card1: url('Images/Basic/new.png');
+    --bg-card2: url('Images/Basic/join.png');
+    --bg-card3: url('Images/Basic/score.png');
+    --bg-card4: url('Images/Basic/credits.png');
+    --bg-currentTheme : #dbe1e8;
+    --border-color : #2D923C;
+    --font-currentTheme : 'Noto Serif', serif;
+    --bg-btnSelectTheme : url('Images/Basic/basic_icon.png');
+    --font-color: #A42E2E;
+    --start: #008037;
+    --load: #c32a2a;
+    --highScore: #004aad;
+    --credits: #ffde59;
+}
+.A1{
+    --bg: #5E398A;
+    --bgSecundary:#5E398A;
+    --bg-nav: linear-gradient(var(--bg), #A884D2);
+    --bg-styleBox: transparent;
+    --textBox: #f8f8f8;
+    --selection-border-color: #a82dd1;
+    --shadowDark: white;
+    --bg-card1: url('Images/Classic/new.png');
+    --bg-card2: url('Images/Classic/join.png');
+    --bg-card3: url('Images/Classic/score.png');
+    --bg-card4: url('Images/Classic/credits.png');
+    --font-color: black;
+    --bg-currentTheme : #fae983;
+    --border-color:#553e94;
+    --font-currentTheme : 'Poppins', sans-serif;
+    --bg-btnSelectTheme : url('Images/Classic/classic_icon.png');
+    --start: #00953e;
+    --load: #d3291c;
+    --highScore: #004aad;
+    --credits: #ffde59;
+}
+#dark::before {
+    background: #2a2e35;
+}
+#green::before {
+    background: #ffffff;
+}
+#default::before {
+    background: #43389E;
+}
+#red::before {
+    background: #43389E;
+}
+
+header {
+    padding: 1em;
+    /* clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0); */
+    background: var(--bg-nav);
+    margin-bottom: 1em;
+    padding-bottom: 3.5em;
+    text-align: center;
+}
