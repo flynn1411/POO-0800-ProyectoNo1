@@ -142,13 +142,20 @@ function ElementsManager(){
         	//Verificar que jugador es. 
         	 if(playerID.match(/(_playerOne)/g)){
         		 var validation = ruler.logic(position, "1"); //Jugador uno
+        		 
+        		 if(playerOne.amount() == 1){
+        			 this.eventClickBtnPopup(closeBtn, "¡Has ganado!");
+        		 }
 	                	                
              }else{
             	 var validation = ruler.logic(position, "2"); //Jugador dos
+            	 if(playerTwo.amount() == 1){
+        			 this.eventClickBtnPopup(closeBtn, "¡Has ganado!");
+        		 }
              }
         	
             if(validation == true){
-                
+                	
             	//Envio al servidor.
                 var parameters = {"command":"validate", "playerID": playerID, "sessionID": sessionID, "card": position};
                 $.post("../gameService.jsp", parameters, function(response){
@@ -324,19 +331,64 @@ function ElementsManager(){
         areaTable.innerHTML = "";
     }
     
-    this.eventClickBtnPopup = function(element){ 
+    this.eventClickBtnPopup = function(element, message=""){ 
         if(element.getAttribute('id') == 'closeBtn'){
-            overlayInputName.classList.add('active');
-            popupInputName.classList.add('active');
+        	
+        	var cookies = ck.getCookies();		
+	    	var currentTurn = cookies[0];
+	    	var currentStyle = cookies[1];
+	    	var playerID = cookies[2];
+	    	var sessionID = cookies[3];
+        	
+        	let parameters = {
+        		"command":"checkScore",
+        		"sessionID":sessionID,
+        		"playerID":playerID
+        	};
+        	
+        	$.post("../gameService.jsp", parameters, function(response){
+        		
+        		let result = JSON.parse(response);
+        		
+        		if(result.IsAHighScore){
+        			let score = result.score;
+        			titlePopupInputName = message;
+        			finalScore.innerHTML = `Puntuacion: ${score}`;
+        			overlayInputName.classList.add('active');
+        			popupInputName.classList.add('active');
+        			
+        		}else{
+        			window.location = "../index.jsp";
+        		}
+        	});
+        	
         }
         if(element.getAttribute('id') == 'cancelInputName'){
             overlayInputName.classList.remove('active');
             popupInputName.classList.remove('active');
         }
         if(element.getAttribute('id') == 'acceptInputName'){
+        	
             var userName = textInput.value;
             if(userName != ""){
                 textInput.value = "";
+                
+                var cookies = ck.getCookies();		
+    	    	var sessionID = cookies[3];
+    	    	var playerID = cookies[2];
+            	
+            	let parameters = {
+            		"command":"addHighScore",
+            		"sessionID":sessionID,
+            		"playerID":userName
+            	};
+            	
+            	$.post("../gameService.jsp",parameters, function(response){
+            		result = JSON.parse(response);
+            		if(result.status == "success"){
+            			window.location = `../gameService.jsp?command=disconnect&playerID=${playerID}&sessionID=${sessionID}`;
+            		}
+            	});
                 
             }else{
                 errorInput.style.visibility = "visible";

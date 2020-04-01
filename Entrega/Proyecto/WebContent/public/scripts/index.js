@@ -43,7 +43,15 @@ function clickedButton(idElement){
 		
 	//---------- Boton de creditos. ----------
 	if(idElement == "btnCredits"){	 
-		this.activeElements("contentBtn4");		
+		this.activeElements("contentBtn4");
+		var html = "Programacion Orientada a Objetos<br>";
+        html += "Proyecto No.1<br>";
+        html += "Ing. Jose Manuel Inestroza<br><br>";
+        html += "Integrantes: <br>";
+        html += "Fernando Cortes - 20171030809 - ferlox05@gmail.com <br>";
+        html += "Josué Ariel Izaguirre Mejia - 20171034157 - flynn1411@gmail.com <br>"; 
+        html += "Luis Gerardo Gutierrez - 20161005902 - y_rard98@live.com<br>";
+        document.getElementById('textCredits').innerHTML = html;
 	}
 		
 	//------ Boton cerrar ventana emergente del boton nueva partida. ------

@@ -24,6 +24,9 @@ public class Logic {
     		
     		//se cambian los turnos
     		foundSession.setCurrentTurn(foundSession.getPlayerTwo().getID());
+    		//Agregar puntaje
+    		int currentScore = foundSession.getPlayerOne().getScore();
+    		foundSession.getPlayerOne().setScore(currentScore + 1);
     		
     		if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("+4")){
     			System.out.print(putOnDeck.get(putOnDeck.size()-1).getSymbol());
@@ -40,7 +43,7 @@ public class Logic {
         		foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
         		
         		//Agregar puntaje
-        		int currentScore = foundSession.getPlayerOne().getScore();
+        		currentScore = foundSession.getPlayerOne().getScore();
         		foundSession.getPlayerOne().setScore(currentScore + 4);
     			    			
     		}else if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("+2")){
@@ -58,14 +61,14 @@ public class Logic {
         		foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
     			
         		//Agregar puntaje
-        		int currentScore = foundSession.getPlayerOne().getScore();
+        		currentScore = foundSession.getPlayerOne().getScore();
         		foundSession.getPlayerOne().setScore(currentScore + 2);
         		
     		}else if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("block")){
     			//se cambian los turnos
         		foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
         		//Agregar puntaje
-        		int currentScore = foundSession.getPlayerOne().getScore();
+        		currentScore = foundSession.getPlayerOne().getScore();
         		foundSession.getPlayerOne().setScore(currentScore + 6);
     		}
     		//se guarda
@@ -82,6 +85,9 @@ public class Logic {
     		
     		//se cambian los turnos
     		foundSession.setCurrentTurn(foundSession.getPlayerOne().getID());
+    		//Agregar puntaje
+    		int currentScore = foundSession.getPlayerTwo().getScore();
+    		foundSession.getPlayerTwo().setScore(currentScore + 1);
     		
     		if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("+4")){
         		System.out.print(putOnDeck.get(putOnDeck.size()-1).getSymbol());
@@ -98,7 +104,7 @@ public class Logic {
         		foundSession.setCurrentTurn(foundSession.getPlayerTwo().getID());
         		
         		//Agregar puntaje
-        		int currentScore = foundSession.getPlayerTwo().getScore();
+        		currentScore = foundSession.getPlayerTwo().getScore();
         		foundSession.getPlayerTwo().setScore(currentScore + 4);
     			    			
     		}else if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("+2")){
@@ -116,14 +122,14 @@ public class Logic {
         		foundSession.setCurrentTurn(foundSession.getPlayerTwo().getID());
         		
         		//Agregar puntaje
-        		int currentScore = foundSession.getPlayerTwo().getScore();
+        		currentScore = foundSession.getPlayerTwo().getScore();
         		foundSession.getPlayerTwo().setScore(currentScore + 2);
     			
     		}else if(putOnDeck.get(putOnDeck.size()-1).getSymbol().equals("block")){
     			//se cambian los turnos
     			foundSession.setCurrentTurn(foundSession.getPlayerTwo().getID());
     			//Agregar puntaje
-        		int currentScore = foundSession.getPlayerTwo().getScore();
+        		currentScore = foundSession.getPlayerTwo().getScore();
         		foundSession.getPlayerTwo().setScore(currentScore + 6);
     		}
 

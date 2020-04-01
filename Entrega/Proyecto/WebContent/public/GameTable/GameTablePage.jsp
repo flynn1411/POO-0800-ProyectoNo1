@@ -31,8 +31,8 @@
             
         <div id="overlayInputName">
             <div id="popupInputName">
-                <h1 id="titlePopupInputName" class="littleInput">¡Has Ganado!</h1>
-                <h1 id="finalScore" class="littleInput">Puntuacion : 1354</h1>
+                <h1 id="titlePopupInputName" class="littleInput">¡Erés una puntuación alta!</h1>
+                <h1 id="finalScore" class="littleInput"></h1>
                 <input type="text" placeholder="Ingrese su nombre" id="textInput">
                 <span id="errorInput" class="littleInput">No ha ingresado su nombre</span>
                 <button id="cancelInputName" class="buttonInputName" onclick="eventClickBtnPopup(this)">Cancelar</button>
@@ -40,6 +40,12 @@
             </div>
         </div>
 
+        <div id="popupSelectColor">
+            <img id="greenSelect"src="../resources/Images/selectGreen.png" class="selectCard">
+            <img id="redSelect"src="../resources/Images/selectGreen.png" class="selectCard">
+            <img id="blueSelect"src="../resources/Images/selectGreen.png" class="selectCard">
+            <img id="yellowSelect"src="../resources/Images/selectGreen.png" class="selectCard">
+        </div> 
     </div>
 
     <script src="../scripts/DeckV2.js"></script>
@@ -60,6 +66,7 @@
 			var cookies = ck.getCookies();			
             var currentTheme = "A1";
 
+            //console.log(cookies);
 			var currentTurn = cookies[0];
     		var currentStyle = cookies[1];
     		var playerID = cookies[2];
@@ -105,8 +112,8 @@
             em = new ElementsManager(),
             ck = new CookieManager();
         
-        
-        //console.log("La clase actual es:",document.body.className);
+        //popupSelectColor.classList.add('active');
+
         function eventClickedCard(element){em.eventClickedCard(element);}
         function eventClickedPutOnDeck(element){em.eventClickedPutOnDeck(element);}
         function eventDoubleClickedGrabDeck(){em.eventDoubleClickedGrabDeck();}

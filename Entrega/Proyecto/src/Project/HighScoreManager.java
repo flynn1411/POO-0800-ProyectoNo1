@@ -66,7 +66,7 @@ public class HighScoreManager {
 			
 			this.sortScores();
 			
-			if( (this.highScoreList.get( this.highScoreList.size()-1 ).getScore()) > possibleHighScore.getScore() ) {
+			if( (this.highScoreList.get( this.highScoreList.size()-1 ).getScore()) < possibleHighScore.getScore() ) {
 				return true;
 			}
 			else {				

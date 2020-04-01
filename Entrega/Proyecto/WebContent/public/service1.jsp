@@ -87,8 +87,8 @@
 					request.getParameter("playerID") != null &&
 					request.getParameter("sessionID") != null
 					){
-				String sessionID = request.getParameter("sessionID").toString();
-				String playerID = request.getParameter("playerID").toString();
+				String sessionID = request.getParameter("sessionID").toString().trim();
+				String playerID = request.getParameter("playerID").toString().trim();
 				Session foundSession = sm.getSession(sessionID);
 				
 				if(foundSession.getPlayerOne().getID().equals(playerID)){

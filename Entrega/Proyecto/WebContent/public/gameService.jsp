@@ -89,7 +89,7 @@
     	
     	//Si el jugador desea salir de la partida.
     	else if(
-    			request.getParameter("command").toString().equals("diconnect") &&
+    			request.getParameter("command").toString().equals("disconnect") &&
     			request.getParameter("playerID").toString() != null
     			){
     		Session foundSession = sm.getSession(sessionID);
@@ -98,7 +98,7 @@
     		if(foundSession.getPlayerOne().getID().equals(playerID)){
     			foundSession.getPlayerOne().setStatus(Status.DISCONNECTED);
     		}else{
-    			foundSession.getPlayerTwo().setStatus(Status.CONNECTED);
+    			foundSession.getPlayerTwo().setStatus(Status.DISCONNECTED);
     		}
     		
     		sm.updateSession(foundSession);
@@ -109,17 +109,15 @@
     	//Se revisa si el jugador actual obtuvo una alta puntuación.
     	else if(
     			request.getParameter("command").toString().equals("checkScore") &&
-    			request.getParameter("playerID") != null &&
-    			request.getParameter("score") != null
+    			request.getParameter("playerID") != null
     			){
     		
     		String playerID = request.getParameter("playerID").toString();
-    		int score = Integer.parseInt(request.getParameter("score").toString());
     		Session foundSession = sm.getSession(sessionID);
     		HighScoreManager hm = new HighScoreManager();
     		DateHandler dh = new DateHandler();
     		boolean isAHighScore = false;
-    		int sessionScore = 0;
+    		int score = 0;
     		
     		if(foundSession.getPlayerOne().getID().equals(playerID)){
     			score = foundSession.getPlayerOne().getScore();
@@ -131,7 +129,8 @@
     		
     		if( hm.isThisAHighScore(possibleHighScore) ){
     			out.print(String.format(
-    					"{\"IsAHighScore\":true}"
+    					"{\"IsAHighScore\":true, \"score\":%s}",
+    					score
     					));
     		}
     		else{
@@ -144,14 +143,22 @@
     	//Se agrega una puntuacion alta
     	else if(
     			request.getParameter("command").toString().equals("addHighScore") &&
-    			request.getParameter("playerID") != null &&
-    			request.getParameter("score") != null
+    			request.getParameter("playerID") != null
     			){
     		
     		String playerID = request.getParameter("playerID").toString();
-    		int score = Integer.parseInt(request.getParameter("score").toString());
     		HighScoreManager hm = new HighScoreManager();
     		DateHandler dh = new DateHandler();
+    		Session foundSession = sm.getSession(sessionID);
+    		
+            int score = 0;
+    		
+    		if(foundSession.getPlayerOne().getID().equals(playerID)){
+    			score = foundSession.getPlayerOne().getScore();
+    		}else{
+    			score = foundSession.getPlayerTwo().getScore();
+    		}
+    		
     		HighScore highScore = new HighScore(playerID, score, dh.getCurrentDate());
     		hm.addHighScore(highScore);
     		

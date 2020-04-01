@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
 		<title>Ventana de bienvenida</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif|Poppins&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Sen&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="resources/index.css">	
 		<script src="scripts/index.js"></script>
 		<script src="scripts/jquery.js"></script>
@@ -58,8 +59,8 @@ pageEncoding="UTF-8"%>
 				  <!-- Elementos de la ventana emergente del btnCredits -->
 				  <div id="overlayBtnCredits" class="overlay contentBtn4">
 					  <div id="popupBtnCredits" class="popup contentBtn4">
-						  <h1 id="titlePopupBtnCredist" class="contentBtn4"></h1>
-						  <button id="btnCloseCredits" class="buttonPopup contentBtn4"></button>
+						  <p id="textCredits">AQUI VAN LOS CREDITOS</p>
+						  <button id="btnCloseCredits" class="buttonPopup contentBtn4" onclick="clickedButton(this)">Aceptar</button>
 					  </div>
 				  </div> 
 			  

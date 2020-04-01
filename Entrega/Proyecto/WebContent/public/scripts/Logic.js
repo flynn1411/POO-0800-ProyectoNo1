@@ -19,9 +19,10 @@ function UNOLogic(){
         }
 
         if( 
-            current.value.symbol == last.value.symbol &&
-            current.value.color == last.value.color  &&    
-            current.value.color == "black" 
+            current.value.symbol == last.value.symbol || 
+            current.value.color == last.value.color  ||    
+            current.value.color == "black"||
+            last.value.color == "black"
         ){ 
             return true;
 

@@ -189,6 +189,7 @@ div#btnCredits{
     background-color: white;
     color: var(--load);
     left: 55%;
+    top: 70%;
 }
 #textBox{
     position: absolute;
@@ -275,14 +276,36 @@ tr:hover td{
     cursor: pointer;
 }
 
-
+#popupSelectColor{
+    opacity: 1;
+}
 /*--------- Elementos del popup de creditos ---------*/
 #popupBtnCredits{
-    border: 7px solid var();
-}
+    background-color: var(--credits);
+    border: var(--credits);
+    width: 43%;
+    height: 49%;
+} 
 #btnCloseCredits{
-    background-color: #C6DA36;
+    background-color: #fff;
+    position: absolute;
+    top: 85%;
+    left: 43%;
+    width: 18%;
+    height: 12%;
+    color: var(--credits);
+    font-size: 17px;
 }
+#textCredits{
+    font-size: 17px;
+    font-family: 'Sen', sans-serif;
+    position: absolute;
+    text-align: center;
+    position: absolute;
+    left: 8%;
+    top: 8%;
+}
+
 /*--------- Propiedars del popup de mensaje emergente ---------*/
 #popupMessage{
     width: 280px;
@@ -414,7 +437,7 @@ tr:hover td{
     }
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1030px){
 	
 	/*------------Propiedades de los botones individuales----------*/
 	@keyframes welcomeCardA2{
